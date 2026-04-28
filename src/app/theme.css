@@ -1,0 +1,6 @@
+/* Muted text colour — driven by App.tsx via style.setProperty on :root.
+   The default here matches the dark-mode default so there is no flash
+   before the first useEffect fires. */
+:root {
+  --color-text-muted: rgba(255, 255, 255, 0.45);
+}

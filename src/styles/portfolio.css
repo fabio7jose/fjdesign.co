@@ -1,0 +1,38 @@
+/* ─── Hero desktop: tighter top padding so marquee fits in viewport ─────────── */
+#home {
+  margin-bottom: 0 !important;
+}
+
+/* ─── Marquee: flush against the hero, no gap ────────────────────────────────── */
+#home + * {
+  margin-top: 0 !important;
+}
+
+/* ─── Hero mobile: auto height, tight padding, marquee immediately below ──────── */
+@media (max-width: 768px) {
+  #home {
+    min-height: auto !important;
+    padding-top: calc(72px + 24px) !important; /* nav height + 24px gap */
+    padding-bottom: 32px !important;
+    justify-content: flex-start !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Hide scroll indicator on mobile */
+  .hero-scroll-indicator {
+    display: none !important;
+  }
+}
+
+/* ─── Section padding: tighten on mobile ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  #work,
+  #skills,
+  #certifications,
+  #ai-lab,
+  #about,
+  #contact {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+}
