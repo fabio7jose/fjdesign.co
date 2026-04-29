@@ -4,3 +4,6 @@ dist/
 .env
 .env.local
 *.log
+._package-lock.json
+._node_modules
+._*

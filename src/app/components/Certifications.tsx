@@ -152,18 +152,6 @@ export function Certifications() {
                       style={{ transition: 'color 200ms ease', flexShrink: 0 }}
                     />
 
-                    {/* Year */}
-                    <div style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '0.7rem',
-                      fontWeight: 400,
-                      color: textMuted,
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                    }}>
-                      {cert.year}
-                    </div>
-
                     {/* Title */}
                     <h3 style={{
                       fontFamily: "'Space Grotesk', sans-serif",

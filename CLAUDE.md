@@ -298,6 +298,8 @@ Hint text at `rgba(10,10,10,0.3)` in light mode likely fails WCAG AA contrast ra
 
 10. **Inline styles make global theme changes expensive.** To change a color used across all sections, you must update each component individually. This is the biggest structural debt in the project.
 
+11. **Never render year in the UI.** Year data (`year` field in `projects`, `certs`, and `t.lacrei.year`) must exist in data arrays and i18n objects but must **never be displayed** on project cards (`Work.tsx`), certification cards (`Certifications.tsx`), or case study pages (`CaseStudyLacrei.tsx` and any future case study pages). Only remove the rendering — never delete the underlying data.
+
 ---
 
 ## 10. Instructions for Future Sessions

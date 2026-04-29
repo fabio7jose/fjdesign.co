@@ -4,6 +4,7 @@ import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { useTheme, useLang } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import lacreiHero from '../../assets/lacrei-hero.png';
 
 interface Project {
   id: number;
@@ -23,8 +24,7 @@ const projects: Project[] = [
     title: 'Lacrei Saúde',
     context: 'UX Design · Voluntário',
     category: 'UX Design',
-    image:
-      'https://images.unsplash.com/photo-1576091160550-2173dba999ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoZWFsdGhjYXJlJTIwYXBwJTIwbW9iaWxlfGVufDF8fHx8MTc3NjgzNDg1NHww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: lacreiHero,
     tags: ['UX Research', 'Figma', 'Miro', 'Design Thinking'],
     year: '2024',
   },
@@ -83,14 +83,10 @@ const projects: Project[] = [
 // English filter values — used for category logic; translated labels come from i18n
 const filterValues = ['All', 'UX Design', 'Web Design', 'Landing Pages'];
 
-// ─── Shared card heights ───────────────────────────────────────────────────────
-// Desktop: card = 480px total → image ≈ 60% = 288px, info ≈ 192px
-// Mobile:  image uses natural aspect-ratio, info auto
-
 interface CardProps {
   project: Project;
-  index: number;
-  isFeatured: boolean;
+  animIndex: number;
+  isFullWidth: boolean;
   hoveredId: number | null;
   setHoveredId: (id: number | null) => void;
   t: { work: { viewCase: string } };
@@ -106,8 +102,8 @@ interface CardProps {
 
 function ProjectCard({
   project,
-  index,
-  isFeatured,
+  animIndex,
+  isFullWidth,
   hoveredId,
   setHoveredId,
   t,
@@ -122,33 +118,37 @@ function ProjectCard({
 }: CardProps) {
   const isHovered = hoveredId === project.id;
   const navigate = useNavigate();
+  const thumbHeight = isFullWidth ? 200 : 260;
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.07 }}
+      transition={{ duration: 0.5, delay: animIndex * 0.07 }}
       viewport={{ once: true }}
       onMouseEnter={() => setHoveredId(project.id)}
       onMouseLeave={() => setHoveredId(null)}
       onClick={() => { if (project.slug) navigate(`/work/${project.slug}`); }}
-      // Featured: auto height (image 380px + info).  Regular: fixed 480px on desktop.
-      className={isFeatured ? 'flex flex-col h-auto' : 'flex flex-col h-auto md:h-[480px]'}
+      className="flex flex-col"
       style={{
-        cursor: 'pointer',
-        border: `1px solid ${border}`,
-        borderRadius: '4px',
+        cursor: project.slug ? 'pointer' : 'default',
+        border: `1px solid ${isHovered ? accent : border}`,
+        borderRadius: '8px',
         backgroundColor: cardBg,
         overflow: 'hidden',
+        transition: 'transform 0.3s ease, border-color 0.3s ease',
+        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
+        gridColumn: isFullWidth ? '1 / -1' : undefined,
       }}
     >
-      {/* ── Thumbnail ── featured: 380px desktop | regular: 260px desktop */}
+      {/* Thumbnail */}
       <div
-        className={
-          isFeatured
-            ? 'relative overflow-hidden flex-shrink-0 h-[220px] md:h-[380px]'
-            : 'relative overflow-hidden flex-shrink-0 h-[200px] md:h-[260px]'
-        }
+        style={{
+          position: 'relative',
+          overflow: 'hidden',
+          flexShrink: 0,
+          height: `${thumbHeight}px`,
+        }}
       >
         <ImageWithFallback
           src={project.image}
@@ -182,7 +182,7 @@ function ProjectCard({
               alignItems: 'center',
               gap: '0.5rem',
               fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: isFeatured ? '1.2rem' : '1rem',
+              fontSize: '1rem',
               fontWeight: 600,
               color: accent,
               border: `1px solid ${accent}`,
@@ -194,105 +194,63 @@ function ProjectCard({
             <ArrowRight size={16} />
           </div>
         </div>
-
-        {/* Year badge */}
-        <div
-          style={{
-            position: 'absolute',
-            top: '1rem',
-            right: '1rem',
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '0.7rem',
-            fontWeight: 400,
-            color: 'rgba(255,255,255,0.7)',
-            backgroundColor: 'rgba(0,0,0,0.55)',
-            backdropFilter: 'blur(8px)',
-            padding: '0.2rem 0.6rem',
-            borderRadius: '999px',
-            letterSpacing: '0.05em',
-          }}
-        >
-          {project.year}
-        </div>
-
-        {/* Featured badge — only on the first card */}
-        {isFeatured && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '1rem',
-              left: '1rem',
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '0.6rem',
-              fontWeight: 700,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: accentFg,
-              backgroundColor: accent,
-              padding: '0.22rem 0.65rem',
-              borderRadius: '999px',
-            }}
-          >
-            Featured
-          </div>
-        )}
       </div>
 
-      {/* ── Card info — featured keeps existing padding; regular cards get 24px ── */}
+      {/* Info area */}
       <div
         style={{
-          padding: isFeatured ? '1.4rem 1.6rem' : '24px',
+          padding: '20px',
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: '0.6rem',
           borderTop: `1px solid ${border}`,
         }}
       >
-        {/* Top: context + title */}
-        <div>
-          <div
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '0.68rem',
-              fontWeight: 400,
-              color: accent,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              marginBottom: '0.45rem',
-            }}
-          >
-            {project.context}
-          </div>
-          <h3
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: isFeatured ? '1.5rem' : '1.2rem',
-              fontWeight: 600,
-              color: text,
-              letterSpacing: '-0.02em',
-              margin: 0,
-              lineHeight: 1.15,
-            }}
-          >
-            {project.title}
-          </h3>
+        <div
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '11px',
+            fontWeight: 400,
+            color: textMuted,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+          }}
+        >
+          {project.context}
         </div>
-
-        {/* Bottom: tags */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', alignItems: 'flex-end' }}>
+        <h3
+          style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: '18px',
+            fontWeight: 600,
+            color: text,
+            letterSpacing: '-0.02em',
+            margin: 0,
+            marginTop: '6px',
+            lineHeight: 1.2,
+          }}
+        >
+          {project.title}
+        </h3>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '0.35rem',
+            marginTop: '12px',
+          }}
+        >
           {project.tags.map((tag) => (
             <span
               key={tag}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: '0.68rem',
+                fontSize: '10px',
                 fontWeight: 400,
                 color: textMuted,
                 backgroundColor: tagBg,
                 border: `1px solid ${border}`,
-                padding: '0.2rem 0.65rem',
+                padding: '0.2rem 0.55rem',
                 borderRadius: '999px',
                 letterSpacing: '0.02em',
               }}
@@ -318,14 +276,14 @@ export function Work() {
   const filtered =
     activeFilter === 'All' ? projects : projects.filter((p) => p.category === activeFilter);
 
-  const text = isDark ? '#ffffff' : '#0A0A0A';
+  const text      = isDark ? '#ffffff' : '#0A0A0A';
   const textMuted = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(10,10,10,0.45)';
-  const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
-  const bg = isDark ? '#0A0A0A' : '#F5F5F0';
-  const cardBg = isDark ? '#111111' : '#FFFFFF';
-  const tagBg = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)';
-  const accent = isDark ? '#AAFF00' : '#5C8A00';
-  const accentFg = isDark ? '#0A0A0A' : '#ffffff';
+  const border    = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const bg        = isDark ? '#0A0A0A' : '#F5F5F0';
+  const cardBg    = isDark ? '#111111' : '#FFFFFF';
+  const tagBg     = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)';
+  const accent    = isDark ? '#AAFF00' : '#5C8A00';
+  const accentFg  = isDark ? '#0A0A0A' : '#ffffff';
 
   const cardProps = { hoveredId, setHoveredId, t, isDark, text, textMuted, border, cardBg, tagBg, accent, accentFg };
 
@@ -415,41 +373,25 @@ export function Work() {
           </div>
         </motion.div>
 
-        {/* ── Asymmetric grid ──────────────────────────────────────────────────
-            Featured card sits in its own row with a 24px gap below.
-            All subsequent cards live in a 2-col grid with 16px gap.
+        {/* ── Symmetric 2-column grid ───────────────────────────────────────────
+            All cards identical size. Odd total: last card spans both columns.
             Mobile: single column throughout.
-        ───────���──────────────────────────────────────────────────────────── */}
+        ──────────────────────────────────────────────────────────────────────── */}
         {filtered.length > 0 && (
-          <>
-            {/* Featured card — full width, 24px margin before pairs */}
-            <div style={{ marginBottom: filtered.length > 1 ? '24px' : 0 }}>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2"
+            style={{ gap: '16px' }}
+          >
+            {filtered.map((project, i) => (
               <ProjectCard
-                project={filtered[0]}
-                index={0}
-                isFeatured={true}
+                key={project.id}
+                project={project}
+                animIndex={i}
+                isFullWidth={filtered.length % 2 !== 0 && i === filtered.length - 1}
                 {...cardProps}
               />
-            </div>
-
-            {/* Pairs — strict 2×2 grid, always 4 cards, no orphan logic */}
-            {filtered.length > 1 && (
-              <div
-                className="grid grid-cols-1 md:grid-cols-2"
-                style={{ gap: '16px' }}
-              >
-                {filtered.slice(1).map((project, i) => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    index={i + 1}
-                    isFeatured={false}
-                    {...cardProps}
-                  />
-                ))}
-              </div>
-            )}
-          </>
+            ))}
+          </div>
         )}
 
       </div>

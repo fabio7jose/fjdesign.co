@@ -1,12 +1,14 @@
 export type Lang = 'pt' | 'en';
 
 /* ─── Sub-types ─────────────────────────────────────────────────── */
-interface Stat     { num: string; label: string }
+interface Stat { num: string; label: string }
 interface SkillCard { title: string; body: string }
-interface AiTag    { label: string; color: string }
-interface AiTile   { id: number; type: string; title: string }
-interface EduItem  { degree: string; school: string; period: string; status: string }
+interface AiTag { label: string; color: string }
+interface AiTile { id: number; type: string; title: string }
+interface EduItem { degree: string; school: string; period: string; status: string }
 interface InfoItem { label: string; value: string; isAvailability: boolean }
+interface LacreiStep { num: string; label: string; heading: string; body: string }
+interface LacreiScreen { label: string; annotation: string }
 
 /* ─── Shape every locale object must satisfy ─────────────────────
    Both `en` and `pt` are checked against this interface at compile
@@ -55,6 +57,37 @@ interface TranslationShape {
   };
   footer: {
     copyright: string; backToTop: string;
+  };
+  lacrei: {
+    backToWork: string;
+    projectTitle: string;
+    projectDescription: string;
+    rolePill: string;
+    year: string;
+    methodology: string;
+    tools: string;
+    prototypeLabel: string;
+    viewFigma: string;
+    problemLabel: string;
+    problemHeading: string;
+    problemBody: string;
+    myRoleTitle: string;
+    roleCardTitle: string;
+    roleCardItems: string[];
+    withCardTitle: string;
+    withCardValue: string;
+    constraintsCardTitle: string;
+    constraintsCardValue: string;
+    processLabel: string;
+    steps: LacreiStep[];
+    solutionLabel: string;
+    solutionHeading: string;
+    screens: LacreiScreen[];
+    learningsHeading: string;
+    learnings: string[];
+    ctaPrototype: string;
+    previousProject: string;
+    nextProject: string;
   };
 }
 
@@ -181,6 +214,73 @@ export const translations = {
       copyright: '© 2024 Fábio José · Designed & built with care.',
       backToTop: 'Back to top ↑',
     },
+    lacrei: {
+      backToWork: '← Back to work',
+      projectTitle: 'Lacrei Saúde',
+      projectDescription: 'Designing an inclusive health flow for the LGBT+ community, within an established brand design system and visual identity',
+      rolePill: 'Volunteer UX Designer',
+      year: '2024',
+      methodology: 'Design Thinking',
+      tools: 'Figma · Miro',
+      prototypeLabel: 'Prototype',
+      viewFigma: 'View in Figma →',
+      problemLabel: 'THE PROBLEM',
+      problemHeading: "Finding a welcoming healthcare professional shouldn't be this hard",
+      problemBody:
+        'The LGBT+ community faces real barriers to healthcare: discrimination, discomfort, and a lack of professionals prepared to provide respectful care. Lacrei Saúde was created to change this, connecting people to welcoming professionals. My challenge: design an intuitive flow that conveyed safety from the very first click.',
+      myRoleTitle: 'My Role',
+      roleCardTitle: 'What I did',
+      roleCardItems: ['UX Research', 'Wireframing', 'Prototyping', 'UI Design'],
+      withCardTitle: 'With',
+      withCardValue: 'Individual volunteer project',
+      constraintsCardTitle: 'Constraints',
+      constraintsCardValue: 'Fixed brief, brand materials and visual identity already provided. The design system already existed. My focus was the flow and user experience.',
+      processLabel: 'PROCESS',
+      steps: [
+        {
+          num: '01',
+          label: 'Empathy & Research',
+          heading: 'Listening before designing',
+          body: 'Through research on the LGBT+ health context, we identified that discrimination and prejudice are the main barriers to healthcare access, with a direct impact on mental health. This discovery guided every design decision.',
+        },
+        {
+          num: '02',
+          label: 'Define',
+          heading: 'Sharpening the problem',
+          body: "The core problem was the difficulty finding professionals who convey safety and comfort. Lacrei's brief defined 4 key screens: Login, Professional Search, Professional Profile, and Contact, each requiring special attention to trust and inclusion signals.",
+        },
+        {
+          num: '03',
+          label: 'Ideation',
+          heading: 'Diverging before converging',
+          body: 'I created a persona and user journey map in Miro as a low-fidelity prototype to map needs and pain points. I generated multiple directions for each screen, focusing on advanced filters, real-time availability and microinteractions that progressively build trust.',
+        },
+        {
+          num: '04',
+          label: 'Prototype',
+          heading: 'From low-fi to high-fi',
+          body: "Low-fidelity wireframes from Miro were refined into a fully navigable high-fidelity Figma prototype, with 5 complete screens using Lacrei's existing design system and established brand visual identity.",
+        },
+      ],
+      solutionLabel: 'THE SOLUTION',
+      solutionHeading: 'A flow that puts the user first',
+      screens: [
+        { label: 'Welcome Screen', annotation: 'Inclusive welcome with clear navigation and quick access to professional search' },
+        { label: 'Login Screen', annotation: 'Clean entry with inclusive language that builds trust from the first click' },
+        { label: 'Post-login Home', annotation: 'Personalized view after login, with location-based recommendations' },
+        { label: 'Search Area', annotation: 'Map view with advanced filters by specialty and availability' },
+        { label: 'Professional Profile', annotation: 'Trust signals and welcoming indicators that provide safety before contact' },
+      ],
+      learningsHeading: "What I'd take to the next project",
+      learnings: [
+        'When designing for vulnerable communities, every microcopy choice matters. A single word can make the user feel safe or excluded.',
+        'Working within a fixed brief forced me to be more intentional. With fewer degrees of freedom, each design decision carries more weight.',
+        'Mapping the emotional journey before touching the UI was the highest-impact step. It kept every screen anchored to real user needs, not visual preferences.',
+      ],
+      ctaPrototype: 'View the prototype',
+      previousProject: 'Previous project',
+      nextProject: 'Next project',
+    },
   },
 
   pt: {
@@ -304,6 +404,73 @@ export const translations = {
     footer: {
       copyright: '© 2024 Fábio José · Desenhado & construído com cuidado.',
       backToTop: 'Voltar ao topo ↑',
+    },
+    lacrei: {
+      backToWork: '← Voltar para trabalhos',
+      projectTitle: 'Lacrei Saúde',
+      projectDescription: 'Design de um fluxo de saúde inclusivo para a comunidade LGBT+, dentro de um design system e identidade visual já estabelecidos pela marca',
+      rolePill: 'UX Designer Voluntário',
+      year: '2024',
+      methodology: 'Design Thinking',
+      tools: 'Figma · Miro',
+      prototypeLabel: 'Protótipo',
+      viewFigma: 'Ver no Figma →',
+      problemLabel: 'O PROBLEMA',
+      problemHeading: 'Encontrar um profissional de saúde acolhedor não deveria ser tão difícil',
+      problemBody:
+        'A população LGBT+ enfrenta barreiras reais no acesso à saúde: discriminação, desconforto e falta de profissionais preparados para atender com respeito. A Lacrei Saúde surgiu para mudar isso, conectando pessoas a profissionais acolhedores. Meu desafio: projetar um fluxo intuitivo que transmitisse segurança desde o primeiro clique.',
+      myRoleTitle: 'Meu Papel',
+      roleCardTitle: 'O que eu fiz',
+      roleCardItems: ['UX Research', 'Wireframing', 'Prototipagem', 'UI Design'],
+      withCardTitle: 'Com quem',
+      withCardValue: 'Projeto voluntário individual',
+      constraintsCardTitle: 'Restrições',
+      constraintsCardValue: 'Briefing fixo, materiais e identidade visual da marca já fornecidos. O design system já existia. Meu foco foi o fluxo e a experiência do usuário.',
+      processLabel: 'PROCESSO',
+      steps: [
+        {
+          num: '01',
+          label: 'Empatia & Pesquisa',
+          heading: 'Ouvir antes de projetar',
+          body: 'Através de pesquisas sobre o contexto da saúde LGBT+, identificamos que discriminação e preconceito são as principais barreiras ao acesso, com impacto direto na saúde mental. Essa descoberta guiou cada decisão de design do projeto.',
+        },
+        {
+          num: '02',
+          label: 'Definição',
+          heading: 'Afiar o problema',
+          body: 'O problema central era a dificuldade em encontrar profissionais que transmitissem segurança e acolhimento. O briefing da Lacrei definiu 4 telas-chave: Login, Busca de Profissionais, Perfil do Profissional e Contato, cada uma exigindo atenção especial aos sinais de confiança e inclusão.',
+        },
+        {
+          num: '03',
+          label: 'Ideação',
+          heading: 'Divergir antes de convergir',
+          body: 'Criei uma persona e um mapa de jornada do usuário no Miro como protótipo de baixa fidelidade para mapear necessidades e pontos de dor. Gerei múltiplas direções para cada tela, focando em filtros avançados, disponibilidade em tempo real e microinterações que constroem confiança progressivamente.',
+        },
+        {
+          num: '04',
+          label: 'Prototipação',
+          heading: 'Do low-fi ao high-fi',
+          body: 'Os wireframes de baixa fidelidade do Miro foram refinados em um protótipo de alta fidelidade navegável no Figma, com 5 telas completas utilizando o design system e identidade visual já estabelecidos pela marca Lacrei.',
+        },
+      ],
+      solutionLabel: 'A SOLUÇÃO',
+      solutionHeading: 'Um fluxo que coloca o usuário em primeiro lugar',
+      screens: [
+        { label: 'Tela de Início', annotation: 'Boas-vindas inclusivas com navegação clara e acesso rápido à busca de profissionais' },
+        { label: 'Tela de Login', annotation: 'Entrada limpa com linguagem inclusiva que constrói confiança desde o primeiro clique' },
+        { label: 'Home Pós-login', annotation: 'Visão personalizada após o acesso, com recomendações baseadas em localização' },
+        { label: 'Área de Busca', annotation: 'Visualização em mapa com filtros avançados por especialidade e disponibilidade' },
+        { label: 'Perfil do Profissional', annotation: 'Sinais de confiança e indicadores de acolhimento que dão segurança antes do contato' },
+      ],
+      learningsHeading: 'O que eu levaria para o próximo projeto',
+      learnings: [
+        'Ao projetar para comunidades vulneráveis, cada escolha de microtexto importa. Uma única palavra pode fazer o usuário se sentir seguro ou excluído.',
+        'Trabalhar dentro de um briefing fixo me forçou a ser mais intencional. Com menos graus de liberdade, cada decisão de design carrega mais peso.',
+        'Mapear a jornada emocional antes de tocar na UI foi o passo de maior impacto. Manteve cada tela ancorada nas necessidades reais do usuário, não nas preferências visuais.',
+      ],
+      ctaPrototype: 'Ver o protótipo',
+      previousProject: 'Projeto anterior',
+      nextProject: 'Próximo projeto',
     },
   },
 } satisfies { en: TranslationShape; pt: TranslationShape };
