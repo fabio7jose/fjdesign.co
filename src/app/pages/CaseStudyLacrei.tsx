@@ -5,7 +5,7 @@ import { motion } from 'motion/react';
 import { useTheme, useLang } from '../App';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import lacreiHero from '../../assets/lacrei-hero.png';
+import lacreiCover from '../../assets/lacrei-cover.png';
 
 const FIGMA_URL =
   'https://www.figma.com/design/F6HVVdGF1Rqq16m1fCGKxU/Lacrei-Sa%C3%BAde?node-id=3-3304';
@@ -201,7 +201,7 @@ export function CaseStudyLacrei() {
                 transition={{ duration: 0.5, delay: 0.15 }}
               >
                 <img
-                  src={lacreiHero}
+                  src={lacreiCover}
                   alt="Lacrei Saúde"
                   style={{
                     width: '100%',

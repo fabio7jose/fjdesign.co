@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { useTheme, useLang } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import lacreiHero from '../../assets/lacrei-hero.png';
+import lacreiThumbnail from '../../assets/lacrei-thumbnail.png';
 
 interface Project {
   id: number;
@@ -24,7 +24,7 @@ const projects: Project[] = [
     title: 'Lacrei Saúde',
     context: 'UX Design · Voluntário',
     category: 'UX Design',
-    image: lacreiHero,
+    image: lacreiThumbnail,
     tags: ['UX Research', 'Figma', 'Miro', 'Design Thinking'],
     year: '2024',
   },
