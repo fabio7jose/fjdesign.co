@@ -9,7 +9,7 @@ import lacreiThumbnail from '../../assets/lacrei-thumbnail.png';
 interface Project {
   id: number;
   slug?: string;
-  title: string;
+  title: string | { pt: string; en: string };
   context: string;
   category: string;
   image: string;
@@ -21,11 +21,14 @@ const projects: Project[] = [
   {
     id: 0,
     slug: 'lacrei-saude',
-    title: 'Lacrei Saúde',
-    context: 'UX Design · Voluntário',
-    category: 'UX Design',
+    title: {
+      en: 'Lacrei Saúde — Inclusive Healthcare Platform',
+      pt: 'Lacrei Saúde — Plataforma de Saúde Inclusiva'
+    },
+    context: 'UX/UI DESIGN · WEB PLATFORM',
+    category: 'UX/UI DESIGN · WEB PLATFORM',
     image: lacreiThumbnail,
-    tags: ['UX Research', 'Figma', 'Miro', 'Design Thinking'],
+    tags: ["UX Research", "UI Design", "Figma", "Design Thinking"],
     year: '2024',
   },
   {
@@ -90,6 +93,7 @@ interface CardProps {
   hoveredId: number | null;
   setHoveredId: (id: number | null) => void;
   t: { work: { viewCase: string } };
+  lang: 'pt' | 'en';
   isDark: boolean;
   text: string;
   textMuted: string;
@@ -107,6 +111,7 @@ function ProjectCard({
   hoveredId,
   setHoveredId,
   t,
+  lang,
   isDark,
   text,
   textMuted,
@@ -230,7 +235,7 @@ function ProjectCard({
             lineHeight: 1.2,
           }}
         >
-          {project.title}
+          {typeof project.title === 'string' ? project.title : project.title[lang]}
         </h3>
         <div
           style={{
@@ -268,7 +273,7 @@ function ProjectCard({
 
 export function Work() {
   const { isDark } = useTheme();
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const [activeFilterIdx, setActiveFilterIdx] = useState(0);
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
@@ -285,7 +290,7 @@ export function Work() {
   const accent    = isDark ? '#AAFF00' : '#5C8A00';
   const accentFg  = isDark ? '#0A0A0A' : '#ffffff';
 
-  const cardProps = { hoveredId, setHoveredId, t, isDark, text, textMuted, border, cardBg, tagBg, accent, accentFg };
+  const cardProps = { hoveredId, setHoveredId, t, lang, isDark, text, textMuted, border, cardBg, tagBg, accent, accentFg };
 
   return (
     <section id="work" style={{ backgroundColor: bg, padding: '80px 2rem' }}>

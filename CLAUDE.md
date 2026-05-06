@@ -312,3 +312,4 @@ Hint text at `rgba(10,10,10,0.3)` in light mode likely fails WCAG AA contrast ra
 6. **When adding new i18n strings**, always add to both `en` and `pt` in the same edit.
 7. **Do not install new packages** without discussing alternatives first — the project already has several installed-but-unused dependencies.
 8. **Run the dev server and visually verify** any visual change in both dark and light mode before reporting it as done.
+9. **No em-dashes (travessão) in UI content.** Avoid using the "—" character in translation strings (`i18n.ts`). Use periods, commas, or semicolons instead to maintain the established visual style.
