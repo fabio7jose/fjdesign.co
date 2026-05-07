@@ -13,6 +13,7 @@ interface Project {
   context: string;
   category: string;
   image: string;
+  imagePosition?: string;
   tags: string[];
   year: string;
 }
@@ -28,7 +29,21 @@ const projects: Project[] = [
     context: 'UX/UI DESIGN · WEB PLATFORM',
     category: 'UX/UI DESIGN · WEB PLATFORM',
     image: lacreiThumbnail,
+    imagePosition: '20% center',
     tags: ["UX Research", "UI Design", "Figma", "Design Thinking"],
+    year: '2024',
+  },
+  {
+    id: 6,
+    slug: 'guia-de-moteis',
+    title: {
+      en: 'Guia de Motéis GO: Landing Page Redesign',
+      pt: 'Guia de Motéis GO: Redesign de Landing Page',
+    },
+    context: 'UI DESIGN · LANDING PAGE',
+    category: 'Landing Pages',
+    image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1080&q=80',
+    tags: ['UX Research', 'Crazy 8s', 'Wireframing', 'UI Design'],
     year: '2024',
   },
   {
@@ -123,7 +138,6 @@ function ProjectCard({
 }: CardProps) {
   const isHovered = hoveredId === project.id;
   const navigate = useNavigate();
-  const thumbHeight = isFullWidth ? 200 : 260;
 
   return (
     <motion.div
@@ -150,18 +164,24 @@ function ProjectCard({
       <div
         style={{
           position: 'relative',
+          width: '100%',
+          paddingBottom: '56.25%',
+          minHeight: isFullWidth ? '260px' : '220px',
+          maxHeight: isFullWidth ? '480px' : undefined,
           overflow: 'hidden',
-          flexShrink: 0,
-          height: `${thumbHeight}px`,
+          borderRadius: '8px 8px 0 0',
         }}
       >
         <ImageWithFallback
           src={project.image}
           alt={project.title}
           style={{
+            position: 'absolute',
+            inset: 0,
             width: '100%',
             height: '100%',
             objectFit: 'cover',
+            objectPosition: project.imagePosition ?? 'center',
             transition: 'transform 0.6s ease',
             transform: isHovered ? 'scale(1.04)' : 'scale(1)',
             display: 'block',

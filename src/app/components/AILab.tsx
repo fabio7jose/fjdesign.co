@@ -198,6 +198,7 @@ export function AILab() {
                       alt={tileTrans.title}
                       style={{
                         width: '100%',
+                        height: 'auto',
                         display: 'block',
                         aspectRatio: tile.aspectRatio,
                         objectFit: 'cover',

@@ -5,19 +5,9 @@ import { motion } from 'motion/react';
 import { useTheme, useLang } from '../App';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import lacreiCover from '../../assets/lacrei-cover.png';
-import lacreiProcesso01 from '../../assets/lacrei-processo-01.png'
-import lacreiProcesso02 from '../../assets/lacrei-processo-02.png'
-import lacreiProcesso03 from '../../assets/lacrei-processo-03.png'
-import lacreiProcesso04 from '../../assets/lacrei-processo-04.png'
-import lacreiTelaBusca from '../../assets/lacrei-tela-busca.png'
-import lacreiTelaHomePos from '../../assets/lacrei-tela-home-pos-login.png'
-import lacreiTelaInicio from '../../assets/lacrei-tela-inicio.png'
-import lacreiTelaLogin from '../../assets/lacrei-tela-login.png'
-import lacreiTelaProfissional from '../../assets/lacrei-tela-profissional.png'
 
 const FIGMA_URL =
-  'https://www.figma.com/design/F6HVVdGF1Rqq16m1fCGKxU/Lacrei-Sa%C3%BAde?node-id=3-3304';
+  'https://www.figma.com/design/yaqbJwkCiE5qk6v31JYOZu/Untitled?node-id=257-45';
 
 interface ScreenCardProps {
   screen: { label: string; annotation: string };
@@ -25,11 +15,9 @@ interface ScreenCardProps {
   cardBg: string;
   border: string;
   textMuted: string;
-  imageSrc?: string;
-  imageAlt?: string;
 }
 
-function ScreenCard({ screen, delay, cardBg, border, textMuted, imageSrc, imageAlt }: ScreenCardProps) {
+function ScreenCard({ screen, delay, cardBg, border, textMuted }: ScreenCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -37,53 +25,30 @@ function ScreenCard({ screen, delay, cardBg, border, textMuted, imageSrc, imageA
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay }}
     >
-      {imageSrc ? (
-        <div
+      <div
+        style={{
+          height: '300px',
+          backgroundColor: cardBg,
+          borderRadius: '12px',
+          border: `1px solid ${border}`,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: '1rem',
+        }}
+      >
+        <span
           style={{
-            width: '100%',
-            overflow: 'hidden',
-            borderRadius: '12px',
-            marginBottom: '1rem',
-            background: 'rgba(255,255,255,0.03)',
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '0.75rem',
+            color: textMuted,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
           }}
         >
-          <img
-            src={imageSrc}
-            alt={imageAlt}
-            style={{
-              width: '100%',
-              height: 'auto',
-              objectFit: 'contain',
-              display: 'block',
-            }}
-          />
-        </div>
-      ) : (
-        <div
-          style={{
-            height: '300px',
-            backgroundColor: cardBg,
-            borderRadius: '12px',
-            border: `1px solid ${border}`,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: '1rem',
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "'Inter', sans-serif",
-              fontSize: '0.75rem',
-              color: textMuted,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-            }}
-          >
-            {screen.label}
-          </span>
-        </div>
-      )}
+          {screen.label}
+        </span>
+      </div>
       <p
         style={{
           fontFamily: "'Inter', sans-serif",
@@ -99,7 +64,7 @@ function ScreenCard({ screen, delay, cardBg, border, textMuted, imageSrc, imageA
   );
 }
 
-export function CaseStudyLacrei() {
+export function CaseStudyGuiaMoteis() {
   const { isDark } = useTheme();
   const { t } = useLang();
 
@@ -112,18 +77,10 @@ export function CaseStudyLacrei() {
   const accentFg  = isDark ? '#0A0A0A' : '#ffffff';
   const accentBg  = isDark ? 'rgba(170,255,0,0.04)' : 'rgba(92,138,0,0.05)';
 
-  const processImages = [lacreiProcesso01, lacreiProcesso02, lacreiProcesso03, lacreiProcesso04];
-  const processAlts   = ['Empathy & Research', 'Define', 'Ideation', 'Prototype'];
-  const screenImages: Array<{ src: string; alt: string } | null> = [
-    { src: lacreiTelaInicio, alt: 'Welcome Screen' },
-    { src: lacreiTelaLogin, alt: 'Login Screen' },
-    { src: lacreiTelaHomePos, alt: 'Home Post-login' },
-    { src: lacreiTelaBusca, alt: 'Search & Filters' },
-    { src: lacreiTelaProfissional, alt: 'Professional Profile' },
-  ];
+  const processLabels = ['Discover', 'Define', 'Develop', 'Deliver'];
 
   useEffect(() => {
-    document.title = 'Lacrei Saúde | Fábio José';
+    document.title = 'Guia de Motéis GO | Fábio José';
     window.scrollTo(0, 0);
   }, []);
 
@@ -182,92 +139,58 @@ export function CaseStudyLacrei() {
               onMouseEnter={e => (e.currentTarget.style.color = accent)}
               onMouseLeave={e => (e.currentTarget.style.color = textMuted)}
             >
-              {t.lacrei.backToWork}
+              {t.guiaMoteis.backToWork}
             </Link>
           </div>
         </div>
 
-        {/* ── 2. Hero — Impact First ── */}
+        {/* ── 2. Hero ── */}
         <section style={{ padding: '60px 2rem 80px' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <div
-              className="grid grid-cols-1 md:grid-cols-5"
-              style={{ gap: '3rem', alignItems: 'center' }}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              {/* Left ~60% */}
-              <motion.div
-                className="md:col-span-3"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+              <h1
+                style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: 'clamp(2.25rem, 5vw, 3rem)',
+                  fontWeight: 700,
+                  color: text,
+                  letterSpacing: '-0.03em',
+                  lineHeight: 1.1,
+                  margin: '0 0 1rem',
+                }}
               >
-                <h1
-                  style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: 'clamp(2.25rem, 5vw, 3rem)',
-                    fontWeight: 700,
-                    color: text,
-                    letterSpacing: '-0.03em',
-                    lineHeight: 1.1,
-                    margin: '0 0 1rem',
-                  }}
-                >
-                  {t.lacrei.projectTitle}
-                </h1>
-                <p
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '20px',
-                    color: textMuted,
-                    lineHeight: 1.5,
-                    margin: '0 0 2rem',
-                  }}
-                >
-                  {t.lacrei.projectDescription}
-                </p>
-                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                  <span style={{ ...pillShared, backgroundColor: accent, color: accentFg }}>
-                    {t.lacrei.rolePill}
-                  </span>
-                  <span style={{ ...pillShared, border: `1px solid ${border}`, color: textMuted }}>
-                    {t.lacrei.methodology}
-                  </span>
-                  {t.lacrei.tools.map((tool) => (
-                    <span key={tool} style={{ ...pillShared, border: `1px solid ${border}`, color: textMuted }}>
-                      {tool}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Right ~40% — hero image */}
-              <motion.div
-                className="md:col-span-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.15 }}
+                {t.guiaMoteis.projectTitle}
+              </h1>
+              <p
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '20px',
+                  color: textMuted,
+                  lineHeight: 1.5,
+                  margin: '0 0 2rem',
+                  maxWidth: '700px',
+                }}
               >
-                <div
-                  style={{
-                    width: '100%',
-                    minHeight: 'clamp(280px, 45vw, 520px)',
-                    overflow: 'hidden',
-                    borderRadius: '16px',
-                  }}
-                >
-                  <img
-                    src={lacreiCover}
-                    alt="Lacrei Saúde"
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      objectPosition: 'center',
-                    }}
-                  />
-                </div>
-              </motion.div>
-            </div>
+                {t.guiaMoteis.projectDescription}
+              </p>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span style={{ ...pillShared, backgroundColor: accent, color: accentFg }}>
+                  {t.guiaMoteis.rolePill}
+                </span>
+                <span style={{ ...pillShared, border: `1px solid ${border}`, color: textMuted }}>
+                  {t.guiaMoteis.methodology}
+                </span>
+                {t.guiaMoteis.tools.map((tool) => (
+                  <span key={tool} style={{ ...pillShared, border: `1px solid ${border}`, color: textMuted }}>
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </section>
 
@@ -287,9 +210,9 @@ export function CaseStudyLacrei() {
               }}
             >
               <div className="flex flex-col md:flex-row" style={{ gap: '2.5rem', alignItems: 'flex-start' }}>
-                {/* Left — text (60%) */}
+                {/* Left — text */}
                 <div style={{ flex: '3 1 0', minWidth: 0 }}>
-                  <span style={labelStyle}>{t.lacrei.problemLabel}</span>
+                  <span style={labelStyle}>{t.guiaMoteis.problemLabel}</span>
                   <h2
                     style={{
                       fontFamily: "'Space Grotesk', sans-serif",
@@ -301,7 +224,7 @@ export function CaseStudyLacrei() {
                       margin: '0 0 1.5rem',
                     }}
                   >
-                    {t.lacrei.problemHeading}
+                    {t.guiaMoteis.problemHeading}
                   </h2>
                   <p
                     style={{
@@ -312,13 +235,12 @@ export function CaseStudyLacrei() {
                       margin: 0,
                     }}
                   >
-                    {t.lacrei.problemBody}
+                    {t.guiaMoteis.problemBody}
                   </p>
                 </div>
 
-                {/* Right — highlight cards (40%) */}
+                {/* Right — highlight cards */}
                 <div style={{ flex: '2 1 0', minWidth: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                  {/* Card 1 */}
                   <div
                     style={{
                       backgroundColor: accentBg,
@@ -338,7 +260,7 @@ export function CaseStudyLacrei() {
                         marginBottom: '0.6rem',
                       }}
                     >
-                      {t.lacrei.highlightCard1Label}
+                      {t.guiaMoteis.highlightCard1Label}
                     </span>
                     <p
                       style={{
@@ -349,11 +271,10 @@ export function CaseStudyLacrei() {
                         margin: 0,
                       }}
                     >
-                      {t.lacrei.highlightCard1Value}
+                      {t.guiaMoteis.highlightCard1Value}
                     </p>
                   </div>
 
-                  {/* Card 2 */}
                   <div
                     style={{
                       backgroundColor: accentBg,
@@ -373,7 +294,7 @@ export function CaseStudyLacrei() {
                         marginBottom: '0.6rem',
                       }}
                     >
-                      {t.lacrei.highlightCard2Label}
+                      {t.guiaMoteis.highlightCard2Label}
                     </span>
                     <p
                       style={{
@@ -384,7 +305,7 @@ export function CaseStudyLacrei() {
                         margin: 0,
                       }}
                     >
-                      {t.lacrei.highlightCard2Value}
+                      {t.guiaMoteis.highlightCard2Value}
                     </p>
                   </div>
                 </div>
@@ -410,11 +331,10 @@ export function CaseStudyLacrei() {
                 margin: '0 0 2rem',
               }}
             >
-              {t.lacrei.myRoleTitle}
+              {t.guiaMoteis.myRoleTitle}
             </motion.h2>
             <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '1.5rem' }}>
 
-              {/* Card 1: What I did */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -439,10 +359,10 @@ export function CaseStudyLacrei() {
                     marginBottom: '1.25rem',
                   }}
                 >
-                  {t.lacrei.roleCardTitle}
+                  {t.guiaMoteis.roleCardTitle}
                 </span>
                 <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                  {t.lacrei.roleCardItems.map(item => (
+                  {t.guiaMoteis.roleCardItems.map(item => (
                     <li
                       key={item}
                       style={{
@@ -458,7 +378,6 @@ export function CaseStudyLacrei() {
                 </ul>
               </motion.div>
 
-              {/* Card 2: With */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -483,7 +402,7 @@ export function CaseStudyLacrei() {
                     marginBottom: '1.25rem',
                   }}
                 >
-                  {t.lacrei.withCardTitle}
+                  {t.guiaMoteis.withCardTitle}
                 </span>
                 <p
                   style={{
@@ -495,11 +414,10 @@ export function CaseStudyLacrei() {
                     lineHeight: 1.5,
                   }}
                 >
-                  {t.lacrei.withCardValue}
+                  {t.guiaMoteis.withCardValue}
                 </p>
               </motion.div>
 
-              {/* Card 3: Constraints */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -524,7 +442,7 @@ export function CaseStudyLacrei() {
                     marginBottom: '1.25rem',
                   }}
                 >
-                  {t.lacrei.constraintsCardTitle}
+                  {t.guiaMoteis.constraintsCardTitle}
                 </span>
                 <p
                   style={{
@@ -536,7 +454,7 @@ export function CaseStudyLacrei() {
                     lineHeight: 1.5,
                   }}
                 >
-                  {t.lacrei.constraintsCardValue}
+                  {t.guiaMoteis.constraintsCardValue}
                 </p>
               </motion.div>
 
@@ -544,7 +462,7 @@ export function CaseStudyLacrei() {
           </div>
         </section>
 
-        {/* ── 5. Process — 4 alternating steps ── */}
+        {/* ── 5. Process ── */}
         <section
           style={{
             padding: '80px 2rem',
@@ -560,10 +478,10 @@ export function CaseStudyLacrei() {
               transition={{ duration: 0.4 }}
               style={{ marginBottom: '4rem' }}
             >
-              <span style={labelStyle}>{t.lacrei.processLabel}</span>
+              <span style={labelStyle}>{t.guiaMoteis.processLabel}</span>
             </motion.div>
 
-            {t.lacrei.steps.map((step, i) => (
+            {t.guiaMoteis.steps.map((step, i) => (
               <motion.div
                 key={step.num}
                 initial={{ opacity: 0, y: 24 }}
@@ -574,7 +492,7 @@ export function CaseStudyLacrei() {
                 style={{
                   gap: '4rem',
                   alignItems: 'center',
-                  marginBottom: i < t.lacrei.steps.length - 1 ? '5rem' : 0,
+                  marginBottom: i < t.guiaMoteis.steps.length - 1 ? '5rem' : 0,
                 }}
               >
                 {/* Text side */}
@@ -628,107 +546,34 @@ export function CaseStudyLacrei() {
                   >
                     {step.body}
                   </p>
-
-                  {/* Ghost buttons — Step 03: Ideation */}
-                  {step.num === '03' && (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '16px' }}>
-                      {[
-                        { label: t.lacrei.stepLinkPersona, href: 'https://miro.com/welcomeonboard/SXBtdWZBVjBFT3lqWVRLa2RSTGJIVE5YVTRvTjZYVmdJTW1pdHdSaGF4MmJWNHFqRjVMak1VUXVFa0hWZG5ROHwzMDc0NDU3MzU2MzEyNTA4NjIwfDI=?share_link_id=384137890711' },
-                        { label: t.lacrei.stepLinkJourney, href: 'https://miro.com/welcomeonboard/cHlCVEJ2UDN3V1lCN28ya0F6cFJmak91a3pOaGZQeDFzQ3o1VGZaQUFWNkx4SURuRFlnSk1sN09HVHVFcEVXSnwzMDc0NDU3MzU2MzEyNTA4NjIwfDI=?share_link_id=912274466439' },
-                      ].map(({ label, href }) => (
-                        <a
-                          key={href}
-                          href={href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            fontFamily: "'Inter', sans-serif",
-                            fontSize: '13px',
-                            fontWeight: 500,
-                            color: textMuted,
-                            backgroundColor: 'transparent',
-                            border: `1px solid ${border}`,
-                            padding: '8px 16px',
-                            borderRadius: '999px',
-                            textDecoration: 'none',
-                            transition: 'color 0.2s ease, border-color 0.2s ease',
-                            whiteSpace: 'nowrap' as const,
-                          }}
-                          onMouseEnter={e => {
-                            e.currentTarget.style.color = accent;
-                            e.currentTarget.style.borderColor = accent;
-                          }}
-                          onMouseLeave={e => {
-                            e.currentTarget.style.color = textMuted;
-                            e.currentTarget.style.borderColor = border;
-                          }}
-                        >
-                          {label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Ghost button — Step 04: Prototype */}
-                  {step.num === '04' && (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '16px' }}>
-                      <a
-                        href="https://miro.com/welcomeonboard/M1kyN0RsZUZDdlFaWjJGVXFxMlp3dDZPd2xlSUZnTlRmaXN2Q3VYVmZKOFNaRnowaXlwbU5DTnh0NGtvMWVsZXwzMDc0NDU3MzU2MzEyNTA4NjIwfDI=?share_link_id=461139257939"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '8px',
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: '13px',
-                          fontWeight: 500,
-                          color: textMuted,
-                          backgroundColor: 'transparent',
-                          border: `1px solid ${border}`,
-                          padding: '8px 16px',
-                          borderRadius: '999px',
-                          textDecoration: 'none',
-                          transition: 'color 0.2s ease, border-color 0.2s ease',
-                          whiteSpace: 'nowrap' as const,
-                        }}
-                        onMouseEnter={e => {
-                          e.currentTarget.style.color = accent;
-                          e.currentTarget.style.borderColor = accent;
-                        }}
-                        onMouseLeave={e => {
-                          e.currentTarget.style.color = textMuted;
-                          e.currentTarget.style.borderColor = border;
-                        }}
-                      >
-                        {t.lacrei.stepLinkWireframes}
-                      </a>
-                    </div>
-                  )}
                 </div>
 
+                {/* Placeholder side */}
                 <div
                   style={{
                     flex: 1,
                     minWidth: 0,
                     width: '100%',
-                    overflow: 'hidden',
+                    height: '340px',
+                    backgroundColor: bg,
                     borderRadius: '12px',
+                    border: `1px solid ${border}`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}
                 >
-                  <img
-                    src={processImages[i]}
-                    alt={processAlts[i]}
+                  <span
                     style={{
-                      width: '100%',
-                      height: 'auto',
-                      objectFit: 'contain',
-                      display: 'block',
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: '0.75rem',
+                      color: textMuted,
+                      letterSpacing: '0.1em',
+                      textTransform: 'uppercase',
                     }}
-                  />
+                  >
+                    {processLabels[i]}
+                  </span>
                 </div>
               </motion.div>
             ))}
@@ -745,7 +590,7 @@ export function CaseStudyLacrei() {
               transition={{ duration: 0.4 }}
               style={{ marginBottom: '3rem' }}
             >
-              <span style={labelStyle}>{t.lacrei.solutionLabel}</span>
+              <span style={labelStyle}>{t.guiaMoteis.solutionLabel}</span>
               <h2
                 style={{
                   fontFamily: "'Space Grotesk', sans-serif",
@@ -756,13 +601,12 @@ export function CaseStudyLacrei() {
                   margin: 0,
                 }}
               >
-                {t.lacrei.solutionHeading}
+                {t.guiaMoteis.solutionHeading}
               </h2>
             </motion.div>
 
-            {/* All 5 screens — unified 3-column grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '1.5rem' }}>
-              {t.lacrei.screens.map((screen, i) => (
+            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '1.5rem' }}>
+              {t.guiaMoteis.screens.map((screen, i) => (
                 <ScreenCard
                   key={screen.label}
                   screen={screen}
@@ -770,13 +614,10 @@ export function CaseStudyLacrei() {
                   cardBg={cardBg}
                   border={border}
                   textMuted={textMuted}
-                  imageSrc={screenImages[i]?.src}
-                  imageAlt={screenImages[i]?.alt}
                 />
               ))}
             </div>
 
-            {/* CTA — centered below all screens */}
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
               <a
                 href={FIGMA_URL}
@@ -799,7 +640,7 @@ export function CaseStudyLacrei() {
                 onMouseEnter={e => (e.currentTarget.style.opacity = '0.82')}
                 onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
               >
-                {t.lacrei.ctaPrototype}
+                {t.guiaMoteis.ctaPrototype}
                 <ExternalLink size={14} />
               </a>
             </div>
@@ -831,10 +672,10 @@ export function CaseStudyLacrei() {
                   margin: '0 0 2.5rem',
                 }}
               >
-                {t.lacrei.learningsHeading}
+                {t.guiaMoteis.learningsHeading}
               </motion.h2>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                {t.lacrei.learnings.map((item, i) => (
+                {t.guiaMoteis.learnings.map((item, i) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, x: -16 }}
@@ -871,8 +712,7 @@ export function CaseStudyLacrei() {
           </div>
         </section>
 
-
-        {/* ── 9. Next Project navigation ── */}
+        {/* ── 8. Next Project navigation ── */}
         <section
           style={{
             padding: '60px 2rem',
@@ -883,7 +723,6 @@ export function CaseStudyLacrei() {
             className="grid grid-cols-1 md:grid-cols-2"
             style={{ maxWidth: '1400px', margin: '0 auto', gap: '1.5rem' }}
           >
-            {/* Previous */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -910,7 +749,7 @@ export function CaseStudyLacrei() {
                   marginBottom: '0.75rem',
                 }}
               >
-                ← {t.lacrei.previousProject}
+                ← {t.guiaMoteis.previousProject}
               </span>
               <p
                 style={{
@@ -921,11 +760,9 @@ export function CaseStudyLacrei() {
                   margin: 0,
                 }}
               >
-
               </p>
             </motion.div>
 
-            {/* Next */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -953,7 +790,7 @@ export function CaseStudyLacrei() {
                   marginBottom: '0.75rem',
                 }}
               >
-                {t.lacrei.nextProject} →
+                {t.guiaMoteis.nextProject} →
               </span>
               <p
                 style={{

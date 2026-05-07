@@ -96,6 +96,39 @@ interface TranslationShape {
     previousProject: string;
     nextProject: string;
   };
+  guiaMoteis: {
+    backToWork: string;
+    projectTitle: string;
+    projectDescription: string;
+    rolePill: string;
+    year: string;
+    methodology: string;
+    tools: string[];
+    problemLabel: string;
+    problemHeading: string;
+    problemBody: string;
+    highlightCard1Label: string;
+    highlightCard1Value: string;
+    highlightCard2Label: string;
+    highlightCard2Value: string;
+    myRoleTitle: string;
+    roleCardTitle: string;
+    roleCardItems: string[];
+    withCardTitle: string;
+    withCardValue: string;
+    constraintsCardTitle: string;
+    constraintsCardValue: string;
+    processLabel: string;
+    steps: LacreiStep[];
+    solutionLabel: string;
+    solutionHeading: string;
+    screens: LacreiScreen[];
+    learningsHeading: string;
+    learnings: string[];
+    ctaPrototype: string;
+    previousProject: string;
+    nextProject: string;
+  };
 }
 
 export const translations = {
@@ -295,6 +328,73 @@ export const translations = {
       previousProject: 'Previous project',
       nextProject: 'Next project',
     },
+    guiaMoteis: {
+      backToWork: '← Back to work',
+      projectTitle: 'Guia de Motéis GO',
+      projectDescription: 'Full redesign of a landing page to drive app downloads. From discovery research to a responsive high-fidelity prototype.',
+      rolePill: 'UI Designer · End-to-end',
+      year: '2024',
+      methodology: 'Crazy 8s',
+      tools: ['UX Research', 'Wireframing', 'Figma'],
+      problemLabel: 'THE CHALLENGE',
+      problemHeading: 'A landing page that wasn\'t converting visitors into downloads',
+      problemBody: 'The brief was clear: create a new landing page that captures more app downloads, highlights the app\'s key advantages, respects the brand language, and drives users to download. The existing page was underperforming. It wasn\'t turning visitors into users.',
+      highlightCard1Label: 'PRIMARY GOAL',
+      highlightCard1Value: 'Increase app downloads by clearly communicating the product\'s core value',
+      highlightCard2Label: 'KEY CONSTRAINT',
+      highlightCard2Value: 'Brand identity and visual language already established. Focus entirely on structure and conversion.',
+      myRoleTitle: 'My Role',
+      roleCardTitle: 'WHAT I DID',
+      roleCardItems: ['UX Research', 'Crazy 8s', 'Wireframing', 'UI Design', 'Responsive Prototype'],
+      withCardTitle: 'CONTEXT',
+      withCardValue: 'Design challenge for a real product with an established brand identity and defined conversion goals.',
+      constraintsCardTitle: 'CONSTRAINTS',
+      constraintsCardValue: 'Fixed brief with defined goals. Brand identity already established by Guia de Motéis. Full focus on landing page structure, hierarchy, and conversion architecture.',
+      processLabel: 'PROCESS',
+      steps: [
+        {
+          num: '01',
+          label: 'DISCOVER',
+          heading: 'Evidence-based research',
+          body: 'Quick research into the motel booking niche revealed four recurring pain points preventing conversions: doubts about listing accuracy and security, confusing interfaces, distrust over hidden fees, and difficulty verifying review authenticity. These barriers informed every structural decision in the redesign.',
+        },
+        {
+          num: '02',
+          label: 'DEFINE',
+          heading: 'Crazy 8s. Eight directions in eight minutes',
+          body: 'I used the Crazy 8s technique to rapidly sketch eight distinct layout directions, forcing creative divergence before committing to a direction. This surfaced the key insight: leading with the discount mechanic as the primary hero message, rather than a generic product description.',
+        },
+        {
+          num: '03',
+          label: 'DEVELOP',
+          heading: 'From low to high fidelity',
+          body: 'Starting from low-fidelity wireframes to validate structure and hierarchy, I progressively refined the design into a full high-fidelity prototype, responsive across desktop and mobile, built using the brand\'s existing visual identity.',
+        },
+        {
+          num: '04',
+          label: 'DELIVER',
+          heading: 'Responsive landing page',
+          body: 'The final design is fully responsive, covering both desktop and mobile breakpoints, with a single focused CTA driving users to download the app.',
+        },
+      ],
+      solutionLabel: 'KEY DESIGN DECISIONS',
+      solutionHeading: 'Every decision was anchored in the four trust barriers from research',
+      screens: [
+        { label: 'HERO SECTION', annotation: 'Leading with up to 50% off immediately addresses pricing distrust and anchors attention on value' },
+        { label: 'SINGLE CTA', annotation: 'All attention channelled to one primary action: downloading the app. No competing links, no distractions' },
+        { label: 'TRUST SIGNALS', annotation: 'Payment options, real-time availability, and social proof surfaced prominently to counter hidden fees and fake reviews concerns' },
+        { label: 'RESPONSIVE STRUCTURE', annotation: 'Design built for desktop and mobile simultaneously. The conversion architecture works across all breakpoints' },
+      ],
+      learningsHeading: 'What I would carry to the next project',
+      learnings: [
+        'Leading with the strongest value proposition, the discount, rather than a product description was the highest-impact structural decision. Users need a reason to stay before they need information.',
+        'Crazy 8s forced me to explore directions I would not have considered otherwise. Committing to one direction too early kills better ideas.',
+        'Designing for conversion is designing for trust. Every structural decision either builds or erodes the user\'s confidence in the product.',
+      ],
+      ctaPrototype: 'View prototype in Figma',
+      previousProject: 'Previous project',
+      nextProject: 'Next project',
+    },
   },
 
   pt: {
@@ -490,6 +590,73 @@ export const translations = {
         'Mapear a jornada emocional antes de tocar na UI foi o passo de maior impacto. Manteve cada tela ancorada nas necessidades reais do usuário, não nas preferências visuais.',
       ],
       ctaPrototype: 'Ver o protótipo no Figma',
+      previousProject: 'Projeto anterior',
+      nextProject: 'Próximo projeto',
+    },
+    guiaMoteis: {
+      backToWork: '← Voltar para trabalhos',
+      projectTitle: 'Guia de Motéis GO',
+      projectDescription: 'Redesign completo de uma landing page para aumentar downloads do app. Da pesquisa de descoberta ao protótipo de alta fidelidade responsivo.',
+      rolePill: 'UI Designer · End-to-end',
+      year: '2024',
+      methodology: 'Crazy 8s',
+      tools: ['UX Research', 'Wireframing', 'Figma'],
+      problemLabel: 'O DESAFIO',
+      problemHeading: 'Uma landing page que não convertia visitantes em downloads',
+      problemBody: 'O brief era claro: criar uma nova landing page que captasse mais downloads do app, destacasse as principais vantagens, respeitasse a linguagem da marca e levasse os usuários a baixar. A página existente tinha baixo desempenho. Não convertia visitantes em usuários.',
+      highlightCard1Label: 'OBJETIVO PRINCIPAL',
+      highlightCard1Value: 'Aumentar downloads do app comunicando claramente o valor central do produto',
+      highlightCard2Label: 'RESTRIÇÃO CHAVE',
+      highlightCard2Value: 'Identidade visual e linguagem da marca já estabelecidas. Foco total na estrutura e conversão.',
+      myRoleTitle: 'Meu Papel',
+      roleCardTitle: 'O QUE EU FIZ',
+      roleCardItems: ['Pesquisa de UX', 'Crazy 8s', 'Wireframing', 'UI Design', 'Protótipo Responsivo'],
+      withCardTitle: 'CONTEXTO',
+      withCardValue: 'Desafio de design para um produto real com identidade de marca estabelecida e objetivos de conversão definidos.',
+      constraintsCardTitle: 'RESTRIÇÕES',
+      constraintsCardValue: 'Brief fixo com objetivos definidos. Identidade visual já estabelecida pelo Guia de Motéis. Foco total na estrutura, hierarquia e arquitetura de conversão da landing page.',
+      processLabel: 'PROCESSO',
+      steps: [
+        {
+          num: '01',
+          label: 'DESCOBRIR',
+          heading: 'Pesquisa baseada em evidências',
+          body: 'Uma rápida pesquisa no nicho de reservas de motéis revelou quatro barreiras recorrentes que impediam conversões: dúvidas sobre a veracidade dos anúncios e segurança, interfaces confusas, desconfiança sobre taxas ocultas e dificuldade em verificar a autenticidade das avaliações. Essas barreiras guiaram cada decisão estrutural do redesign.',
+        },
+        {
+          num: '02',
+          label: 'DEFINIR',
+          heading: 'Crazy 8s. Oito direções em oito minutos',
+          body: 'Usei a técnica Crazy 8s para esboçar rapidamente oito direções de layout distintas, forçando divergência criativa antes de definir uma direção. Isso revelou o insight central: destacar o desconto como mensagem principal do hero, em vez de uma descrição genérica do produto.',
+        },
+        {
+          num: '03',
+          label: 'DESENVOLVER',
+          heading: 'Do baixo ao alto nível de fidelidade',
+          body: 'Partindo de wireframes de baixa fidelidade para validar estrutura e hierarquia, refinei progressivamente o design até um protótipo completo de alta fidelidade, responsivo para desktop e mobile, usando a identidade visual existente da marca.',
+        },
+        {
+          num: '04',
+          label: 'ENTREGAR',
+          heading: 'Landing page responsiva',
+          body: 'O design final é totalmente responsivo, cobrindo breakpoints de desktop e mobile, com um CTA único e focado direcionando os usuários a baixar o app.',
+        },
+      ],
+      solutionLabel: 'DECISÕES DE DESIGN',
+      solutionHeading: 'Cada decisão foi ancorada nas quatro barreiras de confiança identificadas na pesquisa',
+      screens: [
+        { label: 'SEÇÃO HERO', annotation: 'Destacar até 50% de desconto aborda imediatamente a desconfiança de preço e ancora a atenção no valor' },
+        { label: 'CTA ÚNICO', annotation: 'Toda atenção direcionada para uma ação principal: baixar o app. Sem links concorrentes, sem distrações' },
+        { label: 'SINAIS DE CONFIANÇA', annotation: 'Opções de pagamento, disponibilidade em tempo real e prova social em destaque para combater preocupações com taxas ocultas e avaliações falsas' },
+        { label: 'ESTRUTURA RESPONSIVA', annotation: 'Design desenvolvido para desktop e mobile simultaneamente. A arquitetura de conversão funciona em todos os breakpoints' },
+      ],
+      learningsHeading: 'O que eu levaria para o próximo projeto',
+      learnings: [
+        'Liderar com a proposta de valor mais forte, o desconto, em vez de uma descrição do produto foi a decisão estrutural de maior impacto. Os usuários precisam de um motivo para ficar antes de precisar de informação.',
+        'O Crazy 8s me forçou a explorar direções que eu não teria considerado de outra forma. Comprometer-se com uma direção cedo demais mata ideias melhores.',
+        'Projetar para conversão é projetar para confiança. Cada decisão estrutural constrói ou corrói a confiança do usuário no produto.',
+      ],
+      ctaPrototype: 'Ver protótipo no Figma',
       previousProject: 'Projeto anterior',
       nextProject: 'Próximo projeto',
     },
