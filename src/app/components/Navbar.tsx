@@ -18,7 +18,7 @@ export function Navbar() {
     { label: t.nav.work, href: '#work' },
     { label: t.nav.skills, href: '#skills' },
     { label: t.nav.certifications, href: '#certifications' },
-    { label: t.nav.aiLab, href: '#ai-lab' },
+    { label: t.nav.motionContent, href: '#motion-content' },
     { label: t.nav.about, href: '#about' },
     { label: t.nav.contact, href: '#contact' },
   ];

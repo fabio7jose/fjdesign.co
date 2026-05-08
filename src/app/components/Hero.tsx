@@ -157,7 +157,7 @@ export function Hero() {
               margin: '0 0 2.5rem',
             }}
           >
-            UX·UI & Web Designer
+            Product Designer
           </h1>
         </motion.div>
 

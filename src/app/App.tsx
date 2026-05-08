@@ -48,6 +48,9 @@ export default function App() {
 
   const [lang, setLang] = useState<Lang>(() => {
     try {
+      const params = new URLSearchParams(window.location.search);
+      const fromUrl = params.get('lang');
+      if (fromUrl === 'pt' || fromUrl === 'en') return fromUrl as Lang;
       const stored = localStorage.getItem('fabio-lang');
       return (stored as Lang) || 'pt';
     } catch {
@@ -76,6 +79,9 @@ export default function App() {
   useEffect(() => {
     try {
       localStorage.setItem('fabio-lang', lang);
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', lang);
+      window.history.replaceState({}, '', url.toString());
     } catch {}
   }, [lang]);
 

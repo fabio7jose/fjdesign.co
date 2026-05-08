@@ -5,11 +5,11 @@ import { useTheme, useLang } from '../App';
 import useEmblaCarousel from 'embla-carousel-react';
 
 const certs = [
-  { id: 1, title: 'SFPC™ Scrum Fundamentals', institution: 'CertiProf',     year: '2024' },
-  { id: 2, title: 'UX & Design Thinking',      institution: 'Udemy',         year: '2021' },
-  { id: 3, title: 'UI Design Complete Course',  institution: 'Udemy',         year: '2022' },
-  { id: 4, title: 'UX Design Bootcamp',         institution: 'IGTI',          year: '2021' },
-  { id: 5, title: 'UX & UI Design',             institution: 'Instituto TIM', year: '2021' },
+  { id: 5, title: 'Front-End Development',     institution: 'Ada Tech', year: '2024', url: 'https://ada.tech/certificado?code=69672b53-6cec-a813-6943-1780da5908dc' },
+  { id: 1, title: 'SFPC™ Scrum Fundamentals', institution: 'CertiProf', year: '2024', url: 'https://www.credly.com/badges/df2d270b-3e11-4e62-83c6-13fefdf0a3e3/linked_in_profile' },
+  { id: 2, title: 'UX & Design Thinking',     institution: 'Udemy',     year: '2021', url: 'https://www.udemy.com/certificate/UC-55f2c9e0-12f3-4f15-a276-a40722b630ae/' },
+  { id: 3, title: 'UI Design Complete Course', institution: 'Udemy',    year: '2022', url: 'https://www.udemy.com/certificate/UC-59623f98-0877-4173-a4c0-b593778cf8e6/' },
+  { id: 4, title: 'UX Design Bootcamp',        institution: 'IGTI',     year: '2021', url: 'https://drive.google.com/file/d/1WoLv8HBbAPgor1TPzZf5emd8KgFt6X3W/view?usp=sharing' },
 ];
 
 export function Certifications() {
@@ -123,7 +123,7 @@ export function Certifications() {
                   style={{ flex: `0 0 ${slideWidth}`, minWidth: 0 }}
                 >
                   <a
-                    href="#"
+                    href={cert.url || '#'}
                     target="_blank"
                     rel="noopener noreferrer"
                     onMouseEnter={() => setHoveredId(cert.id)}

@@ -3,8 +3,6 @@ export type Lang = 'pt' | 'en';
 /* ─── Sub-types ─────────────────────────────────────────────────── */
 interface Stat { num: string; label: string }
 interface SkillCard { title: string; body: string }
-interface AiTag { label: string; color: string }
-interface AiTile { id: number; type: string; title: string }
 interface EduItem { degree: string; school: string; period: string; status: string }
 interface InfoItem { label: string; value: string; isAvailability: boolean }
 interface LacreiStep { num: string; label: string; heading: string; body: string }
@@ -16,7 +14,7 @@ interface LacreiScreen { label: string; annotation: string }
 interface TranslationShape {
   nav: {
     work: string; skills: string; certifications: string;
-    aiLab: string; about: string; contact: string;
+    motionContent: string; about: string; contact: string;
   };
   hero: {
     available: string; subtitle: string; tagline: string; tagline2: string;
@@ -32,12 +30,11 @@ interface TranslationShape {
   certifications: {
     label: string; title: string; scrollHint: string;
   };
-  aiLab: {
-    label: string; title1: string; title2: string; description: string;
-    tags: AiTag[]; tiles: AiTile[]; toolsLabel: string; tools: string[];
+  motionContent: {
+    label: string; heading: string; videosLabel: string; imagesLabel: string;
   };
   about: {
-    label: string; title: string; openTo: string; bio: string;
+    label: string; title: string; openTo: string; bio: string[];
     downloadCV: string; education: string; location: string;
     active: string; ongoing: string; eduItems: EduItem[];
   };
@@ -137,14 +134,14 @@ export const translations = {
       work: 'Work',
       skills: 'Approach',
       certifications: 'Certifications',
-      aiLab: 'AI Lab',
+      motionContent: 'Content',
       about: 'About',
       contact: 'Contact',
     },
     hero: {
       available: 'Available now',
-      subtitle: 'UX/UI & Web Designer · Creative Technologist & AI Builder',
-      tagline: 'Designing human-centered experiences,',
+      subtitle: 'Product Designer · Creative Technologist · AI Builder',
+      tagline: 'Designing human-centered experiences that work,',
       tagline2: 'powered by AI.',
       cta: 'View my work',
       stats: [
@@ -184,33 +181,21 @@ export const translations = {
       title: 'Credentials',
       scrollHint: '← Slide to see more →',
     },
-    aiLab: {
-      label: 'AI Lab',
-      title1: 'Where AI Meets',
-      title2: 'Design',
-      description:
-        'Where design meets artificial intelligence: a creative lab of generated visuals, videos and experiments. Exploring the frontier of AI-augmented creativity.',
-      tags: [
-        { label: 'AI Image', color: '#AAFF00' },
-        { label: 'AI Video', color: '#FF6B6B' },
-        { label: 'AI Code', color: '#6B9FFF' },
-      ],
-      tiles: [
-        { id: 1, type: 'AI Image', title: 'Abstract Dreamscape' },
-        { id: 2, type: 'AI Video', title: 'Neon Cityscape Loop' },
-        { id: 3, type: 'AI Code', title: 'UI Component Generator' },
-        { id: 4, type: 'AI Image', title: 'Neural Pattern Study' },
-        { id: 5, type: 'AI Video', title: 'Data Morphing Loop' },
-        { id: 6, type: 'AI Code', title: 'Generative Layout System' },
-      ],
-      toolsLabel: 'Tools I Use',
-      tools: ['ChatGPT', 'Claude Code', 'ElevenLabs', 'Nano Banana', 'Veo3'],
+    motionContent: {
+      label: 'DIGITAL CONTENT',
+      heading: 'Real work. Real clients.',
+      videosLabel: 'AI Video',
+      imagesLabel: 'Static',
     },
     about: {
       label: 'About',
-      title: 'About Me',
-      openTo: 'Open to new projects and creative collaborations',
-      bio: "I'm Fábio, a UX/UI & Web Designer with 4+ years of experience, specialized in creating intuitive interfaces and high-converting landing pages. I also produce assets for digital campaigns, from static images to videos, always aligned with each project's visual strategy. I work at the intersection of user experience and business goals, always focused on usability, strategy, and real results. AI is part of my creative process, helping me design faster, explore more ideas, and deliver better work.",
+      title: 'About',
+      openTo: 'Open to opportunities · Available to relocate',
+      bio: [
+        "I'm Fábio, a Product Designer with over 4 years of experience crafting intuitive interfaces, high-converting landing pages, and digital campaign assets, from static visuals to motion. I work at the intersection of user experience and business goals, with a strong focus on usability, strategy, and measurable outcomes.",
+        "AI is a core part of how I work. I use it to design faster, explore more directions, and consistently deliver better results. Not as a shortcut, but as a creative and strategic advantage.",
+        "I'm currently based in Brazil and open to opportunities anywhere in the world.",
+      ],
       downloadCV: 'Download CV',
       education: 'Education',
       location: 'Bahia, Brazil',
@@ -225,7 +210,7 @@ export const translations = {
       title1: "Let's build something",
       title2: 'together.',
       description:
-        'Open to new projects and creative collaborations. Based in Bahia, Brazil, working globally.',
+        'Open to new projects and opportunities. Based in Brazil, available to relocate anywhere.',
       infoItems: [
         { label: 'Email', value: 'fabiojpsf.7@gmail.com', isAvailability: false },
         { label: 'Location', value: 'Bahia, Brazil (UTC-3)', isAvailability: false },
@@ -255,7 +240,7 @@ export const translations = {
       backToTop: 'Back to top ↑',
     },
     lacrei: {
-      backToWork: '← Back to work',
+      backToWork: '← Back',
       projectTitle: 'Lacrei Saúde',
       projectDescription: 'End-to-end UX and UI design for an inclusive healthcare platform connecting LGBTQIA+ individuals with affirming medical professionals in Brazil.',
       rolePill: 'UX/UI Designer · End-to-end',
@@ -329,7 +314,7 @@ export const translations = {
       nextProject: 'Next project',
     },
     guiaMoteis: {
-      backToWork: '← Back to work',
+      backToWork: '← Back',
       projectTitle: 'Guia de Motéis GO',
       projectDescription: 'Full redesign of a landing page to drive app downloads. From discovery research to a responsive high-fidelity prototype.',
       rolePill: 'UI Designer · End-to-end',
@@ -402,15 +387,15 @@ export const translations = {
       work: 'Trabalhos',
       skills: 'Abordagem',
       certifications: 'Certificações',
-      aiLab: 'AI Lab',
+      motionContent: 'Conteúdo',
       about: 'Sobre',
       contact: 'Contato',
     },
     hero: {
       available: 'Disponível agora',
-      subtitle: 'UX/UI & Web Designer · Creative Technologist & AI Builder',
-      tagline: 'Criando experiências centradas no humano,',
-      tagline2: 'impulsionadas por IA.',
+      subtitle: 'Product Designer · Creative Technologist · AI Builder',
+      tagline: 'Criando experiências centradas no ser humano que funcionam, Potencializadas por IA.',
+      tagline2: '',
       cta: 'Ver meus trabalhos',
       stats: [
         { num: '4+', label: 'Anos de Experiência' },
@@ -449,33 +434,21 @@ export const translations = {
       title: 'Credenciais',
       scrollHint: '← Deslize para ver mais →',
     },
-    aiLab: {
-      label: 'AI Lab',
-      title1: 'Onde IA Encontra',
-      title2: 'o Design',
-      description:
-        'Onde o design encontra a inteligência artificial: um laboratório criativo de visuais, vídeos e experimentos gerados por IA. Explorando a fronteira da criatividade aumentada por IA.',
-      tags: [
-        { label: 'Imagem IA', color: '#AAFF00' },
-        { label: 'Vídeo IA', color: '#FF6B6B' },
-        { label: 'Código IA', color: '#6B9FFF' },
-      ],
-      tiles: [
-        { id: 1, type: 'Imagem IA', title: 'Paisagem Onírica' },
-        { id: 2, type: 'Vídeo IA', title: 'Loop Cidade Neon' },
-        { id: 3, type: 'Código IA', title: 'Gerador de Componentes' },
-        { id: 4, type: 'Imagem IA', title: 'Estudo de Padrões Neurais' },
-        { id: 5, type: 'Vídeo IA', title: 'Loop de Dados Morphing' },
-        { id: 6, type: 'Código IA', title: 'Sistema de Layout Generativo' },
-      ],
-      toolsLabel: 'Ferramentas que Uso',
-      tools: ['ChatGPT', 'Claude Code', 'ElevenLabs', 'Nano Banana', 'Veo3'],
+    motionContent: {
+      label: 'CONTEÚDO DIGITAL',
+      heading: 'Trabalho real. Clientes reais.',
+      videosLabel: 'Vídeo IA',
+      imagesLabel: 'Estático',
     },
     about: {
       label: 'Sobre',
-      title: 'Sobre Mim',
-      openTo: 'Aberto a novos projetos e colaborações criativas',
-      bio: 'Sou Fábio, UX/UI & Web Designer com mais de 4 anos de experiência, especializado em criar interfaces intuitivas e landing pages de alta conversão. Produzo também peças para campanhas digitais, de imagens estáticas a vídeos, sempre alinhado com a estratégia visual de cada projeto. Atuo na interseção entre experiência do usuário e objetivos de negócio, sempre focado em usabilidade, estratégia e resultados reais. A IA faz parte do meu processo criativo, me ajudando a projetar mais rápido, explorar mais ideias e entregar trabalhos melhores.',
+      title: 'Sobre',
+      openTo: 'Aberto a oportunidades · Disponível para realocação',
+      bio: [
+        'Sou Fábio, Product Designer com mais de 4 anos de experiência criando interfaces intuitivas, landing pages de alta conversão e peças para campanhas digitais, de imagens estáticas a vídeos. Trabalho na interseção entre experiência do usuário e objetivos de negócio, com foco em usabilidade, estratégia e resultados concretos.',
+        'A IA faz parte do meu processo. Uso para projetar mais rápido, explorar mais direções e entregar trabalhos melhores. Não como atalho, mas como vantagem criativa e estratégica.',
+        'Estou baseado no Brasil e aberto a oportunidades em qualquer lugar do mundo.',
+      ],
       downloadCV: 'Baixar CV',
       education: 'Formação',
       location: 'Bahia, Brasil',
@@ -490,7 +463,7 @@ export const translations = {
       title1: 'Vamos construir algo',
       title2: 'juntos.',
       description:
-        'Aberto a novos projetos e colaborações criativas. Baseado na Bahia, Brasil, atuando globalmente.',
+        'Aberto a novos projetos e oportunidades. Baseado no Brasil, disponível para realocação.',
       infoItems: [
         { label: 'E-mail', value: 'fabiojpsf.7@gmail.com', isAvailability: false },
         { label: 'Localização', value: 'Bahia, Brasil (UTC-3)', isAvailability: false },
@@ -520,7 +493,7 @@ export const translations = {
       backToTop: 'Voltar ao topo ↑',
     },
     lacrei: {
-      backToWork: '← Voltar para trabalhos',
+      backToWork: '← Voltar',
       projectTitle: 'Lacrei Saúde',
       projectDescription: 'Design de UX e UI completo para uma plataforma de saúde inclusiva que conecta pessoas LGBTQIA+ a profissionais de saúde acolhedores no Brasil.',
       rolePill: 'UX/UI Designer · End-to-end',
@@ -594,7 +567,7 @@ export const translations = {
       nextProject: 'Próximo projeto',
     },
     guiaMoteis: {
-      backToWork: '← Voltar para trabalhos',
+      backToWork: '← Voltar',
       projectTitle: 'Guia de Motéis GO',
       projectDescription: 'Redesign completo de uma landing page para aumentar downloads do app. Da pesquisa de descoberta ao protótipo de alta fidelidade responsivo.',
       rolePill: 'UI Designer · End-to-end',

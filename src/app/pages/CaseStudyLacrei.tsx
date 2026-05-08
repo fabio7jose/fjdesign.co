@@ -883,88 +883,56 @@ export function CaseStudyLacrei() {
             className="grid grid-cols-1 md:grid-cols-2"
             style={{ maxWidth: '1400px', margin: '0 auto', gap: '1.5rem' }}
           >
-            {/* Previous */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              style={{
-                border: `1px solid ${border}`,
-                borderRadius: '12px',
-                padding: '2rem',
-                transition: 'border-color 0.2s ease',
-                cursor: 'default',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = accent)}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = border)}
-            >
-              <span
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '0.7rem',
-                  color: textMuted,
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
-                  display: 'block',
-                  marginBottom: '0.75rem',
-                }}
-              >
-                ← {t.lacrei.previousProject}
-              </span>
-              <p
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
-                  color: text,
-                  margin: 0,
-                }}
-              >
+            {/* Previous — Lacrei é o primeiro case; slot vazio */}
+            <div />
 
-              </p>
-            </motion.div>
-
-            {/* Next */}
+            {/* Next → Guia de Motéis */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.07 }}
-              style={{
-                border: `1px solid ${border}`,
-                borderRadius: '12px',
-                padding: '2rem',
-                textAlign: 'right',
-                transition: 'border-color 0.2s ease',
-                cursor: 'default',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = accent)}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = border)}
             >
-              <span
+              <Link
+                to="/work/guia-de-moteis"
                 style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '0.7rem',
-                  color: textMuted,
-                  letterSpacing: '0.1em',
-                  textTransform: 'uppercase',
                   display: 'block',
-                  marginBottom: '0.75rem',
+                  border: `1px solid ${border}`,
+                  borderRadius: '12px',
+                  padding: '2rem',
+                  textAlign: 'right',
+                  transition: 'border-color 0.2s ease',
+                  cursor: 'pointer',
+                  textDecoration: 'none',
                 }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = accent)}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = border)}
               >
-                {t.lacrei.nextProject} →
-              </span>
-              <p
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
-                  color: text,
-                  margin: 0,
-                }}
-              >
-              </p>
+                <span
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '0.7rem',
+                    color: textMuted,
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    display: 'block',
+                    marginBottom: '0.75rem',
+                  }}
+                >
+                  {t.lacrei.nextProject} →
+                </span>
+                <p
+                  style={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    color: text,
+                    margin: 0,
+                  }}
+                >
+                  {t.guiaMoteis.projectTitle}
+                </p>
+              </Link>
             </motion.div>
           </div>
         </section>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Download, MapPin, GraduationCap } from 'lucide-react';
 import { useTheme, useLang } from '../App';
@@ -7,7 +7,7 @@ import profileImg from '../../imports/image-1.png';
 
 export function About() {
   const { isDark } = useTheme();
-  const { t } = useLang();
+  const { t, lang } = useLang();
 
   const text = isDark ? '#ffffff' : '#0A0A0A';
   const textMuted = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(10,10,10,0.45)';
@@ -18,6 +18,15 @@ export function About() {
   const accentFg = isDark ? '#0A0A0A' : '#ffffff';
   const accentAlpha = isDark ? 'rgba(170,255,0,0.35)' : 'rgba(92,138,0,0.3)';
   const accentBg = isDark ? 'rgba(170,255,0,0.05)' : 'rgba(92,138,0,0.06)';
+
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia('(min-width: 768px)');
+    const update = () => setIsDesktop(mql.matches);
+    update();
+    mql.addEventListener('change', update);
+    return () => mql.removeEventListener('change', update);
+  }, []);
 
   return (
     <section id="about" style={{ backgroundColor: bg, padding: '80px 2rem' }}>
@@ -75,7 +84,7 @@ export function About() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 420px), 1fr))',
+            gridTemplateColumns: isDesktop ? 'minmax(0, 35fr) minmax(0, 65fr)' : '1fr',
             gap: '4rem',
             alignItems: 'start',
           }}
@@ -203,23 +212,30 @@ export function About() {
             </div>
 
             {/* Bio text */}
-            <div>
-              <p
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: 'clamp(1rem, 1.3vw, 1.15rem)',
-                  fontWeight: 300,
-                  color: isDark ? 'rgba(255,255,255,0.75)' : 'rgba(10,10,10,0.75)',
-                  lineHeight: 1.75,
-                  margin: 0,
-                }}
-              >
-                {t.about.bio}
-              </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {t.about.bio.map((para, i) => (
+                <p
+                  key={i}
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: 'clamp(1rem, 1.3vw, 1.15rem)',
+                    fontWeight: 300,
+                    color: isDark ? 'rgba(255,255,255,0.75)' : 'rgba(10,10,10,0.75)',
+                    lineHeight: 1.75,
+                    margin: 0,
+                  }}
+                >
+                  {para}
+                </p>
+              ))}
             </div>
 
             {/* Download CV button */}
-            <button
+            <a
+              href={lang === 'pt' ? '/cv-fabio-jose-pt.pdf' : '/cv-fabio-jose-en.pdf'}
+              download={lang === 'pt' ? 'CV-Fabio-Jose-PT.pdf' : 'CV-Fabio-Jose-EN.pdf'}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -236,6 +252,7 @@ export function About() {
                 alignSelf: 'flex-start',
                 transition: 'all 0.2s ease',
                 letterSpacing: '0.01em',
+                textDecoration: 'none',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.backgroundColor = accent;
@@ -250,7 +267,7 @@ export function About() {
             >
               <Download size={15} />
               {t.about.downloadCV}
-            </button>
+            </a>
 
             {/* Divider */}
             <div style={{ height: '1px', backgroundColor: border }} />

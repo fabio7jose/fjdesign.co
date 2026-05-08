@@ -6,7 +6,7 @@ import { MarqueeBanner } from '../components/MarqueeBanner';
 import { Work } from '../components/Work';
 import { Skills } from '../components/Skills';
 import { Certifications } from '../components/Certifications';
-import { AILab } from '../components/AILab';
+import { MotionContent } from '../components/MotionContent';
 import { About } from '../components/About';
 import { Contact } from '../components/Contact';
 import { Footer } from '../components/Footer';
@@ -49,7 +49,7 @@ export function Home() {
           margin: '0 2rem',
         }}
       />
-      <AILab />
+      <MotionContent />
       <div
         style={{
           height: '1px',
