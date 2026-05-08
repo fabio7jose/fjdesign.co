@@ -5,16 +5,16 @@ import { motion } from 'motion/react';
 import { useTheme, useLang } from '../App';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import lacreiCover from '../../assets/lacrei-cover.png';
-import lacreiProcesso01 from '../../assets/lacrei-processo-01.png'
-import lacreiProcesso02 from '../../assets/lacrei-processo-02.png'
-import lacreiProcesso03 from '../../assets/lacrei-processo-03.png'
-import lacreiProcesso04 from '../../assets/lacrei-processo-04.png'
-import lacreiTelaBusca from '../../assets/lacrei-tela-busca.png'
-import lacreiTelaHomePos from '../../assets/lacrei-tela-home-pos-login.png'
-import lacreiTelaInicio from '../../assets/lacrei-tela-inicio.png'
-import lacreiTelaLogin from '../../assets/lacrei-tela-login.png'
-import lacreiTelaProfissional from '../../assets/lacrei-tela-profissional.png'
+import lacreiCover from '../../assets/lacrei/lacrei-cover.png';
+import lacreiProcesso01 from '../../assets/lacrei/lacrei-processo-01.png'
+import lacreiProcesso02 from '../../assets/lacrei/lacrei-processo-02.png'
+import lacreiProcesso03 from '../../assets/lacrei/lacrei-processo-03.png'
+import lacreiProcesso04 from '../../assets/lacrei/lacrei-processo-04.png'
+import lacreiTelaBusca from '../../assets/lacrei/lacrei-tela-busca.png'
+import lacreiTelaHomePos from '../../assets/lacrei/lacrei-tela-home-pos-login.png'
+import lacreiTelaInicio from '../../assets/lacrei/lacrei-tela-inicio.png'
+import lacreiTelaLogin from '../../assets/lacrei/lacrei-tela-login.png'
+import lacreiTelaProfissional from '../../assets/lacrei/lacrei-tela-profissional.png'
 
 const FIGMA_URL =
   'https://www.figma.com/design/F6HVVdGF1Rqq16m1fCGKxU/Lacrei-Sa%C3%BAde?node-id=3-3304';

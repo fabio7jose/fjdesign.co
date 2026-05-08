@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { useTheme, useLang } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import lacreiThumbnail from '../../assets/lacrei-thumbnail.png';
+import lacreiThumbnail from '../../assets/lacrei/lacrei-thumbnail.png';
+import guiaThumbnail from '../../assets/guia-moteis/guia-moteis-thumbnail.png';
 
 interface Project {
   id: number;
@@ -42,64 +43,13 @@ const projects: Project[] = [
     },
     context: 'UI DESIGN · LANDING PAGE',
     category: 'Landing Pages',
-    image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1080&q=80',
+    image: guiaThumbnail,
     tags: ['UX Research', 'Crazy 8s', 'Wireframing', 'UI Design'],
     year: '2024',
   },
-  {
-    id: 1,
-    title: 'Digital Ecosystem Redesign',
-    context: 'UX Research · TT&T IT Solutions',
-    category: 'UX Design',
-    image:
-      'https://images.unsplash.com/photo-1767449441925-737379bc2c4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxVWCUyMFVJJTIwZGVzaWduJTIwd2lyZWZyYW1lJTIwbW9iaWxlJTIwYXBwfGVufDF8fHx8MTc3NjgzNDg1NHww&ixlib=rb-4.1.0&q=80&w=1080',
-    tags: ['UX Research', 'Figma', 'Wireframing', 'Lean UX'],
-    year: '2024',
-  },
-  {
-    id: 2,
-    title: 'Sales Platform UI',
-    context: 'Web Design · AddSales',
-    category: 'Web Design',
-    image:
-      'https://images.unsplash.com/photo-1720962158883-b0f2021fb51e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXNpZ24lMjBkYXNoYm9hcmQlMjBpbnRlcmZhY2UlMjBkYXJrfGVufDF8fHx8MTc3NjgzNDg1NXww&ixlib=rb-4.1.0&q=80&w=1080',
-    tags: ['Web Design', 'HTML/CSS', 'Figma', 'Visual Design'],
-    year: '2024',
-  },
-  {
-    id: 3,
-    title: 'High-Converting Landing Page',
-    context: 'Landing Page · E-commerce Client',
-    category: 'Landing Pages',
-    image:
-      'https://images.unsplash.com/photo-1648134859177-66e35b61e106?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsYW5kaW5nJTIwcGFnZSUyMGVjb21tZXJjZSUyMHdlYnNpdGUlMjBkZXNpZ258ZW58MXx8fHwxNzc2ODM0ODU3fDA&ixlib=rb-4.1.0&q=80&w=1080',
-    tags: ['HTML/CSS', 'Figma', 'Responsive Layout', 'Visual Design'],
-    year: '2023',
-  },
-  {
-    id: 4,
-    title: 'Health App UX Research',
-    context: 'UX Research · Health Startup',
-    category: 'UX Design',
-    image:
-      'https://images.unsplash.com/photo-1518349619113-03114f06ac3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1c2VyJTIwcmVzZWFyY2glMjBpbnRlcnZpZXclMjB1c2FiaWxpdHklMjB0ZXN0aW5nfGVufDF8fHx8MTc3NjgzNDg1OHww&ixlib=rb-4.1.0&q=80&w=1080',
-    tags: ['User Research', 'Personas', 'Journey Map', 'Usability Testing'],
-    year: '2023',
-  },
-  {
-    id: 5,
-    title: 'Mobile App Prototype',
-    context: 'UX/UI Design · Fintech Startup',
-    category: 'UX Design',
-    image:
-      'https://images.unsplash.com/photo-1748801583967-3038967d7279?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2JpbGUlMjBhcHAlMjBVSSUyMHByb3RvdHlwZSUyMGRlc2lnbiUyMHNjcmVlbnxlbnwxfHx8fDE3NzY4MzQ4NjV8MA&ixlib=rb-4.1.0&q=80&w=1080',
-    tags: ['Prototyping', 'Figma', 'UX Research', 'Design Systems'],
-    year: '2022',
-  },
 ];
 
-// English filter values — used for category logic; translated labels come from i18n
-const filterValues = ['All', 'UX Design', 'Web Design', 'Landing Pages'];
+
 
 interface CardProps {
   project: Project;
@@ -162,15 +112,8 @@ function ProjectCard({
     >
       {/* Thumbnail */}
       <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          paddingBottom: '56.25%',
-          minHeight: isFullWidth ? '260px' : '220px',
-          maxHeight: isFullWidth ? '480px' : undefined,
-          overflow: 'hidden',
-          borderRadius: '8px 8px 0 0',
-        }}
+        className="work-thumb relative w-full overflow-hidden"
+        style={{ borderRadius: '8px 8px 0 0' }}
       >
         <ImageWithFallback
           src={project.image}
@@ -294,12 +237,16 @@ function ProjectCard({
 export function Work() {
   const { isDark } = useTheme();
   const { t, lang } = useLang();
-  const [activeFilterIdx, setActiveFilterIdx] = useState(0);
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 
-  const activeFilter = filterValues[activeFilterIdx];
-  const filtered =
-    activeFilter === 'All' ? projects : projects.filter((p) => p.category === activeFilter);
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.id = 'work-card-styles';
+    style.textContent = `.work-thumb { padding-bottom: 75%; } @media (min-width: 768px) { .work-thumb { padding-bottom: 56.25%; } }`;
+    if (!document.getElementById('work-card-styles')) {
+      document.head.appendChild(style);
+    }
+  }, []);
 
   const text      = isDark ? '#ffffff' : '#0A0A0A';
   const textMuted = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(10,10,10,0.45)';
@@ -341,7 +288,7 @@ export function Work() {
           </span>
         </motion.div>
 
-        {/* ── Section title + filters ── */}
+        {/* ── Section title ── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -351,11 +298,6 @@ export function Work() {
             borderTop: `1px solid ${border}`,
             paddingTop: '2rem',
             marginBottom: '3rem',
-            display: 'flex',
-            alignItems: 'flex-end',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '1.5rem',
           }}
         >
           <h2
@@ -371,53 +313,26 @@ export function Work() {
           >
             {t.work.title1}<br />{t.work.title2}
           </h2>
-
-          {/* Filter pills */}
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-            {filterValues.map((val, i) => (
-              <button
-                key={val}
-                onClick={() => setActiveFilterIdx(i)}
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '0.8rem',
-                  fontWeight: 400,
-                  padding: '0.4rem 1rem',
-                  borderRadius: '999px',
-                  border: `1px solid ${activeFilterIdx === i ? accent : border}`,
-                  backgroundColor: activeFilterIdx === i ? accent : 'transparent',
-                  color: activeFilterIdx === i ? accentFg : text,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  letterSpacing: '0.02em',
-                }}
-              >
-                {t.work.filters[i]}
-              </button>
-            ))}
-          </div>
         </motion.div>
 
         {/* ── Symmetric 2-column grid ───────────────────────────────────────────
             All cards identical size. Odd total: last card spans both columns.
             Mobile: single column throughout.
         ──────────────────────────────────────────────────────────────────────── */}
-        {filtered.length > 0 && (
-          <div
-            className="grid grid-cols-1 md:grid-cols-2"
-            style={{ gap: '16px' }}
-          >
-            {filtered.map((project, i) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                animIndex={i}
-                isFullWidth={filtered.length % 2 !== 0 && i === filtered.length - 1}
-                {...cardProps}
-              />
-            ))}
-          </div>
-        )}
+        <div
+          className="grid grid-cols-1 md:grid-cols-2"
+          style={{ gap: '16px' }}
+        >
+          {projects.map((project, i) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              animIndex={i}
+              isFullWidth={projects.length % 2 !== 0 && i === projects.length - 1}
+              {...cardProps}
+            />
+          ))}
+        </div>
 
       </div>
     </section>

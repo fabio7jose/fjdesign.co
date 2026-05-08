@@ -251,7 +251,7 @@ export const translations = {
       },
     },
     footer: {
-      copyright: '© 2024 Fábio José · Designed & built with care.',
+      copyright: '© 2026 Fábio José · Designed & built with care.',
       backToTop: 'Back to top ↑',
     },
     lacrei: {
@@ -382,7 +382,7 @@ export const translations = {
       screens: [
         { label: 'HERO SECTION', annotation: 'Leading with up to 50% off immediately addresses pricing distrust and anchors attention on value' },
         { label: 'SINGLE CTA', annotation: 'All attention channelled to one primary action: downloading the app. No competing links, no distractions' },
-        { label: 'TRUST SIGNALS', annotation: 'Payment options, real-time availability, and social proof surfaced prominently to counter hidden fees and fake reviews concerns' },
+        { label: 'TRUST SIGNALS', annotation: 'Real user reviews surfaced prominently to build credibility and counter the distrust identified in research' },
         { label: 'RESPONSIVE STRUCTURE', annotation: 'Design built for desktop and mobile simultaneously. The conversion architecture works across all breakpoints' },
       ],
       learningsHeading: 'What I would carry to the next project',
@@ -516,7 +516,7 @@ export const translations = {
       },
     },
     footer: {
-      copyright: '© 2024 Fábio José · Desenhado & construído com cuidado.',
+      copyright: '© 2026 Fábio José · Desenhado & construído com cuidado.',
       backToTop: 'Voltar ao topo ↑',
     },
     lacrei: {
@@ -647,7 +647,7 @@ export const translations = {
       screens: [
         { label: 'SEÇÃO HERO', annotation: 'Destacar até 50% de desconto aborda imediatamente a desconfiança de preço e ancora a atenção no valor' },
         { label: 'CTA ÚNICO', annotation: 'Toda atenção direcionada para uma ação principal: baixar o app. Sem links concorrentes, sem distrações' },
-        { label: 'SINAIS DE CONFIANÇA', annotation: 'Opções de pagamento, disponibilidade em tempo real e prova social em destaque para combater preocupações com taxas ocultas e avaliações falsas' },
+        { label: 'SINAIS DE CONFIANÇA', annotation: 'Avaliações reais de usuários em destaque para construir credibilidade e combater a desconfiança identificada na pesquisa' },
         { label: 'ESTRUTURA RESPONSIVA', annotation: 'Design desenvolvido para desktop e mobile simultaneamente. A arquitetura de conversão funciona em todos os breakpoints' },
       ],
       learningsHeading: 'O que eu levaria para o próximo projeto',

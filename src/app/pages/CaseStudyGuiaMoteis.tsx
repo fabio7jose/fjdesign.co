@@ -5,6 +5,15 @@ import { motion } from 'motion/react';
 import { useTheme, useLang } from '../App';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
+import guiaCover from '../../assets/guia-moteis/guia-moteis-cover.png';
+import guiaProcesso01 from '../../assets/guia-moteis/guia-moteis-processo-01.png';
+import guiaProcesso02 from '../../assets/guia-moteis/guia-moteis-processo-02.png';
+import guiaProcesso03 from '../../assets/guia-moteis/guia-moteis-processo-03.png';
+import guiaProcesso04 from '../../assets/guia-moteis/guia-moteis-processo-04.png';
+import guiaTelaCta from '../../assets/guia-moteis/guia-moteis-tela-cta.png';
+import guiaTelaTrust from '../../assets/guia-moteis/guia-moteis-tela-trust.png';
+import guiaTelaHero from '../../assets/guia-moteis/guia-moteis-tela-hero.png';
+import guiaTelaResponsive from '../../assets/guia-moteis/guia-moteis-tela-responsive.png';
 
 const FIGMA_URL =
   'https://www.figma.com/design/yaqbJwkCiE5qk6v31JYOZu/Untitled?node-id=257-45';
@@ -15,9 +24,11 @@ interface ScreenCardProps {
   cardBg: string;
   border: string;
   textMuted: string;
+  imageSrc?: string;
+  imageAlt?: string;
 }
 
-function ScreenCard({ screen, delay, cardBg, border, textMuted }: ScreenCardProps) {
+function ScreenCard({ screen, delay, cardBg, border, textMuted, imageSrc, imageAlt }: ScreenCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -25,30 +36,53 @@ function ScreenCard({ screen, delay, cardBg, border, textMuted }: ScreenCardProp
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay }}
     >
-      <div
-        style={{
-          height: '300px',
-          backgroundColor: cardBg,
-          borderRadius: '12px',
-          border: `1px solid ${border}`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '1rem',
-        }}
-      >
-        <span
+      {imageSrc ? (
+        <div
           style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '0.75rem',
-            color: textMuted,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
+            width: '100%',
+            overflow: 'hidden',
+            borderRadius: '12px',
+            marginBottom: '1rem',
+            background: 'rgba(255,255,255,0.03)',
           }}
         >
-          {screen.label}
-        </span>
-      </div>
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            style={{
+              width: '100%',
+              height: 'auto',
+              objectFit: 'contain',
+              display: 'block',
+            }}
+          />
+        </div>
+      ) : (
+        <div
+          style={{
+            height: '300px',
+            backgroundColor: cardBg,
+            borderRadius: '12px',
+            border: `1px solid ${border}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginBottom: '1rem',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '0.75rem',
+              color: textMuted,
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
+            }}
+          >
+            {screen.label}
+          </span>
+        </div>
+      )}
       <p
         style={{
           fontFamily: "'Inter', sans-serif",
@@ -77,7 +111,14 @@ export function CaseStudyGuiaMoteis() {
   const accentFg  = isDark ? '#0A0A0A' : '#ffffff';
   const accentBg  = isDark ? 'rgba(170,255,0,0.04)' : 'rgba(92,138,0,0.05)';
 
-  const processLabels = ['Discover', 'Define', 'Develop', 'Deliver'];
+  const processImages = [guiaProcesso01, guiaProcesso02, guiaProcesso03, guiaProcesso04];
+
+  const screenImages: Array<{ src: string; alt: string } | null> = [
+    { src: guiaTelaHero, alt: 'Hero Screen' },
+    { src: guiaTelaCta, alt: 'CTA Screen' },
+    { src: guiaTelaTrust, alt: 'Trust Screen' },
+    { src: guiaTelaResponsive, alt: 'Responsive Screen' },
+  ];
 
   useEffect(() => {
     document.title = 'Guia de Motéis GO | Fábio José';
@@ -144,53 +185,87 @@ export function CaseStudyGuiaMoteis() {
           </div>
         </div>
 
-        {/* ── 2. Hero ── */}
+        {/* ── 2. Hero — Impact First ── */}
         <section style={{ padding: '60px 2rem 80px' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+            <div
+              className="grid grid-cols-1 md:grid-cols-5"
+              style={{ gap: '3rem', alignItems: 'center' }}
             >
-              <h1
-                style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: 'clamp(2.25rem, 5vw, 3rem)',
-                  fontWeight: 700,
-                  color: text,
-                  letterSpacing: '-0.03em',
-                  lineHeight: 1.1,
-                  margin: '0 0 1rem',
-                }}
+              {/* Left ~60% */}
+              <motion.div
+                className="md:col-span-3"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
-                {t.guiaMoteis.projectTitle}
-              </h1>
-              <p
-                style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontSize: '20px',
-                  color: textMuted,
-                  lineHeight: 1.5,
-                  margin: '0 0 2rem',
-                  maxWidth: '700px',
-                }}
-              >
-                {t.guiaMoteis.projectDescription}
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                <span style={{ ...pillShared, backgroundColor: accent, color: accentFg }}>
-                  {t.guiaMoteis.rolePill}
-                </span>
-                <span style={{ ...pillShared, border: `1px solid ${border}`, color: textMuted }}>
-                  {t.guiaMoteis.methodology}
-                </span>
-                {t.guiaMoteis.tools.map((tool) => (
-                  <span key={tool} style={{ ...pillShared, border: `1px solid ${border}`, color: textMuted }}>
-                    {tool}
+                <h1
+                  style={{
+                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontSize: 'clamp(2.25rem, 5vw, 3rem)',
+                    fontWeight: 700,
+                    color: text,
+                    letterSpacing: '-0.03em',
+                    lineHeight: 1.1,
+                    margin: '0 0 1rem',
+                  }}
+                >
+                  {t.guiaMoteis.projectTitle}
+                </h1>
+                <p
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '20px',
+                    color: textMuted,
+                    lineHeight: 1.5,
+                    margin: '0 0 2rem',
+                  }}
+                >
+                  {t.guiaMoteis.projectDescription}
+                </p>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  <span style={{ ...pillShared, backgroundColor: accent, color: accentFg }}>
+                    {t.guiaMoteis.rolePill}
                   </span>
-                ))}
-              </div>
-            </motion.div>
+                  <span style={{ ...pillShared, border: `1px solid ${border}`, color: textMuted }}>
+                    {t.guiaMoteis.methodology}
+                  </span>
+                  {t.guiaMoteis.tools.map((tool) => (
+                    <span key={tool} style={{ ...pillShared, border: `1px solid ${border}`, color: textMuted }}>
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Right ~40% — hero image */}
+              <motion.div
+                className="md:col-span-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.15 }}
+              >
+                <div
+                  style={{
+                    width: '100%',
+                    minHeight: 'clamp(280px, 45vw, 520px)',
+                    overflow: 'hidden',
+                    borderRadius: '16px',
+                  }}
+                >
+                  <img
+                    src={guiaCover}
+                    alt="Guia de Motéis GO"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center',
+                    }}
+                  />
+                </div>
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -548,32 +623,23 @@ export function CaseStudyGuiaMoteis() {
                   </p>
                 </div>
 
-                {/* Placeholder side */}
+                {/* Image side */}
                 <div
                   style={{
                     flex: 1,
                     minWidth: 0,
+                    position: 'relative',
                     width: '100%',
-                    height: '340px',
-                    backgroundColor: bg,
+                    overflow: 'hidden',
                     borderRadius: '12px',
-                    border: `1px solid ${border}`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    height: 'clamp(200px, 30vw, 300px)',
                   }}
                 >
-                  <span
-                    style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: '0.75rem',
-                      color: textMuted,
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    {processLabels[i]}
-                  </span>
+                  <img
+                    src={processImages[i]}
+                    alt=""
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+                  />
                 </div>
               </motion.div>
             ))}
@@ -605,7 +671,7 @@ export function CaseStudyGuiaMoteis() {
               </h2>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '1.5rem' }}>
+            <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '1.5rem' }}>
               {t.guiaMoteis.screens.map((screen, i) => (
                 <ScreenCard
                   key={screen.label}
@@ -614,6 +680,8 @@ export function CaseStudyGuiaMoteis() {
                   cardBg={cardBg}
                   border={border}
                   textMuted={textMuted}
+                  imageSrc={screenImages[i]?.src}
+                  imageAlt={screenImages[i]?.alt}
                 />
               ))}
             </div>
