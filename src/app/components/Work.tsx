@@ -117,7 +117,7 @@ function ProjectCard({
       >
         <ImageWithFallback
           src={project.image}
-          alt={project.title}
+          alt={typeof project.title === 'string' ? project.title : project.title[lang]}
           style={{
             position: 'absolute',
             inset: 0,

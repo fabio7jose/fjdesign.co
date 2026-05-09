@@ -186,7 +186,7 @@ export function Hero() {
                 marginBottom: '2rem',
               }}
             >
-              {t.hero.tagline}<br />{t.hero.tagline2}
+              {t.hero.tagline}{t.hero.tagline2 && <><br />{t.hero.tagline2}</>}
             </p>
             <button
               onClick={scrollToWork}

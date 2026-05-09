@@ -44,8 +44,9 @@ interface TranslationShape {
     form: {
       namePlaceholder: string; emailPlaceholder: string;
       projectTypePlaceholder: string; projectTypes: string[];
-      messagePlaceholder: string; submit: string;
+      messagePlaceholder: string; submit: string; sending: string;
       successTitle: string; successText: string;
+      errorMessage: string;
       errors: {
         nameRequired: string; emailRequired: string; emailInvalid: string;
         projectTypeRequired: string; messageRequired: string;
@@ -224,8 +225,10 @@ export const translations = {
         projectTypes: ['UX Design', 'Web Design', 'AI Project', 'Other'],
         messagePlaceholder: 'Tell me about your project...',
         submit: 'Send message',
+        sending: 'Sending...',
         successTitle: 'Message sent! ✓',
         successText: "I'll get back to you within 24 hours.",
+        errorMessage: 'Something went wrong. Please try again or email me directly.',
         errors: {
           nameRequired: 'Name is required',
           emailRequired: 'Email is required',
@@ -477,8 +480,10 @@ export const translations = {
         projectTypes: ['UX Design', 'Web Design', 'Projeto IA', 'Outro'],
         messagePlaceholder: 'Me conte sobre seu projeto...',
         submit: 'Enviar mensagem',
+        sending: 'Enviando...',
         successTitle: 'Mensagem enviada! ✓',
         successText: 'Retornarei em até 24 horas.',
+        errorMessage: 'Algo deu errado. Por favor tente novamente ou envie um email diretamente.',
         errors: {
           nameRequired: 'Nome é obrigatório',
           emailRequired: 'E-mail é obrigatório',

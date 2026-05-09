@@ -311,12 +311,12 @@ export function Contact() {
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  {loading ? 'Sending…' : f.submit}
+                  {loading ? f.sending : f.submit}
                   {!loading && <Send size={15} />}
                 </button>
                 {submitError && (
                   <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.8rem', color: '#FF6B6B', marginTop: '0.5rem' }}>
-                    Something went wrong. Please try again or email me directly.
+                    {f.errorMessage}
                   </p>
                 )}
               </form>
