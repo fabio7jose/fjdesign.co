@@ -199,6 +199,7 @@ export function MotionContent() {
                       muted
                       loop
                       playsInline
+                      preload="none"
                       style={{
                         position: 'absolute',
                         inset: 0,

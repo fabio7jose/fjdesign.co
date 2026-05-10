@@ -637,7 +637,7 @@ export function CaseStudyGuiaMoteis() {
                 >
                   <img
                     src={processImages[i]}
-                    alt=""
+                    alt={step.heading}
                     style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
                   />
                 </div>

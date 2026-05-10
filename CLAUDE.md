@@ -80,7 +80,7 @@ fjdesign.co/
 │           ├── Work.tsx          ← Project cards (featured + 2-col grid), filter pills
 │           ├── Skills.tsx        ← 3 approach cards
 │           ├── Certifications.tsx← Glide.js carousel (CDN-loaded)
-│           ├── AILab.tsx         ← Masonry image grid with hover overlays
+│           ├── MotionContent.tsx ← Motion design grid (videos + images) with lightbox
 │           ├── About.tsx         ← Bio, education timeline, photo
 │           ├── Contact.tsx       ← react-hook-form + Formspree POST
 │           ├── Footer.tsx        ← Copyright, back-to-top link
@@ -99,7 +99,7 @@ fjdesign.co/
 7. 1px divider
 8. `<Certifications />` — id="certifications", section label "03"
 9. 1px divider
-10. `<AILab />` — id="ai-lab", section label "04"
+10. `<MotionContent />` — id="motion-content", section label "04"
 11. 1px divider
 12. `<About />` — id="about", section label "05"
 13. 1px divider
@@ -152,7 +152,7 @@ localStorage.setItem('fabio-theme', isDark ? 'dark' : 'light')
 
 // Language
 localStorage.setItem('fabio-lang', lang)  // 'pt' | 'en'
-// Default: pt (Portuguese)
+// Default: en (English)
 ```
 
 Both contexts are provided at the root in `App.tsx` via `ThemeContext` and `LangContext`. Any component accesses them via:
@@ -272,7 +272,7 @@ Hint text at `rgba(10,10,10,0.3)` in light mode likely fails WCAG AA contrast ra
 `src/app/components/ui/` contains components never imported anywhere: `accordion`, `breadcrumb`, `calendar`, `command`, `context-menu`, `dialog`, `drawer`, `hover-card`, `navigation-menu`, `pagination`, `popover`, `resizable`, `sidebar`, `tabs`, `toggle`, `toggle-group`, and more. Run `vite-bundle-visualizer` to confirm and prune.
 
 **L8 — No `React.memo` on card components**
-`ProjectCard` in `Work.tsx` and masonry tiles in `AILab.tsx` re-render on every theme or language change. Wrapping in `React.memo` is a low-effort perf improvement.
+`ProjectCard` in `Work.tsx` and grid tiles in `MotionContent.tsx` re-render on every theme or language change. Wrapping in `React.memo` is a low-effort perf improvement.
 
 ---
 
@@ -290,11 +290,11 @@ Hint text at `rgba(10,10,10,0.3)` in light mode likely fails WCAG AA contrast ra
 
 6. **Package manager is npm.** `package.json` has a `pnpm.overrides` section but pnpm is not installed on this machine. Use `npm install` and `npm run dev`.
 
-7. **All project data is hardcoded.** Projects in `Work.tsx`, certifications in `Certifications.tsx`, and tiles in `AILab.tsx` are all static arrays in the component files — there is no CMS or data layer.
+7. **All project data is hardcoded.** Projects in `Work.tsx`, certifications in `Certifications.tsx`, and tiles in `MotionContent.tsx` are all static arrays in the component files — there is no CMS or data layer.
 
 8. **Unsplash images.** All project and AI Lab images use Unsplash URLs with signed tokens. If images stop loading, the `ImageWithFallback` component handles the error gracefully with a placeholder.
 
-9. **Section IDs must match Navbar hrefs.** Navbar links use `document.getElementById(id)` with `scrollIntoView`. The section IDs are: `home`, `work`, `skills`, `certifications`, `ai-lab`, `about`, `contact`. Do not change them without updating `Navbar.tsx`.
+9. **Section IDs must match Navbar hrefs.** Navbar links use `document.getElementById(id)` with `scrollIntoView`. The section IDs are: `home`, `work`, `skills`, `certifications`, `motion-content`, `about`, `contact`. Do not change them without updating `Navbar.tsx`.
 
 10. **Inline styles make global theme changes expensive.** To change a color used across all sections, you must update each component individually. This is the biggest structural debt in the project.
 

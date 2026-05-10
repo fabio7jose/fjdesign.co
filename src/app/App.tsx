@@ -25,9 +25,9 @@ interface LangContextType {
 }
 
 export const LangContext = createContext<LangContextType>({
-  lang: 'pt',
+  lang: 'en',
   toggleLang: () => {},
-  t: translations['pt'],
+  t: translations['en'],
 });
 
 export const useLang = () => useContext(LangContext);
@@ -52,7 +52,7 @@ export default function App() {
       const fromUrl = params.get('lang');
       if (fromUrl === 'pt' || fromUrl === 'en') return fromUrl as Lang;
       const stored = localStorage.getItem('fabio-lang');
-      return (stored as Lang) || 'pt';
+      return (stored as Lang) || 'en';
     } catch {
       return 'pt';
     }
