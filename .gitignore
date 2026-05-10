@@ -7,3 +7,4 @@ dist/
 ._package-lock.json
 ._node_modules
 ._*
+.claudeignore
