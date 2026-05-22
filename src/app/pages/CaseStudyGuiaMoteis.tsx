@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-import { ExternalLink } from 'lucide-react';
-import { motion } from 'motion/react';
+import { ExternalLink, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useTheme, useLang } from '../App';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
@@ -26,9 +26,12 @@ interface ScreenCardProps {
   textMuted: string;
   imageSrc?: string;
   imageAlt?: string;
+  onImageClick?: () => void;
 }
 
-function ScreenCard({ screen, delay, cardBg, border, textMuted, imageSrc, imageAlt }: ScreenCardProps) {
+function ScreenCard({ screen, delay, cardBg, border, textMuted, imageSrc, imageAlt, onImageClick }: ScreenCardProps) {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -38,12 +41,18 @@ function ScreenCard({ screen, delay, cardBg, border, textMuted, imageSrc, imageA
     >
       {imageSrc ? (
         <div
+          onClick={onImageClick}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
           style={{
             width: '100%',
             overflow: 'hidden',
             borderRadius: '12px',
             marginBottom: '1rem',
             background: 'rgba(255,255,255,0.03)',
+            cursor: onImageClick ? 'zoom-in' : 'default',
+            transform: hovered ? 'scale(1.03)' : 'scale(1)',
+            transition: 'transform 0.3s ease',
           }}
         >
           <img
@@ -120,10 +129,21 @@ export function CaseStudyGuiaMoteis() {
     { src: guiaTelaResponsive, alt: 'Responsive Screen' },
   ];
 
+  const [activeScreen, setActiveScreen] = useState<{ src: string; label: string } | null>(null);
+
   useEffect(() => {
     document.title = 'Guia de Motéis GO | Fábio José';
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (!activeScreen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setActiveScreen(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeScreen]);
 
   const labelStyle: React.CSSProperties = {
     fontFamily: "'Inter', sans-serif",
@@ -146,6 +166,7 @@ export function CaseStudyGuiaMoteis() {
   };
 
   return (
+    <>
     <div
       style={{
         backgroundColor: bg,
@@ -682,6 +703,7 @@ export function CaseStudyGuiaMoteis() {
                   textMuted={textMuted}
                   imageSrc={screenImages[i]?.src}
                   imageAlt={screenImages[i]?.alt}
+                  onImageClick={screenImages[i] ? () => setActiveScreen({ src: screenImages[i]!.src, label: screen.label }) : undefined}
                 />
               ))}
             </div>
@@ -847,5 +869,81 @@ export function CaseStudyGuiaMoteis() {
       </div>
       <Footer />
     </div>
+
+    {/* Screen lightbox */}
+    <AnimatePresence>
+      {activeScreen && (
+        <motion.div
+          key="screen-lightbox-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 1000,
+            backgroundColor: 'rgba(0,0,0,0.92)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onClick={() => setActiveScreen(null)}
+        >
+          <motion.img
+            src={activeScreen.src}
+            alt={activeScreen.label}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.95, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              maxWidth: '90vw',
+              maxHeight: '90vh',
+              objectFit: 'contain',
+              borderRadius: '12px',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <p
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '0.75rem',
+              color: 'rgba(255,255,255,0.45)',
+              marginTop: '1rem',
+            }}
+          >
+            {activeScreen.label}
+          </p>
+          <button
+            aria-label="Close lightbox"
+            onClick={() => setActiveScreen(null)}
+            style={{
+              position: 'absolute',
+              top: '1.5rem',
+              right: '1.5rem',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              backgroundColor: 'rgba(255,255,255,0.15)',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#ffffff',
+              padding: 0,
+              transition: 'opacity 0.2s ease',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.opacity = '0.7')}
+            onMouseLeave={e => (e.currentTarget.style.opacity = '1')}
+          >
+            <X size={20} />
+          </button>
+        </motion.div>
+      )}
+    </AnimatePresence>
+    </>
   );
 }
