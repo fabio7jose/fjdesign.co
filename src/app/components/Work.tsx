@@ -13,10 +13,12 @@ interface Project {
   title: string | { pt: string; en: string };
   context: string;
   category: string;
-  image: string;
+  image?: string;
   imagePosition?: string;
   tags: string[];
   year: string;
+  quoteThumbnail?: { pt: string; en: string };
+  inProgressLabel?: { pt: string; en: string };
 }
 
 const projects: Project[] = [
@@ -46,6 +48,26 @@ const projects: Project[] = [
     image: guiaThumbnail,
     tags: ['UX Research', 'Crazy 8s', 'Wireframing', 'UI Design'],
     year: '2024',
+  },
+  {
+    id: 7,
+    slug: 'copiloto',
+    title: {
+      en: 'Copiloto Financeiro: Product Discovery with Critical AI Use',
+      pt: 'Copiloto Financeiro: Product Discovery com uso crítico de IA',
+    },
+    context: 'UX RESEARCH · PRODUCT STRATEGY',
+    category: 'UX Design',
+    tags: ['UX Research', 'Product Strategy', 'AI Design', 'Figma'],
+    year: '2025',
+    quoteThumbnail: {
+      pt: 'Posso fazer essa compra agora?',
+      en: 'Can I make this purchase now?',
+    },
+    inProgressLabel: {
+      pt: 'Em andamento',
+      en: 'In progress',
+    },
   },
 ];
 
@@ -115,21 +137,92 @@ function ProjectCard({
         className="work-thumb relative w-full overflow-hidden"
         style={{ borderRadius: '8px 8px 0 0' }}
       >
-        <ImageWithFallback
-          src={project.image}
-          alt={typeof project.title === 'string' ? project.title : project.title[lang]}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: project.imagePosition ?? 'center',
-            transition: 'transform 0.6s ease',
-            transform: isHovered ? 'scale(1.04)' : 'scale(1)',
-            display: 'block',
-          }}
-        />
+        {project.quoteThumbnail ? (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundColor: isDark ? '#0c0c18' : '#eeeef8',
+              borderLeft: '3px solid #6366F1',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '2rem',
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: 'clamp(1rem, 2.2vw, 1.45rem)',
+                fontStyle: 'italic',
+                fontWeight: 600,
+                color: isDark ? 'rgba(255,255,255,0.75)' : 'rgba(10,10,10,0.7)',
+                textAlign: 'center',
+                lineHeight: 1.4,
+                margin: 0,
+              }}
+            >
+              &ldquo;{project.quoteThumbnail[lang]}&rdquo;
+            </p>
+          </div>
+        ) : (
+          <ImageWithFallback
+            src={project.image ?? ''}
+            alt={typeof project.title === 'string' ? project.title : project.title[lang]}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: project.imagePosition ?? 'center',
+              transition: 'transform 0.6s ease',
+              transform: isHovered ? 'scale(1.04)' : 'scale(1)',
+              display: 'block',
+            }}
+          />
+        )}
+
+        {/* In-progress badge */}
+        {project.inProgressLabel && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '12px',
+              left: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: 'rgba(99,102,241,0.88)',
+              backdropFilter: 'blur(4px)',
+              borderRadius: '999px',
+              padding: '0.22rem 0.65rem',
+              zIndex: 2,
+            }}
+          >
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                backgroundColor: '#ffffff',
+                animation: 'wk-pulse 2s ease-in-out infinite',
+                flexShrink: 0,
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '10px',
+                fontWeight: 600,
+                color: '#ffffff',
+                letterSpacing: '0.05em',
+              }}
+            >
+              {project.inProgressLabel[lang]}
+            </span>
+          </div>
+        )}
 
         {/* Hover overlay */}
         <div
@@ -242,7 +335,7 @@ export function Work() {
   useEffect(() => {
     const style = document.createElement('style');
     style.id = 'work-card-styles';
-    style.textContent = `.work-thumb { padding-bottom: 75%; } @media (min-width: 768px) { .work-thumb { padding-bottom: 56.25%; } }`;
+    style.textContent = `.work-thumb { padding-bottom: 75%; } @media (min-width: 768px) { .work-thumb { padding-bottom: 56.25%; } } @keyframes wk-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.75); } }`;
     if (!document.getElementById('work-card-styles')) {
       document.head.appendChild(style);
     }
