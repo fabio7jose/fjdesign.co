@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useTheme, useLang } from '../App';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
+import { CaseStudyNavigation } from '../components/CaseStudyNavigation';
 import guiaCover from '../../assets/guia-moteis/guia-moteis-cover.png';
 import guiaProcesso01 from '../../assets/guia-moteis/guia-moteis-processo-01.png';
 import guiaProcesso02 from '../../assets/guia-moteis/guia-moteis-processo-02.png';
@@ -802,69 +803,7 @@ export function CaseStudyGuiaMoteis() {
           </div>
         </section>
 
-        {/* ── 8. Next Project navigation ── */}
-        <section
-          style={{
-            padding: '60px 2rem',
-            borderTop: `1px solid ${border}`,
-          }}
-        >
-          <div
-            className="grid grid-cols-1 md:grid-cols-2"
-            style={{ maxWidth: '1400px', margin: '0 auto', gap: '1.5rem' }}
-          >
-            {/* Previous → Lacrei Saúde */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-            >
-              <Link
-                to="/work/lacrei-saude"
-                style={{
-                  display: 'block',
-                  border: `1px solid ${border}`,
-                  borderRadius: '12px',
-                  padding: '2rem',
-                  transition: 'border-color 0.2s ease',
-                  cursor: 'pointer',
-                  textDecoration: 'none',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = accent)}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = border)}
-              >
-                <span
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.7rem',
-                    color: textMuted,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    display: 'block',
-                    marginBottom: '0.75rem',
-                  }}
-                >
-                  ← {t.guiaMoteis.previousProject}
-                </span>
-                <p
-                  style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: '1.1rem',
-                    fontWeight: 600,
-                    color: text,
-                    margin: 0,
-                  }}
-                >
-                  {t.lacrei.projectTitle}
-                </p>
-              </Link>
-            </motion.div>
-
-            {/* Next — Guia de Motéis é o último case; slot vazio */}
-            <div />
-          </div>
-        </section>
+        <CaseStudyNavigation currentSlug="guia-de-moteis" />
 
       </div>
       <Footer />

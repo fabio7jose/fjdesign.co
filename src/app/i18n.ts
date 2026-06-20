@@ -26,6 +26,7 @@ interface TranslationShape {
   work: {
     label: string; title1: string; title2: string;
     filters: string[]; viewCase: string;
+    previousProject: string; nextProject: string;
   };
   skills: {
     label: string; title: string; cards: SkillCard[];
@@ -213,6 +214,8 @@ export const translations = {
       title2: 'Deliverables',
       filters: ['All', 'UX Design', 'Web Design', 'Landing Pages'],
       viewCase: 'View case',
+      previousProject: 'Previous project',
+      nextProject: 'Next project',
     },
     skills: {
       label: 'Approach',
@@ -605,6 +608,8 @@ export const translations = {
       title2: 'Entregáveis',
       filters: ['Todos', 'UX Design', 'Web Design', 'Landing Pages'],
       viewCase: 'Ver case',
+      previousProject: 'Projeto anterior',
+      nextProject: 'Próximo projeto',
     },
     skills: {
       label: 'Abordagem',

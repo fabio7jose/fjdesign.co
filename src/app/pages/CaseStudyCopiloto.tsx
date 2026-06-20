@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { useTheme, useLang } from '../App';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
+import { CaseStudyNavigation } from '../components/CaseStudyNavigation';
 
 const CASE_ACCENT = '#6366F1';
 
@@ -1016,6 +1017,8 @@ export function CaseStudyCopiloto() {
             </div>
           </div>
         </section>
+
+        <CaseStudyNavigation currentSlug="copiloto" />
 
         {/* ── 10. Page footer ── */}
         <section
