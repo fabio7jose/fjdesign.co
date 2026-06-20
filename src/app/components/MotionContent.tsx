@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Volume2, VolumeX, X } from 'lucide-react';
+import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useTheme, useLang } from '../App';
 
 import estadao from '../../assets/motion-content/1-br-estadao-banners-abril-1200x1200-19715-v2.jpg';
@@ -11,20 +12,29 @@ import movistarOct from '../../assets/motion-content/3-co-movistar-banners-outub
 import prosegurImg from '../../assets/motion-content/3-CO-Prosegur-banner-marco-1200x1200-26185.png';
 import virgin from '../../assets/motion-content/cl-virgin-abril-banner-1125x600-26156.png';
 import sams from '../../assets/motion-content/br-sams-banner-home-crystal-fevereiro-1500x630-23528.jpg';
+import tigo from '../../assets/motion-content/1-co-tigo-junho-bannersAnimados-1200x1200-26595.png';
+import estadaoPortrait from '../../assets/motion-content/5-br-estadao-maio-banners-960x1200-26478.png';
+import estadaoWide from '../../assets/motion-content/9-br-estadao-maio-banners-1200x628-26478.png';
 
 const videoData = [
-  { src: 'https://res.cloudinary.com/dzvkwjrgi/video/upload/v1778203499/2-br-wine-abril-video-1080x1920-26300_q1cbbf.mp4', client: 'Wine', country: 'Brasil' },
-  { src: 'https://res.cloudinary.com/dzvkwjrgi/video/upload/v1778203451/2-co-movistar-abril-video-1080x1920-26337_xnxyoz.mp4', client: 'Movistar', country: 'Colombia' },
-  { src: 'https://res.cloudinary.com/dzvkwjrgi/video/upload/v1778203449/1-co-prosegur-marc%CC%A7o-videos-1080x1920-26187_gejicd.mp4', client: 'Prosegur', country: 'Colombia' },
-  { src: 'https://res.cloudinary.com/dzvkwjrgi/video/upload/v1778203448/1-co-prosegur-marc%CC%A7o-video-1080x1920-26186_skcwy4.mp4', client: 'Prosegur', country: 'Colombia' },
-  { src: 'https://res.cloudinary.com/dzvkwjrgi/video/upload/vc_h264/v1778203444/3-ar-payway-abril-videos-1080x1920-25993_kcemvj.mp4', client: 'Payway', country: 'Argentina' },
-  { src: 'https://res.cloudinary.com/dzvkwjrgi/video/upload/v1778203442/1-co-movistar-abril-video-1080x1920-25931-v3_nzys6e.mp4', client: 'Movistar', country: 'Colombia' },
+  { src: 'https://ik.imagekit.io/zxou7bg5w/2-br-wine-abril-video-1080x1920-26300.mp4', client: 'Wine', country: 'Brasil' },
+  { src: 'https://ik.imagekit.io/zxou7bg5w/1-co-prosegur-maio-videos-1080x1920-26185.mp4', client: 'Prosegur', country: 'Colombia' },
+  { src: 'https://ik.imagekit.io/zxou7bg5w/1-co-prosegur-maio-video-1080x1920-26187.mp4', client: 'Prosegur', country: 'Colombia' },
+  { src: 'https://ik.imagekit.io/zxou7bg5w/1-es-addlist-mar%C3%A7o-videos-1080x1920-26201.mp4', client: 'Addlist', country: 'España' },
+  { src: 'https://ik.imagekit.io/zxou7bg5w/2-ar-payway-abril-videos-1080x1920-25993.mp4', client: 'Payway', country: 'Argentina' },
+  { src: 'https://ik.imagekit.io/zxou7bg5w/1-co-movistar-junho-video-1080x1920-25931.mp4', client: 'Movistar', country: 'Colombia' },
 ];
+
+const getOptimizedVideoUrl = (src: string) => `${src}?tr=w-540,q-50`;
+const getVideoPosterUrl = (src: string) => `${src}/ik-thumbnail.jpg?tr=so-1,w-540,q-75`;
 
 const imageData = [
   { src: estadao, client: 'Estadão', country: 'Brasil' },
+  { src: estadaoWide, client: 'Estadão', country: 'Brasil' },
   { src: ipemig, client: 'Ipemig', country: 'Brasil' },
+  { src: tigo, client: 'Tigo', country: 'Colombia' },
   { src: netlife, client: 'Netlife', country: 'Ecuador' },
+  { src: estadaoPortrait, client: 'Estadão', country: 'Brasil' },
   { src: movistarNov, client: 'Movistar', country: 'Colombia' },
   { src: movistarOct, client: 'Movistar', country: 'Colombia' },
   { src: prosegurImg, client: 'Prosegur', country: 'Colombia' },
@@ -45,7 +55,9 @@ export function MotionContent() {
   const [activeImage, setActiveImage] = useState<LightboxState | null>(null);
   const [activeVideo, setActiveVideo] = useState<LightboxState | null>(null);
   const [activeVideoIdx, setActiveVideoIdx] = useState<number | null>(null);
+  const [loadableVideos, setLoadableVideos] = useState<Set<number>>(new Set());
   const videoRefs = useRef<Record<number, HTMLVideoElement | null>>({});
+  const videoCardRefs = useRef<Record<number, HTMLDivElement | null>>({});
 
   const text      = isDark ? '#ffffff' : '#0A0A0A';
   const textMuted = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(10,10,10,0.45)';
@@ -99,6 +111,36 @@ export function MotionContent() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeImage, activeVideo, activeVideoIdx]);
+
+  // Load optimized videos only as the row approaches the viewport. Staggering
+  // prevents all six files from competing for bandwidth at the same moment.
+  useEffect(() => {
+    const timers: number[] = [];
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const index = Number((entry.target as HTMLElement).dataset.videoIndex);
+        const timer = window.setTimeout(() => {
+          setLoadableVideos((current) => {
+            const next = new Set(current);
+            next.add(index);
+            return next;
+          });
+        }, index * 250);
+        timers.push(timer);
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '240px 0px' });
+
+    Object.values(videoCardRefs.current).forEach((card) => {
+      if (card) observer.observe(card);
+    });
+
+    return () => {
+      observer.disconnect();
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, []);
 
   const rowLabelStyle: React.CSSProperties = {
     fontFamily: "'Inter', sans-serif",
@@ -182,6 +224,8 @@ export function MotionContent() {
                 <div key={i}>
                   {/* 9:16 aspect ratio wrapper via padding trick */}
                   <div
+                    ref={(el) => { videoCardRefs.current[i] = el; }}
+                    data-video-index={i}
                     style={{
                       position: 'relative',
                       paddingBottom: '177.78%',
@@ -189,12 +233,14 @@ export function MotionContent() {
                       overflow: 'hidden',
                       border: `1px solid ${border}`,
                       cursor: 'pointer',
+                      backgroundColor: isDark ? '#111111' : '#ffffff',
                     }}
                     onClick={() => openVideoLightbox(video, i)}
                   >
                     <video
                       ref={(el) => { videoRefs.current[i] = el; }}
-                      src={video.src}
+                      src={loadableVideos.has(i) ? getOptimizedVideoUrl(video.src) : undefined}
+                      poster={getVideoPosterUrl(video.src)}
                       autoPlay
                       muted
                       loop
@@ -295,74 +341,74 @@ export function MotionContent() {
             style={{ marginTop: '48px' }}
           >
             <span style={rowLabelStyle}>{t.motionContent.imagesLabel}</span>
-            <div
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-              style={{ gap: '12px' }}
-            >
-              {imageData.map((img, i) => (
-                <div key={i}>
-                  <div
-                    style={{
-                      position: 'relative',
-                      borderRadius: '12px',
-                      overflow: 'hidden',
-                      cursor: 'pointer',
-                      border: `1px solid ${border}`,
-                    }}
-                    onClick={() => setActiveImage({ src: img.src, client: img.client, country: img.country })}
-                  >
-                    <img
-                      src={img.src}
-                      alt={img.client}
-                      style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }}
-                    />
+            <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 480: 2, 768: 3, 1100: 4 }}>
+              <Masonry gutter="12px">
+                {imageData.map((img, i) => (
+                  <div key={`${img.client}-${i}`}>
+                    <div
+                      style={{
+                        position: 'relative',
+                        borderRadius: '12px',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        border: `1px solid ${border}`,
+                      }}
+                      onClick={() => setActiveImage({ src: img.src, client: img.client, country: img.country })}
+                    >
+                      <img
+                        src={img.src}
+                        alt={img.client}
+                        loading="lazy"
+                        style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px' }}
+                      />
 
                     {/* Badge — top-left */}
-                    <div style={{ position: 'absolute', top: '8px', left: '8px', zIndex: 2 }}>
+                      <div style={{ position: 'absolute', top: '8px', left: '8px', zIndex: 2 }}>
+                        <span
+                          style={{
+                            fontFamily: "'Inter', sans-serif",
+                            fontSize: '0.6rem',
+                            fontWeight: 600,
+                            backgroundColor: 'rgba(0,0,0,0.55)',
+                            color: 'rgba(255,255,255,0.9)',
+                            padding: '0.2rem 0.5rem',
+                            borderRadius: '999px',
+                            letterSpacing: '0.05em',
+                            textTransform: 'uppercase',
+                          }}
+                        >
+                          {t.motionContent.imagesLabel}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Below-card label */}
+                    <div style={{ paddingTop: '0.5rem', paddingBottom: '0.25rem' }}>
+                      <p
+                        style={{
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontSize: '0.8rem',
+                          fontWeight: 600,
+                          color: text,
+                          margin: '0 0 0.1rem',
+                        }}
+                      >
+                        {img.client}
+                      </p>
                       <span
                         style={{
                           fontFamily: "'Inter', sans-serif",
-                          fontSize: '0.6rem',
-                          fontWeight: 600,
-                          backgroundColor: 'rgba(0,0,0,0.55)',
-                          color: 'rgba(255,255,255,0.9)',
-                          padding: '0.2rem 0.5rem',
-                          borderRadius: '999px',
-                          letterSpacing: '0.05em',
-                          textTransform: 'uppercase',
+                          fontSize: '0.7rem',
+                          color: textMuted,
                         }}
                       >
-                        {t.motionContent.imagesLabel}
+                        {img.country}
                       </span>
                     </div>
                   </div>
-
-                  {/* Below-card label */}
-                  <div style={{ paddingTop: '0.5rem', paddingBottom: '0.25rem' }}>
-                    <p
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: '0.8rem',
-                        fontWeight: 600,
-                        color: text,
-                        margin: '0 0 0.1rem',
-                      }}
-                    >
-                      {img.client}
-                    </p>
-                    <span
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '0.7rem',
-                        color: textMuted,
-                      }}
-                    >
-                      {img.country}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </Masonry>
+            </ResponsiveMasonry>
           </motion.div>
 
         </div>
