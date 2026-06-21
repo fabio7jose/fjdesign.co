@@ -24,8 +24,8 @@ const projects: Project[] = [
     id: 0,
     slug: 'lacrei-saude',
     title: {
-      en: 'Lacrei Saúde — Inclusive Healthcare Platform',
-      pt: 'Lacrei Saúde — Plataforma de Saúde Inclusiva'
+      en: 'Lacrei Saúde: Inclusive Healthcare Platform',
+      pt: 'Lacrei Saúde: Plataforma de Saúde Inclusiva'
     },
     context: 'UX/UI DESIGN · WEB PLATFORM',
     category: 'UX/UI DESIGN · WEB PLATFORM',

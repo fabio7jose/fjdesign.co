@@ -17,7 +17,7 @@ interface TranslationShape {
     motionContent: string; about: string; contact: string;
   };
   hero: {
-    available: string; subtitle: string; tagline: string; tagline2: string;
+    available: string; title: string; title2: string; subtitle: string;
     cta: string; stats: Stat[]; scroll: string;
   };
   work: {
@@ -141,12 +141,12 @@ export const translations = {
     },
     hero: {
       available: 'Available now',
-      subtitle: 'Product Designer · Creative Technologist · AI Builder',
-      tagline: 'Designing human-centered experiences that work,',
-      tagline2: 'powered by AI.',
+      title: 'Web Designer',
+      title2: '& UX/UI Design',
+      subtitle: 'UX/UI Design in Progress · Front-end · AI-Augmented',
       cta: 'View my work',
       stats: [
-        { num: '4+', label: 'Years of Experience' },
+        { num: '3+', label: 'Years of Experience' },
         { num: 'Bahia', label: 'Brazil' },
         { num: 'Full Process', label: 'From research to code' },
       ],
@@ -193,7 +193,7 @@ export const translations = {
       title: 'About',
       openTo: 'Open to opportunities · Available to relocate',
       bio: [
-        "I'm Fábio, a Product Designer with over 4 years of experience crafting intuitive interfaces, high-converting landing pages, and digital campaign assets, from static visuals to motion. I work at the intersection of user experience and business goals, with a strong focus on usability, strategy, and measurable outcomes.",
+        "I'm Fábio, a Web Designer with over 3 years of experience building high-converting landing pages, interfaces, and digital campaign assets, from static visuals to motion. I'm currently transitioning into UX/UI Design, with a focus on research, usability, and end-to-end process.",
         "AI is a core part of how I work. I use it to design faster, explore more directions, and consistently deliver better results. Not as a shortcut, but as a creative and strategic advantage.",
         "I'm currently based in Brazil and open to opportunities anywhere in the world.",
       ],
@@ -396,12 +396,12 @@ export const translations = {
     },
     hero: {
       available: 'Disponível agora',
-      subtitle: 'Product Designer · Creative Technologist · AI Builder',
-      tagline: 'Criando experiências centradas no ser humano que funcionam, Potencializadas por IA.',
-      tagline2: '',
+      title: 'Web Designer',
+      title2: '& UX/UI Design',
+      subtitle: 'UX/UI Design em formação · Front-end · AI-Augmented',
       cta: 'Ver meus trabalhos',
       stats: [
-        { num: '4+', label: 'Anos de Experiência' },
+        { num: '3+', label: 'Anos de Experiência' },
         { num: 'Bahia', label: 'Brasil' },
         { num: 'Full Process', label: 'Do research ao código' },
       ],
@@ -448,7 +448,7 @@ export const translations = {
       title: 'Sobre',
       openTo: 'Aberto a oportunidades · Disponível para realocação',
       bio: [
-        'Sou Fábio, Product Designer com mais de 4 anos de experiência criando interfaces intuitivas, landing pages de alta conversão e peças para campanhas digitais, de imagens estáticas a vídeos. Trabalho na interseção entre experiência do usuário e objetivos de negócio, com foco em usabilidade, estratégia e resultados concretos.',
+        'Sou Fábio, Web Designer com mais de 3 anos de experiência criando landing pages de alta conversão, interfaces e peças para campanhas digitais, de imagens estáticas a vídeos. Atualmente em transição para UX/UI Design, com foco em pesquisa, usabilidade e processo de ponta a ponta.',
         'A IA faz parte do meu processo. Uso para projetar mais rápido, explorar mais direções e entregar trabalhos melhores. Não como atalho, mas como vantagem criativa e estratégica.',
         'Estou baseado no Brasil e aberto a oportunidades em qualquer lugar do mundo.',
       ],
