@@ -8,7 +8,7 @@ interface InfoItem { label: string; value: string; isAvailability: boolean }
 interface LacreiStep { num: string; label: string; heading: string; body: string }
 interface LacreiScreen { label: string; annotation: string }
 interface CopilotoStep { num: string; label: string; heading: string; body: string; aiUse: string }
-interface CopilotoDecision { title: string; body: string }
+interface CopilotoDecision { title: string; body: string; bridge?: string }
 interface CopilotoReflectionCard { label: string; body: string }
 
 /* ─── Shape every locale object must satisfy ─────────────────────
@@ -518,14 +518,17 @@ export const translations = {
         {
           title: 'The AI verbalises, never calculates',
           body: 'Every number and every financial decision is deterministic and reproducible; the LLM only translates ready facts into natural language. Trust, cost and technical risk stay under control.',
+          bridge: 'Mapping where AI adds value and where it is overkill, in Stage 3, is what made deterministic calculation non-negotiable. The LLM only steps in once the number already exists.',
         },
         {
           title: 'The product never blocks a purchase',
           body: 'One interviewee asked for blocking, but what people say in an interview is not their behaviour. The product offers context with an exit, not an authoritarian verdict.',
+          bridge: 'One of the four interviewees asked for blocking, in words. That JTBD set the limit: context with an exit, never a verdict.',
         },
         {
           title: 'Prospective, not retrospective',
           body: 'The main screen looks at what is committed in the months ahead, not the closed-month pie chart. The past is what the user already has in a spreadsheet, and it does not solve the pain.',
+          bridge: 'The pain is a decision in the present, not a record of the past. That is why the main screen never repeats the closed-month chart every competitor already shows.',
         },
         {
           title: 'Instalments are a tool, not a moral failure',
@@ -538,10 +541,12 @@ export const translations = {
         {
           title: 'Bank connection is optional and late',
           body: 'Privacy is an architectural requirement, with explicit consent. The product is useful before asking for access to sensitive data, and builds trust progressively.',
+          bridge: 'The privacy barrier surfaced in the interview that anchors Ana. It became the rule of asking for bank access only after the product has already proven its value.',
         },
         {
           title: 'Microcopy in real Brazilian Portuguese',
           body: 'Tone tested against the "translated from English" feel. If it sounds like a translated fintech, it gets rewritten.',
+          bridge: 'The vocabulary inherited from the real interviews is what keeps Layer 2 anchored. It is the same discipline that blocks microcopy that reads like a translation.',
         },
       ],
       limitsLabel: 'ASSUMED LIMITS',
@@ -912,14 +917,17 @@ export const translations = {
         {
           title: 'A IA verbaliza, nunca calcula',
           body: 'Todo número e toda decisão financeira são determinísticos e reproduzíveis; o LLM só traduz fatos prontos em linguagem natural. Confiança, custo e risco técnico sob controle.',
+          bridge: 'Mapear onde IA agrega e onde é overkill, na Etapa 3, foi o que tornou o cálculo determinístico não negociável. O LLM entra só depois que o número já existe.',
         },
         {
           title: 'O produto nunca bloqueia a compra',
           body: 'Um entrevistado pediu bloqueio em fala, mas fala em entrevista não é comportamento. O produto oferece contexto com saída, não veredito autoritário.',
+          bridge: 'Um dos quatro entrevistados pediu bloqueio em fala. Foi esse JTBD que definiu o limite: contexto com saída, nunca veredito.',
         },
         {
           title: 'Prospectivo, não retrospectivo',
           body: 'A tela principal olha para o que está comprometido nos meses à frente, não para o gráfico de pizza do mês fechado. O passado é o que o usuário já tem na planilha e não resolve a dor.',
+          bridge: 'A dor é decisão no presente, não registro do passado. Por isso a tela principal nunca repete o gráfico de mês fechado que todo concorrente já faz.',
         },
         {
           title: 'Parcelamento é instrumento, não falha moral',
@@ -932,10 +940,12 @@ export const translations = {
         {
           title: 'Conexão bancária é opcional e tardia',
           body: 'Privacidade como requisito de arquitetura, com consentimento explícito. O produto é útil antes de pedir acesso a dados sensíveis, e constrói confiança progressivamente.',
+          bridge: 'A barreira de privacidade apareceu na entrevista que ancora a Ana. Virou a regra de pedir acesso bancário só depois que o produto já provou valor.',
         },
         {
           title: 'Microcopy em português brasileiro de verdade',
           body: 'Tom testado contra a cara de tradução do inglês. Se soa como fintech traduzida, é refeito.',
+          bridge: 'O vocabulário herdado das entrevistas reais é o que mantém a Camada 2 ancorada. É a mesma disciplina que barra microcopy com cara de tradução.',
         },
       ],
       limitsLabel: 'LIMITES ASSUMIDOS',

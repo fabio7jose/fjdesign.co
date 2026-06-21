@@ -842,6 +842,20 @@ export function CaseStudyCopiloto() {
                   </span>
                   {/* Text */}
                   <div style={{ paddingTop: '0.45rem' }}>
+                    {decision.bridge && (
+                      <p
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: '0.8rem',
+                          fontStyle: 'italic',
+                          lineHeight: 1.6,
+                          color: textMuted,
+                          margin: '0 0 0.7rem',
+                        }}
+                      >
+                        {decision.bridge}
+                      </p>
+                    )}
                     <h3
                       style={{
                         fontFamily: "'Space Grotesk', sans-serif",
