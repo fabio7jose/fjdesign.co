@@ -157,7 +157,9 @@ export function Hero() {
               margin: '0 0 2.5rem',
             }}
           >
-            Product Designer
+            {t.hero.title}
+            <br />
+            {t.hero.title2}
           </h1>
         </motion.div>
 
@@ -174,20 +176,8 @@ export function Hero() {
             gap: '2rem',
           }}
         >
-          {/* Left: subheadline + CTA */}
+          {/* Left: CTA */}
           <div style={{ maxWidth: '480px' }}>
-            <p
-              style={{
-                fontFamily: "'Inter', sans-serif",
-                fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
-                fontWeight: 300,
-                color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(10,10,10,0.6)',
-                lineHeight: 1.6,
-                marginBottom: '2rem',
-              }}
-            >
-              {t.hero.tagline}{t.hero.tagline2 && <><br />{t.hero.tagline2}</>}
-            </p>
             <button
               onClick={scrollToWork}
               style={{
