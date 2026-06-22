@@ -822,63 +822,65 @@ export function CaseStudyCopiloto() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.45, delay: i * 0.04 }}
-                  style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}
                 >
-                  {/* Large muted number */}
-                  <span
-                    style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontSize: '64px',
-                      fontWeight: 700,
-                      color: textMuted,
-                      lineHeight: 1,
-                      flexShrink: 0,
-                      opacity: 0.3,
-                      minWidth: '72px',
-                      textAlign: 'right',
-                    }}
-                  >
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  {/* Text */}
-                  <div style={{ paddingTop: '0.45rem' }}>
-                    {decision.bridge && (
+                  {decision.bridge && (
+                    <p
+                      style={{
+                        paddingLeft: 'calc(72px + 2rem)',
+                        fontFamily: "'Inter', sans-serif",
+                        fontSize: '0.8rem',
+                        fontStyle: 'italic',
+                        lineHeight: 1.6,
+                        color: textMuted,
+                        margin: '0 0 0.5rem',
+                      }}
+                    >
+                      {decision.bridge}
+                    </p>
+                  )}
+                  <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
+                    {/* Large muted number */}
+                    <span
+                      style={{
+                        fontFamily: "'Space Grotesk', sans-serif",
+                        fontSize: '64px',
+                        fontWeight: 700,
+                        color: textMuted,
+                        lineHeight: 1,
+                        flexShrink: 0,
+                        opacity: 0.3,
+                        minWidth: '72px',
+                        textAlign: 'right',
+                      }}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    {/* Text */}
+                    <div style={{ paddingTop: '0.45rem' }}>
+                      <h3
+                        style={{
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontSize: '1.2rem',
+                          fontWeight: 700,
+                          color: text,
+                          letterSpacing: '-0.02em',
+                          margin: '0 0 0.6rem',
+                        }}
+                      >
+                        {decision.title}
+                      </h3>
                       <p
                         style={{
                           fontFamily: "'Inter', sans-serif",
-                          fontSize: '0.8rem',
-                          fontStyle: 'italic',
-                          lineHeight: 1.6,
+                          fontSize: '1rem',
+                          lineHeight: 1.75,
                           color: textMuted,
-                          margin: '0 0 0.7rem',
+                          margin: 0,
                         }}
                       >
-                        {decision.bridge}
+                        {decision.body}
                       </p>
-                    )}
-                    <h3
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: '1.2rem',
-                        fontWeight: 700,
-                        color: text,
-                        letterSpacing: '-0.02em',
-                        margin: '0 0 0.6rem',
-                      }}
-                    >
-                      {decision.title}
-                    </h3>
-                    <p
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '1rem',
-                        lineHeight: 1.75,
-                        color: textMuted,
-                        margin: 0,
-                      }}
-                    >
-                      {decision.body}
-                    </p>
+                    </div>
                   </div>
                 </motion.div>
                 {i === 0 && (
