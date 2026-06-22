@@ -7,6 +7,9 @@ interface EduItem { degree: string; school: string; period: string; status: stri
 interface InfoItem { label: string; value: string; isAvailability: boolean }
 interface LacreiStep { num: string; label: string; heading: string; body: string }
 interface LacreiScreen { label: string; annotation: string }
+interface CopilotoStep { num: string; label: string; heading: string; body: string; aiUse: string }
+interface CopilotoDecision { title: string; body: string; bridge?: string }
+interface CopilotoReflectionCard { label: string; body: string }
 
 /* ─── Shape every locale object must satisfy ─────────────────────
    Both `en` and `pt` are checked against this interface at compile
@@ -23,6 +26,7 @@ interface TranslationShape {
   work: {
     label: string; title1: string; title2: string;
     filters: string[]; viewCase: string;
+    previousProject: string; nextProject: string;
   };
   skills: {
     label: string; title: string; cards: SkillCard[];
@@ -127,6 +131,58 @@ interface TranslationShape {
     previousProject: string;
     nextProject: string;
   };
+  copiloto: {
+    backToWork: string;
+    inProgressBadge: string;
+    projectTitle: string;
+    projectDescription: string;
+    rolePill: string;
+    year: string;
+    heroQuote: string;
+    methodology: string;
+    tools: string[];
+    challengeLabel: string;
+    challengeBody1: string;
+    challengeBody2: string;
+    highlightCard1Label: string;
+    highlightCard1Value: string;
+    highlightCard2Label: string;
+    highlightCard2Value: string;
+    myRoleTitle: string;
+    roleCardTitle: string;
+    roleCardItems: string[];
+    secondLayerCardTitle: string;
+    secondLayerCardValue: string;
+    stackCardTitle: string;
+    stackCardItems: string[];
+    processLabel: string;
+    steps: CopilotoStep[];
+    reflectionLabel: string;
+    reflectionIntro: string;
+    reflectionCards: CopilotoReflectionCard[];
+    reflectionThroughline: string;
+    decisionsLabel: string;
+    decisions: CopilotoDecision[];
+    limitsLabel: string;
+    limits: string[];
+    nextTitle: string;
+    nextItems: string[];
+    takesTitle: string;
+    takesItems: string[];
+    pageFooterText: string;
+    artifacts: {
+      affinityCaption: string;
+      affinityAlt: string;
+      jtbdsCaption: string;
+      jtbdsAlt: string;
+      arqIaCaption: string;
+      arqIaAlt: string;
+      flowsCaption: string;
+      flowsAlt: string;
+      personaCaption: string;
+      personaAlt: string;
+    };
+  };
 }
 
 export const translations = {
@@ -158,6 +214,8 @@ export const translations = {
       title2: 'Deliverables',
       filters: ['All', 'UX Design', 'Web Design', 'Landing Pages'],
       viewCase: 'View case',
+      previousProject: 'Previous project',
+      nextProject: 'Next project',
     },
     skills: {
       label: 'Approach',
@@ -383,6 +441,148 @@ export const translations = {
       previousProject: 'Previous project',
       nextProject: 'Next project',
     },
+    copiloto: {
+      backToWork: '← Back',
+      inProgressBadge: 'Case in progress',
+      projectTitle: 'Copiloto Financeiro',
+      projectDescription: 'A financial copilot for Brazilians with variable or hybrid income: people who decide a purchase today against a floor no app calculates. In parallel, a study on using AI in the design process without letting it decide for me.',
+      rolePill: 'UX Research · Product Strategy',
+      year: '2025',
+      heroQuote: 'Can I make this purchase now?',
+      methodology: 'Two-layer discovery',
+      tools: ['UX Research', 'Product Strategy', 'FigJam', 'Claude API'],
+      challengeLabel: 'THE CHALLENGE',
+      challengeBody1: 'The personal finance apps that exist today were designed for people who already know what to do with their money. They record the past, sort categories and show the closed-month chart. But the pain of the people I researched is not in not knowing. It is in knowing, deciding to spend anyway, and having no useful point of friction between the impulse and the card.',
+      challengeBody2: 'This gets worse when income is variable or hybrid: freelancers, salaried workers with recurring side income, gig workers, content creators. On a fixed salary, the month absorbs the month\'s mistake. On variable income, one month\'s mistake can compromise the next, with no safety net. This is the case of the process, not the final product: discovery, definition and architecture are closed; design, prototype and validation come next.',
+      highlightCard1Label: 'PROBLEM STATEMENT',
+      highlightCard1Value: 'The pain is not a lack of information. It is the absence of useful friction between impulse and decision, worsened by variable or hybrid income.',
+      highlightCard2Label: 'THE CENTRAL QUESTION',
+      highlightCard2Value: 'Can I make this purchase now? With context, and never a binary yes or no.',
+      myRoleTitle: 'My Role',
+      roleCardTitle: 'WHAT I DID',
+      roleCardItems: ['Autoethnography & Framing', 'Interviews & Competitive Analysis', 'Definition (JTBDs, Persona, Anti-features)', 'Information Architecture & Flows', 'AI Architecture'],
+      secondLayerCardTitle: 'AI AS A DESIGN OBJECT',
+      secondLayerCardValue: 'A second layer sets this case apart: I treated my own use of AI as an object of design. At each step I documented what was a human decision, what was AI-assisted and what was generated, with explicit criteria for what the AI could and could not claim. Used openly, with its failures documented.',
+      stackCardTitle: 'PRODUCT STACK',
+      stackCardItems: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase', 'Pluggy (Open Finance)', 'Claude API', 'Vercel'],
+      processLabel: 'PROCESS',
+      steps: [
+        {
+          num: '00',
+          label: 'FRAMING',
+          heading: 'I am part of the audience this product serves',
+          body: 'I started with an autoethnography: I belong to the profile the product serves, so my own financial behaviour became the first data, with its bias declared up front.',
+          aiUse: 'A UX research agent in critical mode read my autoethnography looking for confirmation bias in my own voice.',
+        },
+        {
+          num: '01',
+          label: 'RESEARCH, IN TWO LAYERS',
+          heading: 'Real data leads, AI assists, provenance declared',
+          body: 'Layer 1 (80% of the decision weight) is empirical evidence: 4 real qualitative interviews plus the autoethnography, and a structured competitive analysis. Layer 2 (20%, declared) is 2 exploratory personas used only to stress-test hypotheses, never as a substitute for real people. Everything synthesised into an affinity diagram with post-its visually marked by origin (real vs. exploratory).',
+          aiUse: 'Critical analysis of the transcripts and web research for the competitive analysis; the exploratory personas were generated with documented provenance.',
+        },
+        {
+          num: '02',
+          label: 'DEFINITION',
+          heading: 'Turn insight into product direction',
+          body: 'A layered problem statement, 5 Jobs to be Done prioritised by density of evidence, the main persona (Ana, a composite profile anchored on the densest interviewee), a five-stage product journey and 15 anti-features: what the product explicitly does not do.',
+          aiUse: 'Each deliverable went through a UX research agent in critical mode; a lighter model drafted, a stronger model ran the critical check.',
+        },
+        {
+          num: '03',
+          label: 'ARCHITECTURE & FLOWS',
+          heading: 'Structure the product before drawing any screen',
+          body: 'Information architecture (three permanent sections, AI as a contextual layer and not a separate chat), the 5 critical flows and the deliverable I am most proud of: the AI architecture, mapping where an LLM, a heuristic or ML belongs, with explicit justification for each. The organising principle: the AI verbalises, never calculates.',
+          aiUse: 'Used to generate architecture variations. All were evaluated against the real data before any decision; the first ADRs closed the stage.',
+        },
+      ],
+      reflectionLabel: 'METHODOLOGICAL REFLECTION',
+      reflectionIntro: 'My position: research in two layers, 80% real data and 20% declared AI. My audience is the opposite of the WEIRD profile (Western, Educated, Industrialized, Rich, Democratic) that language models are overtrained on. Trusting the definition of such an audience mostly to an LLM would fabricate a young American disguised as a Brazilian. I operationalised this with Provenance Cards, vocabulary inherited from the real sources, and a discard rule whenever a persona converged too closely with the initial hypothesis. What gives the case density are the moments the method was actually tested.',
+      reflectionCards: [
+        {
+          label: 'The refusal',
+          body: 'Struggling to recruit one profile, I proposed that the AI replace a real interview with a synthetic simulation, topped with an external authority argument. The AI refused, anchored in my own methodological grounding, and offered three paths within the method. The finding: the critical stance is bilateral. The method guards against drift in any direction, including mine.',
+        },
+        {
+          label: 'The epistemic error',
+          body: 'In one session, the AI operated on an outdated summary page as if it were the corpus. I caught the divergence by cross-checking against the primary source. Instead of sweeping it under the rug, I turned the episode into four rules for mandatory corpus reading. Documenting an error in your own process is rarer, and more useful, than hiding it.',
+        },
+        {
+          label: 'Light draft, strong critique',
+          body: 'A cheaper model drafts, a stronger one runs the critical check on every interpretive deliverable. Repeatedly, the check caught structural problems the draft missed, including overclaims of mine that had to be downgraded to the defensible version.',
+        },
+      ],
+      reflectionThroughline: 'Real data leads, AI assists, and the final judgement is always human.',
+      decisionsLabel: 'DESIGN DECISIONS',
+      decisions: [
+        {
+          title: 'The AI verbalises, never calculates',
+          body: 'Every number and every financial decision is deterministic and reproducible; the LLM only translates ready facts into natural language. Trust, cost and technical risk stay under control.',
+          bridge: 'Mapping where AI adds value and where it is overkill, in Stage 3, is what made deterministic calculation non-negotiable. The LLM only steps in once the number already exists.',
+        },
+        {
+          title: 'The product never blocks a purchase',
+          body: 'One interviewee asked for blocking, but what people say in an interview is not their behaviour. The product offers context with an exit, not an authoritarian verdict.',
+          bridge: 'One of the four interviewees asked for blocking, in words. That JTBD set the limit: context with an exit, never a verdict.',
+        },
+        {
+          title: 'Prospective, not retrospective',
+          body: 'The main screen looks at what is committed in the months ahead, not the closed-month pie chart. The past is what the user already has in a spreadsheet, and it does not solve the pain.',
+          bridge: 'The pain is a decision in the present, not a record of the past. That is why the main screen never repeats the closed-month chart every competitor already shows.',
+        },
+        {
+          title: 'Instalments are a tool, not a moral failure',
+          body: 'The product shows the real cost and the future weight, and respects the choice. No moralising tone, which is the default of Brazilian financial education and disrespects the user.',
+        },
+        {
+          title: 'It speaks with context, stays silent on raw data',
+          body: 'Not a raw alert, not a mute app: the product speaks when there is actionable context and stays silent when there is only logged data. No gamification, streaks or reminders.',
+        },
+        {
+          title: 'Bank connection is optional and late',
+          body: 'Privacy is an architectural requirement, with explicit consent. The product is useful before asking for access to sensitive data, and builds trust progressively.',
+          bridge: 'The privacy barrier surfaced in the interview that anchors Ana. It became the rule of asking for bank access only after the product has already proven its value.',
+        },
+        {
+          title: 'Microcopy in real Brazilian Portuguese',
+          body: 'Tone tested against the "translated from English" feel. If it sounds like a translated fintech, it gets rewritten.',
+          bridge: 'The vocabulary inherited from the real interviews is what keeps Layer 2 anchored. It is the same discipline that blocks microcopy that reads like a translation.',
+        },
+      ],
+      limitsLabel: 'ASSUMED LIMITS',
+      limits: [
+        'There is no representative saturation of the Brazilian hybrid-income audience. The sample does not allow statistical generalisation.',
+        'Design decisions based on this research are provisional until validation with an expanded base, planned for the prototyping stage.',
+        'The exploratory personas map a spectrum of plausible behaviours, they do not validate real behaviours. Weight of 10% each, declared.',
+        'One interviewee sits on the edge of the scope: formal variable income, but does not live the mechanism of the pain. Kept as a delimitation contrast, not as support.',
+        'The WEIRD bias of the model was mitigated, not eliminated.',
+      ],
+      nextTitle: 'WHAT COMES NEXT',
+      nextItems: [
+        'Stage 4: Design System & UI',
+        'Stage 5: Prototyping & Validation',
+        'Stage 6: Functional MVP',
+      ],
+      takesTitle: 'WHAT I ALREADY TAKE',
+      takesItems: [
+        'The four protection rules were born from a real error and are now method.',
+        'Match the model\'s effort to the difficulty of the task, not to its importance.',
+        'Provenance Cards as a standard artefact for any use of AI in research.',
+      ],
+      pageFooterText: 'Case in progress. Updated at the end of Stage 3 (Architecture & Flows).',
+      artifacts: {
+        affinityCaption: 'Affinity diagram, post-its marked by origin: real evidence vs. exploratory personas.',
+        affinityAlt: 'Affinity diagram from the FigJam board, with post-its grouped into themes and colour-marked by source, separating real interview evidence from exploratory personas.',
+        jtbdsCaption: 'The 5 Jobs to be Done, prioritised by density of evidence.',
+        jtbdsAlt: 'FigJam cards describing the five prioritised Jobs to be Done for the product.',
+        arqIaCaption: 'AI architecture: where an LLM, a heuristic or ML belongs. The AI verbalises, never calculates.',
+        arqIaAlt: 'Diagram of the AI architecture showing the boundary between deterministic calculation and the LLM that only translates ready facts into language.',
+        flowsCaption: 'The 5 critical user flows, F01 to F05.',
+        flowsAlt: 'Diagram of the five critical user flows of the product, numbered F01 to F05.',
+        personaCaption: 'Persona Ana and her Provenance Card: what is data, inference and speculation.',
+        personaAlt: 'Persona Ana sheet next to a Provenance Card documenting the origin of each attribute as data, inference or speculation.',
+      },
+    },
   },
 
   pt: {
@@ -413,6 +613,8 @@ export const translations = {
       title2: 'Entregáveis',
       filters: ['Todos', 'UX Design', 'Web Design', 'Landing Pages'],
       viewCase: 'Ver case',
+      previousProject: 'Projeto anterior',
+      nextProject: 'Próximo projeto',
     },
     skills: {
       label: 'Abordagem',
@@ -637,6 +839,148 @@ export const translations = {
       ctaPrototype: 'Ver protótipo no Figma',
       previousProject: 'Projeto anterior',
       nextProject: 'Próximo projeto',
+    },
+    copiloto: {
+      backToWork: '← Voltar',
+      inProgressBadge: 'Case em andamento',
+      projectTitle: 'Copiloto Financeiro',
+      projectDescription: 'Um copiloto financeiro para brasileiros com renda variável ou híbrida: gente que decide uma compra hoje contra um piso que nenhum app calcula. Em paralelo, um estudo sobre usar IA no processo de design sem deixar ela decidir no meu lugar.',
+      rolePill: 'UX Research · Product Strategy',
+      year: '2025',
+      heroQuote: 'Posso fazer essa compra agora?',
+      methodology: 'Discovery em duas camadas',
+      tools: ['UX Research', 'Product Strategy', 'FigJam', 'Claude API'],
+      challengeLabel: 'O DESAFIO',
+      challengeBody1: 'Os apps de finanças pessoais que existem hoje foram desenhados para quem já sabe o que faz com o próprio dinheiro. Eles registram o passado, classificam categorias e mostram o gráfico do mês fechado. Mas a dor das pessoas que pesquisei não está em não saber. Está em saber, decidir gastar mesmo assim, e não ter nenhum ponto de fricção útil entre o impulso e o cartão.',
+      challengeBody2: 'Isso fica mais grave quando a renda é variável ou híbrida: freelancer, CLT com freela recorrente, autônomo de aplicativo, criador de conteúdo. Em salário fixo, o mês cobre o erro do mês. Em renda variável, o erro do mês pode comprometer o mês seguinte, sem rede para absorver. Este é o case do processo, não do produto final: descoberta, definição e arquitetura estão fechadas; design, protótipo e validação vêm a seguir.',
+      highlightCard1Label: 'PROBLEM STATEMENT',
+      highlightCard1Value: 'A dor não é falta de informação. É a ausência de fricção útil entre impulso e decisão, agravada por renda variável ou híbrida.',
+      highlightCard2Label: 'A PERGUNTA CENTRAL',
+      highlightCard2Value: 'Posso fazer essa compra agora? Com contexto, e nunca um sim ou não binário.',
+      myRoleTitle: 'Meu Papel',
+      roleCardTitle: 'O QUE EU FIZ',
+      roleCardItems: ['Autoetnografia & Framing', 'Entrevistas & Análise Competitiva', 'Definição (JTBDs, Persona, Anti-features)', 'Arquitetura de Informação & Fluxos', 'Arquitetura de IA'],
+      secondLayerCardTitle: 'IA COMO OBJETO DE DESIGN',
+      secondLayerCardValue: 'Uma segunda camada diferencia este case: tratei o próprio uso de IA como objeto de design. Em cada etapa documentei o que foi decisão humana, o que foi assistido por IA e o que foi gerado, com critério explícito sobre o que a IA podia e não podia afirmar. Usei de forma declarada, e documentei onde ela falhou.',
+      stackCardTitle: 'STACK DO PRODUTO',
+      stackCardItems: ['Next.js', 'TypeScript', 'Tailwind', 'Supabase', 'Pluggy (Open Finance)', 'Claude API', 'Vercel'],
+      processLabel: 'PROCESSO',
+      steps: [
+        {
+          num: '00',
+          label: 'FRAMING',
+          heading: 'Eu sou do perfil que o produto atende',
+          body: 'Comecei por uma autoetnografia: eu sou do perfil que o produto atende, então meu próprio comportamento financeiro virou primeiro dado, com o viés disso declarado de saída.',
+          aiUse: 'Um agente de UX Research em modo crítico leu minha autoetnografia procurando viés de confirmação na minha própria voz.',
+        },
+        {
+          num: '01',
+          label: 'RESEARCH, EM DUAS CAMADAS',
+          heading: 'Dado real protagoniza, IA assiste, procedência declarada',
+          body: 'A Camada 1 (80% do peso decisório) é evidência empírica: 4 entrevistas qualitativas reais mais a autoetnografia, e uma análise competitiva estruturada. A Camada 2 (20%, declarado) são 2 personas exploratórias usadas só para stress-test de hipóteses, nunca como substituto de gente real. Tudo sintetizado num affinity diagram com os post-its marcados visualmente por origem (real vs. exploratório).',
+          aiUse: 'Análise crítica das transcrições e pesquisa web na análise competitiva; as personas exploratórias foram geradas com procedência documentada.',
+        },
+        {
+          num: '02',
+          label: 'DEFINIÇÃO',
+          heading: 'Transformar insight em direção de produto',
+          body: 'Um problem statement em camadas, 5 Jobs to be Done priorizados por densidade de evidência, a persona principal (Ana, um perfil composto ancorado na entrevistada mais densa), uma jornada de produto em cinco estágios e 15 anti-features: o que o produto explicitamente não faz.',
+          aiUse: 'Cada entregável passou por um agente de UX Research em modo crítico; um modelo mais leve rascunhava e um mais forte fazia o check crítico.',
+        },
+        {
+          num: '03',
+          label: 'ARQUITETURA & FLUXOS',
+          heading: 'Estruturar o produto antes de desenhar qualquer tela',
+          body: 'A arquitetura de informação (três seções permanentes, IA como camada contextual e não um chat à parte), os 5 fluxos críticos e o entregável que mais me orgulha: a arquitetura de IA, mapeando onde entra LLM, onde entra heurística e onde entra ML, com justificativa explícita de cada escolha. O princípio que organiza tudo: a IA verbaliza, nunca calcula.',
+          aiUse: 'Usada para gerar variações de arquitetura. Todas avaliadas contra os dados reais antes de qualquer decisão; os primeiros ADRs fecharam a etapa.',
+        },
+      ],
+      reflectionLabel: 'REFLEXÃO METODOLÓGICA',
+      reflectionIntro: 'A posição que adotei: pesquisa em duas camadas, 80% dado real e 20% IA declarada. Meu público é o oposto do perfil WEIRD (Western, Educated, Industrialized, Rich, Democratic) em que os modelos de linguagem são supertreinados. Confiar a definição de um público assim majoritariamente a um LLM seria fabricar um jovem americano disfarçado de brasileiro. Operacionalizei com Provenance Cards, vocabulário herdado das fontes reais e uma regra de descarte sempre que uma persona convergia demais com a hipótese inicial. O que dá densidade ao case são os momentos em que o método foi testado de verdade.',
+      reflectionCards: [
+        {
+          label: 'A recusa',
+          body: 'Com dificuldade de recrutar um perfil, propus à IA substituir uma entrevista real por uma simulação sintética, com um argumento de autoridade externo por cima. A IA recusou, ancorada na minha própria fundamentação metodológica, e ofereceu três caminhos dentro do método. A descoberta: a postura crítica é bilateral. O método protege contra desvio em qualquer direção, inclusive a minha.',
+        },
+        {
+          label: 'O erro epistêmico',
+          body: 'Em uma sessão, a IA operou sobre uma página-resumo desatualizada como se fosse o corpus. Peguei a divergência ao cruzar com a fonte primária. Em vez de varrer pra baixo do tapete, transformei o episódio em quatro regras de leitura obrigatória de corpus. Documentar um erro do próprio processo é mais raro, e mais útil, do que escondê-lo.',
+        },
+        {
+          label: 'Rascunho leve, crítica forte',
+          body: 'Um modelo mais barato rascunha, um mais forte faz o check crítico de cada entregável interpretativo. Repetidamente o check pegou problemas estruturais que o rascunho não via, inclusive overclaims meus que precisaram ser rebaixados à versão defensável.',
+        },
+      ],
+      reflectionThroughline: 'Dado real protagoniza, IA assiste, e o julgamento final é sempre humano.',
+      decisionsLabel: 'DECISÕES DE DESIGN',
+      decisions: [
+        {
+          title: 'A IA verbaliza, nunca calcula',
+          body: 'Todo número e toda decisão financeira são determinísticos e reproduzíveis; o LLM só traduz fatos prontos em linguagem natural. Confiança, custo e risco técnico sob controle.',
+          bridge: 'Mapear onde IA agrega e onde é overkill, na Etapa 3, foi o que tornou o cálculo determinístico não negociável. O LLM entra só depois que o número já existe.',
+        },
+        {
+          title: 'O produto nunca bloqueia a compra',
+          body: 'Um entrevistado pediu bloqueio em fala, mas fala em entrevista não é comportamento. O produto oferece contexto com saída, não veredito autoritário.',
+          bridge: 'Um dos quatro entrevistados pediu bloqueio em fala. Foi esse JTBD que definiu o limite: contexto com saída, nunca veredito.',
+        },
+        {
+          title: 'Prospectivo, não retrospectivo',
+          body: 'A tela principal olha para o que está comprometido nos meses à frente, não para o gráfico de pizza do mês fechado. O passado é o que o usuário já tem na planilha e não resolve a dor.',
+          bridge: 'A dor é decisão no presente, não registro do passado. Por isso a tela principal nunca repete o gráfico de mês fechado que todo concorrente já faz.',
+        },
+        {
+          title: 'Parcelamento é instrumento, não falha moral',
+          body: 'O produto informa o custo real e o peso futuro, e respeita a escolha. Sem tom moralizante, que é o default da educação financeira brasileira e desrespeita a inteligência do usuário.',
+        },
+        {
+          title: 'Fala com contexto, silêncio no dado cru',
+          body: 'Não é alerta cru nem app mudo: o produto fala quando há contexto acionável e silencia quando só há dado registrado. Sem gamificação, streaks ou lembretes.',
+        },
+        {
+          title: 'Conexão bancária é opcional e tardia',
+          body: 'Privacidade como requisito de arquitetura, com consentimento explícito. O produto é útil antes de pedir acesso a dados sensíveis, e constrói confiança progressivamente.',
+          bridge: 'A barreira de privacidade apareceu na entrevista que ancora a Ana. Virou a regra de pedir acesso bancário só depois que o produto já provou valor.',
+        },
+        {
+          title: 'Microcopy em português brasileiro de verdade',
+          body: 'Tom testado contra a cara de tradução do inglês. Se soa como fintech traduzida, é refeito.',
+          bridge: 'O vocabulário herdado das entrevistas reais é o que mantém a Camada 2 ancorada. É a mesma disciplina que barra microcopy com cara de tradução.',
+        },
+      ],
+      limitsLabel: 'LIMITES ASSUMIDOS',
+      limits: [
+        'Não há saturação representativa do público brasileiro de renda híbrida. A amostra não permite generalização estatística.',
+        'As decisões de design baseadas nesta pesquisa são provisórias até a validação com base expandida, prevista para a etapa de prototipagem.',
+        'As personas exploratórias mapeiam um espectro de comportamentos plausíveis, não validam comportamentos reais. Peso de 10% cada, declarado.',
+        'Um dos entrevistados ficou na fronteira do recorte: tem renda variável formal, mas não vive o mecanismo da dor. Mantido como contraste de delimitação, não como sustentação.',
+        'O viés WEIRD do modelo foi mitigado, não eliminado.',
+      ],
+      nextTitle: 'O QUE VEM A SEGUIR',
+      nextItems: [
+        'Etapa 4: Design System & UI',
+        'Etapa 5: Prototipagem & Validação',
+        'Etapa 6: MVP Funcional',
+      ],
+      takesTitle: 'O QUE JÁ LEVO',
+      takesItems: [
+        'As quatro regras de proteção nasceram de um erro real e hoje são método.',
+        'Casar o esforço do modelo com a dificuldade da tarefa, não com a importância dela.',
+        'Provenance Cards como artefato padrão para qualquer uso de IA em pesquisa.',
+      ],
+      pageFooterText: 'Case em andamento. Atualizado ao fim da Etapa 3 (Arquitetura & Fluxos).',
+      artifacts: {
+        affinityCaption: 'Affinity diagram, com post-its marcados por origem: evidência real vs. personas exploratórias.',
+        affinityAlt: 'Affinity diagram do board no FigJam, com post-its agrupados em temas e marcados por cor segundo a origem, separando evidência de entrevistas reais das personas exploratórias.',
+        jtbdsCaption: 'Os 5 Jobs to be Done, priorizados por densidade de evidência.',
+        jtbdsAlt: 'Cards no FigJam descrevendo os cinco Jobs to be Done priorizados do produto.',
+        arqIaCaption: 'Arquitetura de IA: onde entra LLM, heurística ou ML. A IA verbaliza, nunca calcula.',
+        arqIaAlt: 'Diagrama da arquitetura de IA mostrando a fronteira entre o cálculo determinístico e o LLM que só traduz fatos prontos em linguagem.',
+        flowsCaption: 'Os 5 fluxos críticos de usuário, F01 a F05.',
+        flowsAlt: 'Diagrama dos cinco fluxos críticos de usuário do produto, numerados de F01 a F05.',
+        personaCaption: 'Persona Ana e seu Provenance Card: o que é dado, inferência e especulação.',
+        personaAlt: 'Ficha da persona Ana ao lado de um Provenance Card documentando a origem de cada atributo como dado, inferência ou especulação.',
+      },
     },
   },
 } satisfies { en: TranslationShape; pt: TranslationShape };

@@ -300,6 +300,8 @@ Hint text at `rgba(10,10,10,0.3)` in light mode likely fails WCAG AA contrast ra
 
 11. **Never render year in the UI.** Year data (`year` field in `projects`, `certs`, and `t.lacrei.year`) must exist in data arrays and i18n objects but must **never be displayed** on project cards (`Work.tsx`), certification cards (`Certifications.tsx`), or case study pages (`CaseStudyLacrei.tsx` and any future case study pages). Only remove the rendering — never delete the underlying data.
 
+12. **Newest case always comes first.** The canonical case list lives in `src/app/data/projects.ts` and is sorted automatically by `addedOrder`, highest first. Every new case must receive the next sequential `addedOrder` number. The Home card numbering and the previous/next navigation on case-study pages must always derive from this shared list; never hardcode a separate case order inside a page.
+
 ---
 
 ## 10. Instructions for Future Sessions

@@ -3,58 +3,14 @@ import { ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useNavigate } from 'react-router';
 import { useTheme, useLang } from '../App';
+import { projects, type Project } from '../data/projects';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import lacreiThumbnail from '../../assets/lacrei/lacrei-thumbnail.png';
-import guiaThumbnail from '../../assets/guia-moteis/guia-moteis-thumbnail.png';
-
-interface Project {
-  id: number;
-  slug?: string;
-  title: string | { pt: string; en: string };
-  context: string;
-  category: string;
-  image: string;
-  imagePosition?: string;
-  tags: string[];
-  year: string;
-}
-
-const projects: Project[] = [
-  {
-    id: 0,
-    slug: 'lacrei-saude',
-    title: {
-      en: 'Lacrei Saúde: Inclusive Healthcare Platform',
-      pt: 'Lacrei Saúde: Plataforma de Saúde Inclusiva'
-    },
-    context: 'UX/UI DESIGN · WEB PLATFORM',
-    category: 'UX/UI DESIGN · WEB PLATFORM',
-    image: lacreiThumbnail,
-    imagePosition: '20% center',
-    tags: ["UX Research", "UI Design", "Figma", "Design Thinking"],
-    year: '2024',
-  },
-  {
-    id: 6,
-    slug: 'guia-de-moteis',
-    title: {
-      en: 'Guia de Motéis GO: Landing Page Redesign',
-      pt: 'Guia de Motéis GO: Redesign de Landing Page',
-    },
-    context: 'UI DESIGN · LANDING PAGE',
-    category: 'Landing Pages',
-    image: guiaThumbnail,
-    tags: ['UX Research', 'Crazy 8s', 'Wireframing', 'UI Design'],
-    year: '2024',
-  },
-];
 
 
 
 interface CardProps {
   project: Project;
   animIndex: number;
-  isFullWidth: boolean;
   hoveredId: number | null;
   setHoveredId: (id: number | null) => void;
   t: { work: { viewCase: string } };
@@ -72,7 +28,6 @@ interface CardProps {
 function ProjectCard({
   project,
   animIndex,
-  isFullWidth,
   hoveredId,
   setHoveredId,
   t,
@@ -97,71 +52,150 @@ function ProjectCard({
       viewport={{ once: true }}
       onMouseEnter={() => setHoveredId(project.id)}
       onMouseLeave={() => setHoveredId(null)}
+      onFocus={() => setHoveredId(project.id)}
+      onBlur={() => setHoveredId(null)}
       onClick={() => { if (project.slug) navigate(`/work/${project.slug}`); }}
+      onKeyDown={(event) => {
+        if (project.slug && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          navigate(`/work/${project.slug}`);
+        }
+      }}
+      role={project.slug ? 'link' : undefined}
+      tabIndex={project.slug ? 0 : undefined}
       className="flex flex-col"
       style={{
         cursor: project.slug ? 'pointer' : 'default',
         border: `1px solid ${isHovered ? accent : border}`,
-        borderRadius: '8px',
+        borderRadius: '12px',
         backgroundColor: cardBg,
         overflow: 'hidden',
-        transition: 'transform 0.3s ease, border-color 0.3s ease',
-        transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-        gridColumn: isFullWidth ? '1 / -1' : undefined,
+        transition: 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+        transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
+        boxShadow: isHovered ? `0 18px 50px ${isDark ? 'rgba(0,0,0,0.32)' : 'rgba(10,10,10,0.12)'}` : 'none',
       }}
     >
       {/* Thumbnail */}
       <div
         className="work-thumb relative w-full overflow-hidden"
-        style={{ borderRadius: '8px 8px 0 0' }}
+        style={{ borderRadius: '12px 12px 0 0' }}
       >
-        <ImageWithFallback
-          src={project.image}
-          alt={typeof project.title === 'string' ? project.title : project.title[lang]}
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: project.imagePosition ?? 'center',
-            transition: 'transform 0.6s ease',
-            transform: isHovered ? 'scale(1.04)' : 'scale(1)',
-            display: 'block',
-          }}
-        />
+        {project.quoteThumbnail ? (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundColor: isDark ? '#111111' : '#ffffff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '2rem',
+            }}
+          >
+            <span
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                top: '0.5rem',
+                left: '1.2rem',
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: '6rem',
+                fontWeight: 700,
+                lineHeight: 1,
+                color: accent,
+                opacity: 0.12,
+              }}
+            >
+              &ldquo;
+            </span>
+            <p
+              style={{
+                fontFamily: "'Space Grotesk', sans-serif",
+                fontSize: 'clamp(1rem, 1.6vw, 1.3rem)',
+                fontStyle: 'italic',
+                fontWeight: 600,
+                color: text,
+                textAlign: 'center',
+                lineHeight: 1.4,
+                margin: 0,
+                maxWidth: '18rem',
+                position: 'relative',
+                zIndex: 1,
+              }}
+            >
+              &ldquo;{project.quoteThumbnail[lang]}&rdquo;
+            </p>
+          </div>
+        ) : (
+          <ImageWithFallback
+            src={project.image ?? ''}
+            alt={typeof project.title === 'string' ? project.title : project.title[lang]}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: project.imagePosition ?? 'center',
+              transition: 'transform 0.6s ease',
+              transform: isHovered ? 'scale(1.04)' : 'scale(1)',
+              display: 'block',
+            }}
+          />
+        )}
 
-        {/* Hover overlay */}
+        {/* In-progress badge */}
+        {project.inProgressLabel && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '12px',
+              left: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: accent,
+              backdropFilter: 'blur(4px)',
+              borderRadius: '999px',
+              padding: '0.22rem 0.65rem',
+              zIndex: 2,
+            }}
+          >
+            <span
+              style={{
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                backgroundColor: accentFg,
+                animation: 'wk-pulse 2s ease-in-out infinite',
+                flexShrink: 0,
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: '10px',
+                fontWeight: 600,
+                color: accentFg,
+                letterSpacing: '0.05em',
+              }}
+            >
+              {project.inProgressLabel[lang]}
+            </span>
+          </div>
+        )}
+
+        {/* Subtle hover wash. The action remains visible below the image. */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundColor: isDark ? 'rgba(10,10,10,0.82)' : 'rgba(0,0,0,0.4)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            background: `linear-gradient(180deg, transparent 55%, ${isDark ? 'rgba(10,10,10,0.35)' : 'rgba(10,10,10,0.18)'})`,
             opacity: isHovered ? 1 : 0,
             transition: 'opacity 0.35s ease',
+            pointerEvents: 'none',
           }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '1rem',
-              fontWeight: 600,
-              color: accent,
-              border: `1px solid ${accent}`,
-              padding: '0.7rem 1.5rem',
-              borderRadius: '999px',
-            }}
-          >
-            {t.work.viewCase}
-            <ArrowRight size={16} />
-          </div>
-        </div>
+        />
       </div>
 
       {/* Info area */}
@@ -174,28 +208,41 @@ function ProjectCard({
           borderTop: `1px solid ${border}`,
         }}
       >
-        <div
-          style={{
-            fontFamily: "'Inter', sans-serif",
-            fontSize: '11px',
-            fontWeight: 400,
-            color: textMuted,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-          }}
-        >
-          {project.context}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
+          <div
+            style={{
+              fontFamily: "'Inter', sans-serif",
+              fontSize: '10px',
+              fontWeight: 500,
+              color: textMuted,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+            }}
+          >
+            {project.context}
+          </div>
+          <span
+            style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: '11px',
+              color: accent,
+              letterSpacing: '0.08em',
+              flexShrink: 0,
+            }}
+          >
+            {String(animIndex + 1).padStart(2, '0')}
+          </span>
         </div>
         <h3
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '18px',
+            fontSize: 'clamp(17px, 1.45vw, 21px)',
             fontWeight: 600,
             color: text,
             letterSpacing: '-0.02em',
             margin: 0,
             marginTop: '6px',
-            lineHeight: 1.2,
+            lineHeight: 1.25,
           }}
         >
           {typeof project.title === 'string' ? project.title : project.title[lang]}
@@ -227,6 +274,45 @@ function ProjectCard({
             </span>
           ))}
         </div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: '1rem',
+            marginTop: 'auto',
+            paddingTop: '20px',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: '13px',
+              fontWeight: 600,
+              color: text,
+            }}
+          >
+            {t.work.viewCase}
+          </span>
+          <span
+            aria-hidden="true"
+            style={{
+              width: '34px',
+              height: '34px',
+              borderRadius: '50%',
+              display: 'grid',
+              placeItems: 'center',
+              color: isHovered ? accentFg : accent,
+              backgroundColor: isHovered ? accent : 'transparent',
+              border: `1px solid ${accent}`,
+              transition: 'background-color 0.3s ease, color 0.3s ease, transform 0.3s ease',
+              transform: isHovered ? 'translateX(2px)' : 'translateX(0)',
+              flexShrink: 0,
+            }}
+          >
+            <ArrowRight size={15} />
+          </span>
+        </div>
       </div>
     </motion.div>
   );
@@ -242,7 +328,15 @@ export function Work() {
   useEffect(() => {
     const style = document.createElement('style');
     style.id = 'work-card-styles';
-    style.textContent = `.work-thumb { padding-bottom: 75%; } @media (min-width: 768px) { .work-thumb { padding-bottom: 56.25%; } }`;
+    style.textContent = `
+      .work-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+      .work-thumb { aspect-ratio: 4 / 3; }
+      @media (min-width: 768px) {
+        .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .work-thumb { aspect-ratio: 16 / 9; }
+      }
+      @keyframes wk-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.75); } }
+    `;
     if (!document.getElementById('work-card-styles')) {
       document.head.appendChild(style);
     }
@@ -316,19 +410,17 @@ export function Work() {
         </motion.div>
 
         {/* ── Symmetric 2-column grid ───────────────────────────────────────────
-            All cards identical size. Odd total: last card spans both columns.
-            Mobile: single column throughout.
+            Two equal cards per row. Odd totals leave the final grid space empty.
+            Mobile uses a single column.
         ──────────────────────────────────────────────────────────────────────── */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2"
-          style={{ gap: '16px' }}
+          className="work-grid"
         >
           {projects.map((project, i) => (
             <ProjectCard
               key={project.id}
               project={project}
               animIndex={i}
-              isFullWidth={projects.length % 2 !== 0 && i === projects.length - 1}
               {...cardProps}
             />
           ))}
