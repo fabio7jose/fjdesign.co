@@ -12,7 +12,7 @@ interface FormData {
 }
 
 const socialLinks = [
-  { label: 'LinkedIn',  icon: Linkedin,      href: 'https://www.linkedin.com/in/fabio-filho-380b68208/',  color: '#0A66C2' },
+  { label: 'LinkedIn',  icon: Linkedin,      href: 'https://www.linkedin.com/in/fabiojose-designer',  color: '#0A66C2' },
   { label: 'GitHub',    icon: Github,         href: 'https://github.com/fabio7jose',       color: '#ffffff' },
   {
     label: 'Behance',

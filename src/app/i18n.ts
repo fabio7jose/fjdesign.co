@@ -139,6 +139,15 @@ interface TranslationShape {
     rolePill: string;
     year: string;
     heroQuote: string;
+    summaryBox: {
+      label: string;
+      problem: string;
+      sample: string;
+      findings: string;
+      deliverables: string;
+      status: string;
+      aiNote: string;
+    };
     methodology: string;
     tools: string[];
     challengeLabel: string;
@@ -199,7 +208,7 @@ export const translations = {
       available: 'Available now',
       title: 'Web Designer',
       title2: '& UX/UI Design',
-      subtitle: 'UX/UI Design in Progress · Front-end · AI-Augmented',
+      subtitle: 'Web Design · UX/UI · Front-end · AI-Augmented Design',
       cta: 'View my work',
       stats: [
         { num: '3+', label: 'Years of Experience' },
@@ -252,7 +261,7 @@ export const translations = {
       openTo: 'Open to opportunities · Available to relocate',
       bio: [
         "I'm Fábio, a Web Designer with over 3 years of experience building high-converting landing pages, interfaces, and digital campaign assets, from static visuals to motion. I'm currently transitioning into UX/UI Design, with a focus on research, usability, and end-to-end process.",
-        "AI is a core part of how I work. I use it to design faster, explore more directions, and consistently deliver better results. Not as a shortcut, but as a creative and strategic advantage.",
+        "AI is a core part of how I work. I use it to design faster, explore more directions, and consistently deliver better results. Not as a shortcut, but as a creative and strategic advantage. That includes this portfolio itself: the visual identity, content structure and aesthetic decisions were defined by me, with Figma Make for rapid prototyping and Claude Code for iterative development. A process I used to test in practice how to integrate AI tools into a real design workflow.",
         "I'm currently based in Brazil and open to opportunities anywhere in the world.",
       ],
       downloadCV: 'Download CV',
@@ -330,7 +339,7 @@ export const translations = {
           num: '01',
           label: 'EMPATHY & RESEARCH',
           heading: 'Listen before designing',
-          body: 'I studied the main pain points reported by LGBTQIA+ healthcare users. The key finding: discrimination and lack of culturally competent professionals are the primary barriers, with direct impact on mental health and willingness to seek care.',
+          body: 'I analysed the main pain points documented about LGBTQIA+ users\' experience accessing healthcare. The key finding: discrimination and lack of culturally competent professionals are the primary barriers, with direct impact on mental health and willingness to seek care.',
         },
         {
           num: '02',
@@ -358,7 +367,7 @@ export const translations = {
         { label: 'LOGIN', annotation: 'Social login options alongside email and password to reduce friction. Personalised welcome message sets an inclusive tone from the first interaction' },
         { label: 'HOME (POST-LOGIN)', annotation: 'Personalised view after login surfacing recommended professionals based on location and specialty' },
         { label: 'SEARCH & FILTERS', annotation: 'Star ratings, availability and specialty filters surfaced upfront so users can identify trusted professionals without digging' },
-        { label: 'PROFESSIONAL PROFILE', annotation: 'Photo, specialty, services, reviews presented in the platform interface and used as a secondary reference to understand users\' reported experience, plus real-time availability. Full transparency to address the trust deficit identified in research' },
+        { label: 'PROFESSIONAL PROFILE', annotation: 'Photo, specialty, services, reviews and real-time availability. Full transparency to address the trust deficit identified in research' },
       ],
       highlightCard1Label: 'PRIMARY PROBLEM',
       highlightCard1Value: 'Difficulty finding professionals who feel safe and non-judgmental',
@@ -401,8 +410,8 @@ export const translations = {
         {
           num: '01',
           label: 'DISCOVER',
-          heading: 'Evidence-based research',
-          body: 'Quick research into the motel booking niche revealed four recurring pain points preventing conversions: doubts about listing accuracy and security, confusing interfaces, distrust over hidden fees, and difficulty verifying review authenticity. These barriers informed every structural decision in the redesign.',
+          heading: 'Competitive analysis of the category',
+          body: 'The research consisted of a competitive analysis of direct and indirect competitors in the category, identifying conversion patterns, trust barriers and opportunities to differentiate the product communication.',
         },
         {
           num: '02',
@@ -445,10 +454,19 @@ export const translations = {
       backToWork: '← Back',
       inProgressBadge: 'Case in progress',
       projectTitle: 'Copiloto Financeiro',
-      projectDescription: 'A financial copilot for Brazilians with variable or hybrid income: people who decide a purchase today against a floor no app calculates. In parallel, a study on using AI in the design process without letting it decide for me.',
+      projectDescription: 'A study project on two fronts: designing a financial copilot for Brazilians with variable or hybrid income, and a hands-on investigation into how to use AI in the design process critically and transparently, without letting it replace human judgement.',
       rolePill: 'UX Research · Product Strategy',
       year: '2025',
       heroQuote: 'Can I make this purchase now?',
+      summaryBox: {
+        label: 'PROJECT SUMMARY',
+        problem: 'Brazilians with variable or hybrid income make impulsive purchase decisions without knowing if they can afford them. Existing apps record the past and ignore future instalments and uncertain income.',
+        sample: '4 real qualitative interviews + autoethnography + competitive analysis. Exploratory personas with a declared weight of 20%, used only to stress-test hypotheses.',
+        findings: 'The pain is not a lack of information. It is the absence of useful friction at the moment of decision. Instalments are a central dimension, not peripheral. Existing apps are retrospective; the pain is prospective.',
+        deliverables: 'Completed stages: Framing, Research (2 layers), Definition (JTBDs, Persona, Anti-features), Information Architecture, 5 Critical Flows and AI Architecture.',
+        status: 'Case in progress. Design System and UI, Prototyping and Validation, and Functional MVP are the next stages.',
+        aiNote: 'A study project on two fronts: product design and a critical investigation into the use of AI in the design process, with declared provenance at each stage.',
+      },
       methodology: 'Two-layer discovery',
       tools: ['UX Research', 'Product Strategy', 'FigJam', 'Claude API'],
       challengeLabel: 'THE CHALLENGE',
@@ -598,18 +616,18 @@ export const translations = {
       available: 'Disponível agora',
       title: 'Web Designer',
       title2: '& UX/UI Design',
-      subtitle: 'UX/UI Design em formação · Front-end · AI-Augmented',
+      subtitle: 'Web Design · UX/UI · Front-end · IA aplicada ao Design',
       cta: 'Ver meus trabalhos',
       stats: [
         { num: '3+', label: 'Anos de Experiência' },
         { num: 'Bahia', label: 'Brasil' },
-        { num: 'Full Process', label: 'Do research ao código' },
+        { num: 'Processo Completo', label: 'Da pesquisa ao código' },
       ],
       scroll: 'Rolar',
     },
     work: {
       label: 'Trabalhos Selecionados',
-      title1: 'Cases &',
+      title1: 'Cases e',
       title2: 'Entregáveis',
       filters: ['Todos', 'UX Design', 'Web Design', 'Landing Pages'],
       viewCase: 'Ver case',
@@ -651,7 +669,7 @@ export const translations = {
       openTo: 'Aberto a oportunidades · Disponível para realocação',
       bio: [
         'Sou Fábio, Web Designer com mais de 3 anos de experiência criando landing pages de alta conversão, interfaces e peças para campanhas digitais, de imagens estáticas a vídeos. Atualmente em transição para UX/UI Design, com foco em pesquisa, usabilidade e processo de ponta a ponta.',
-        'A IA faz parte do meu processo. Uso para projetar mais rápido, explorar mais direções e entregar trabalhos melhores. Não como atalho, mas como vantagem criativa e estratégica.',
+        'A IA faz parte do meu processo. Uso para projetar mais rápido, explorar mais direções e entregar trabalhos melhores. Não como atalho, mas como vantagem criativa e estratégica. Isso inclui o próprio portfólio: a identidade visual, a estrutura de conteúdo e as decisões estéticas foram definidas por mim, com Figma Make para prototipagem rápida e Claude Code para desenvolvimento iterativo. Um processo que usei para testar na prática como integrar ferramentas de IA num fluxo de design real.',
         'Estou baseado no Brasil e aberto a oportunidades em qualquer lugar do mundo.',
       ],
       downloadCV: 'Baixar CV',
@@ -729,7 +747,7 @@ export const translations = {
           num: '01',
           label: 'EMPATIA & PESQUISA',
           heading: 'Ouvir antes de projetar',
-          body: 'Pesquisei os principais pontos de dor relatados por usuários LGBTQIA+ no acesso à saúde. A descoberta central: discriminação e falta de profissionais preparados são as principais barreiras, com impacto direto na saúde mental e na disposição de buscar atendimento.',
+          body: 'Analisei os principais pontos de dor documentados sobre a experiência de utilizadores LGBTQIA+ no acesso à saúde. A descoberta central: discriminação e falta de profissionais preparados são as principais barreiras, com impacto direto na saúde mental e na disposição de buscar atendimento.',
         },
         {
           num: '02',
@@ -757,7 +775,7 @@ export const translations = {
         { label: 'LOGIN', annotation: 'Login social junto com email e senha para reduzir a fricção. Mensagem de boas-vindas personalizada define um tom inclusivo desde a primeira interação' },
         { label: 'HOME PÓS-LOGIN', annotation: 'Visão personalizada após o acesso, com profissionais recomendados por localização e especialidade' },
         { label: 'BUSCA E FILTROS', annotation: 'Avaliações, disponibilidade e filtros por especialidade visíveis desde o início para que o usuário encontre profissionais de confiança sem precisar procurar' },
-        { label: 'PERFIL DO PROFISSIONAL', annotation: 'Foto, especialidade, serviços, avaliações apresentadas na interface da plataforma, utilizadas como referência secundária para compreender a experiência relatada pelos utilizadores, e disponibilidade em tempo real. Transparência total para responder ao déficit de confiança identificado na pesquisa' },
+        { label: 'PERFIL DO PROFISSIONAL', annotation: 'Foto, especialidade, serviços, avaliações e disponibilidade em tempo real. Transparência total para responder ao déficit de confiança identificado na pesquisa' },
       ],
       highlightCard1Label: 'PROBLEMA PRINCIPAL',
       highlightCard1Value: 'Dificuldade em encontrar profissionais que transmitam segurança e acolhimento',
@@ -800,8 +818,8 @@ export const translations = {
         {
           num: '01',
           label: 'DESCOBRIR',
-          heading: 'Pesquisa baseada em evidências',
-          body: 'Uma rápida pesquisa no nicho de reservas de motéis revelou quatro barreiras recorrentes que impediam conversões: dúvidas sobre a veracidade dos anúncios e segurança, interfaces confusas, desconfiança sobre taxas ocultas e dificuldade em verificar a autenticidade das avaliações. Essas barreiras guiaram cada decisão estrutural do redesign.',
+          heading: 'Análise competitiva da categoria',
+          body: 'A pesquisa consistiu numa análise competitiva de concorrentes diretos e indiretos da categoria, identificando padrões de conversão, barreiras de confiança e oportunidades de diferenciação na comunicação do produto.',
         },
         {
           num: '02',
@@ -844,10 +862,19 @@ export const translations = {
       backToWork: '← Voltar',
       inProgressBadge: 'Case em andamento',
       projectTitle: 'Copiloto Financeiro',
-      projectDescription: 'Um copiloto financeiro para brasileiros com renda variável ou híbrida: gente que decide uma compra hoje contra um piso que nenhum app calcula. Em paralelo, um estudo sobre usar IA no processo de design sem deixar ela decidir no meu lugar.',
+      projectDescription: 'Um projecto de estudo em duas frentes: o design de um copiloto financeiro para brasileiros com renda variável ou híbrida, e uma investigação prática sobre como usar IA no processo de design de forma crítica e declarada, sem deixar que ela substitua o julgamento humano.',
       rolePill: 'UX Research · Product Strategy',
       year: '2025',
       heroQuote: 'Posso fazer essa compra agora?',
+      summaryBox: {
+        label: 'RESUMO DO PROJECTO',
+        problem: 'Brasileiros com renda variável ou híbrida tomam decisões de compra no impulso, sem saber se podem. Os apps actuais registam o passado e ignoram parcelas futuras e renda incerta.',
+        sample: '4 entrevistas qualitativas reais + autoetnografia + análise competitiva. Personas exploratórias com peso declarado de 20%, usadas apenas para stress-test de hipóteses.',
+        findings: 'A dor não é falta de informação. É ausência de fricção útil no momento da decisão. Parcelamento é dimensão central, não periférica. Apps actuais são retrospectivos; a dor é prospectiva.',
+        deliverables: 'Etapas concluídas: Framing, Research (2 camadas), Definição (JTBDs, Persona, Anti-features), Arquitetura de Informação, 5 Fluxos críticos e Arquitetura de IA.',
+        status: 'Case em andamento. Design System e UI, Prototipagem e Validação e MVP Funcional são as etapas seguintes.',
+        aiNote: 'Projecto de estudo em duas frentes: design de produto e investigação crítica sobre o uso de IA no processo de design, com procedência declarada em cada etapa.',
+      },
       methodology: 'Discovery em duas camadas',
       tools: ['UX Research', 'Product Strategy', 'FigJam', 'Claude API'],
       challengeLabel: 'O DESAFIO',
