@@ -260,7 +260,7 @@ export const translations = {
       title: 'About',
       openTo: 'Open to opportunities · Available to relocate',
       bio: [
-        "I'm Fábio, a Web Designer with over 3 years of experience building high-converting landing pages, interfaces, and digital campaign assets, from static visuals to motion. I'm currently transitioning into UX/UI Design, with a focus on research, usability, and end-to-end process.",
+        "I'm Fábio, a Web Designer with over 3 years of experience creating high-converting landing pages, interfaces and digital campaign assets, from static images to videos. With UX/UI Design study projects and a particular interest in interaction design and end-to-end process.",
         "AI is a core part of how I work. I use it to design faster, explore more directions, and consistently deliver better results. Not as a shortcut, but as a creative and strategic advantage. That includes this portfolio itself: the visual identity, content structure and aesthetic decisions were defined by me, with Figma Make for rapid prototyping and Claude Code for iterative development. A process I used to test in practice how to integrate AI tools into a real design workflow.",
         "I'm currently based in Brazil and open to opportunities anywhere in the world.",
       ],
@@ -668,7 +668,7 @@ export const translations = {
       title: 'Sobre',
       openTo: 'Aberto a oportunidades · Disponível para realocação',
       bio: [
-        'Sou Fábio, Web Designer com mais de 3 anos de experiência criando landing pages de alta conversão, interfaces e peças para campanhas digitais, de imagens estáticas a vídeos. Atualmente em transição para UX/UI Design, com foco em pesquisa, usabilidade e processo de ponta a ponta.',
+        'Sou Fábio, Web Designer com mais de 3 anos de experiência criando landing pages de alta conversão, interfaces e peças para campanhas digitais, de imagens estáticas a vídeos. Com projetos de estudo em UX/UI Design e interesse particular em design de interação e processo end-to-end.',
         'A IA faz parte do meu processo. Uso para projetar mais rápido, explorar mais direções e entregar trabalhos melhores. Não como atalho, mas como vantagem criativa e estratégica. Isso inclui o próprio portfólio: a identidade visual, a estrutura de conteúdo e as decisões estéticas foram definidas por mim, com Figma Make para prototipagem rápida e Claude Code para desenvolvimento iterativo. Um processo que usei para testar na prática como integrar ferramentas de IA num fluxo de design real.',
         'Estou baseado no Brasil e aberto a oportunidades em qualquer lugar do mundo.',
       ],

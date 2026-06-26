@@ -18,6 +18,7 @@ import guiaTelaResponsive from '../../assets/guia-moteis/guia-moteis-tela-respon
 
 const FIGMA_URL =
   'https://www.figma.com/design/yaqbJwkCiE5qk6v31JYOZu/Untitled?node-id=257-45';
+const CASE_ACCENT = '#DC1B22';
 
 interface ScreenCardProps {
   screen: { label: string; annotation: string };
@@ -117,9 +118,9 @@ export function CaseStudyGuiaMoteis() {
   const border    = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const bg        = isDark ? '#0A0A0A' : '#F5F5F0';
   const cardBg    = isDark ? '#111111' : '#ffffff';
-  const accent    = isDark ? '#AAFF00' : '#5C8A00';
-  const accentFg  = isDark ? '#0A0A0A' : '#ffffff';
-  const accentBg  = isDark ? 'rgba(170,255,0,0.04)' : 'rgba(92,138,0,0.05)';
+  const accent    = CASE_ACCENT;
+  const accentFg  = '#ffffff';
+  const accentBg  = isDark ? 'rgba(220,27,34,0.12)' : 'rgba(220,27,34,0.08)';
 
   const processImages = [guiaProcesso01, guiaProcesso02, guiaProcesso03, guiaProcesso04];
 

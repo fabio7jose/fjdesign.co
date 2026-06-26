@@ -19,6 +19,7 @@ import lacreiTelaProfissional from '../../assets/lacrei/lacrei-tela-profissional
 
 const FIGMA_URL =
   'https://www.figma.com/design/F6HVVdGF1Rqq16m1fCGKxU/Lacrei-Sa%C3%BAde?node-id=3-3304';
+const CASE_ACCENT = 'rgb(1, 135, 98)';
 
 interface ScreenCardProps {
   screen: { label: string; annotation: string };
@@ -118,9 +119,9 @@ export function CaseStudyLacrei() {
   const border    = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const bg        = isDark ? '#0A0A0A' : '#F5F5F0';
   const cardBg    = isDark ? '#111111' : '#ffffff';
-  const accent    = isDark ? '#AAFF00' : '#5C8A00';
-  const accentFg  = isDark ? '#0A0A0A' : '#ffffff';
-  const accentBg  = isDark ? 'rgba(170,255,0,0.04)' : 'rgba(92,138,0,0.05)';
+  const accent    = CASE_ACCENT;
+  const accentFg  = '#ffffff';
+  const accentBg  = isDark ? 'rgba(1,135,98,0.12)' : 'rgba(1,135,98,0.08)';
 
   const processImages = [lacreiProcesso01, lacreiProcesso02, lacreiProcesso03, lacreiProcesso04];
   const processAlts   = ['Empathy & Research', 'Define', 'Ideation', 'Prototype'];
