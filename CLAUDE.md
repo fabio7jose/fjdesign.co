@@ -302,6 +302,8 @@ Hint text at `rgba(10,10,10,0.3)` in light mode likely fails WCAG AA contrast ra
 
 12. **Newest case always comes first.** The canonical case list lives in `src/app/data/projects.ts` and is sorted automatically by `addedOrder`, highest first. Every new case must receive the next sequential `addedOrder` number. The Home card numbering and the previous/next navigation on case-study pages must always derive from this shared list; never hardcode a separate case order inside a page.
 
+13. **Case-study covers are always 16:9.** Every project thumbnail in the Home `Work` grid uses a fixed `16 / 9` aspect ratio on mobile and desktop. New cover assets must also be exported at 16:9, ideally `1920 × 1080px` or at least `1280 × 720px`. Keep essential text and interface details away from the outer edges. Register the asset in `src/app/data/projects.ts`; do not add project-specific aspect-ratio exceptions or return mobile cards to 4:3. Thumbnails use `object-fit: cover`, so the source image must already match 16:9 to avoid cropping.
+
 ---
 
 ## 10. Instructions for Future Sessions
@@ -315,3 +317,4 @@ Hint text at `rgba(10,10,10,0.3)` in light mode likely fails WCAG AA contrast ra
 7. **Do not install new packages** without discussing alternatives first — the project already has several installed-but-unused dependencies.
 8. **Run the dev server and visually verify** any visual change in both dark and light mode before reporting it as done.
 9. **No em-dashes (travessão) in UI content.** Avoid using the "—" character in translation strings (`i18n.ts`). Use periods, commas, or semicolons instead to maintain the established visual style.
+10. **When adding a new case-study card**, export its Home cover in 16:9, add it to `src/app/data/projects.ts`, and verify the complete cover at both mobile and desktop widths. Do not create per-project thumbnail sizing rules.

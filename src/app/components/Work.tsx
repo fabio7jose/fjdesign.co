@@ -43,6 +43,7 @@ function ProjectCard({
 }: CardProps) {
   const isHovered = hoveredId === project.id;
   const navigate = useNavigate();
+  const displayTags = lang === 'pt' && project.tagsPt ? project.tagsPt : project.tags;
 
   return (
     <motion.div
@@ -255,7 +256,7 @@ function ProjectCard({
             marginTop: '12px',
           }}
         >
-          {project.tags.map((tag) => (
+          {displayTags.map((tag) => (
             <span
               key={tag}
               style={{
@@ -330,10 +331,9 @@ export function Work() {
     style.id = 'work-card-styles';
     style.textContent = `
       .work-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
-      .work-thumb { aspect-ratio: 4 / 3; }
+      .work-thumb { aspect-ratio: 16 / 9; }
       @media (min-width: 768px) {
         .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .work-thumb { aspect-ratio: 16 / 9; }
       }
       @keyframes wk-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.75); } }
     `;

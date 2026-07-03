@@ -10,6 +10,11 @@ interface LacreiScreen { label: string; annotation: string }
 interface CopilotoStep { num: string; label: string; heading: string; body: string; aiUse: string }
 interface CopilotoDecision { title: string; body: string; bridge?: string }
 interface CopilotoReflectionCard { label: string; body: string }
+interface UltrafarmaTask { num: string; title: string; body: string }
+interface UltrafarmaFlaw { number: string; title: string; body: string; tag: string }
+interface UltrafarmaFinding { num: string; title: string; body: string; tag: string }
+interface UltrafarmaDecision { title: string; body: string; tag: string }
+interface UltrafarmaValidationItem { label: string; body: string; tag: string }
 
 /* ─── Shape every locale object must satisfy ─────────────────────
    Both `en` and `pt` are checked against this interface at compile
@@ -191,6 +196,73 @@ interface TranslationShape {
       personaCaption: string;
       personaAlt: string;
     };
+  };
+  ultrafarma: {
+    backToWork: string;
+    projectTitle: string;
+    subtitle: string;
+    rolePill: string;
+    year: string;
+      heroHeading: string;
+      heroBody: string;
+      heroFigmaCta: string;
+    whyLabel: string;
+    whyBody: string;
+    whyCalloutValue: string;
+    whyCalloutCaption: string;
+    methodLabel: string;
+    methodIntro: string;
+    methodTasks: UltrafarmaTask[];
+    diagnosisLabel: string;
+    diagnosisHeading: string;
+    diagnosisFlaws: UltrafarmaFlaw[];
+    findingsLabel: string;
+    findingsHeading: string;
+    findings: UltrafarmaFinding[];
+    benchmarkLabel: string;
+    benchmarkHeading: string;
+    benchmarkBody: string;
+      benchmarkCallout: string;
+      benchmarkNote: string;
+      benchmarkComparisonLabel: string;
+      benchmarkFigmaCta: string;
+    beforeAfterLabel: string;
+    beforeAfterHeading: string;
+    beforeLabel: string;
+    afterLabel: string;
+    decisionsLabel: string;
+    decisionsHeading: string;
+    screensCaption: string;
+    searchScreenCaption: string;
+    cartModalCaption: string;
+    decisionsGroup1Title: string;
+    decisionsGroup1: UltrafarmaDecision[];
+    decisionsGroup2Title: string;
+    decisionsGroup2: UltrafarmaDecision[];
+    figmaCta: string;
+    refineLabel: string;
+    refineHeading: string;
+    refineBullets: string[];
+    refineClosing: string;
+    designSystemLabel: string;
+    designSystemHeading: string;
+      designSystemBullets: string[];
+      designSystemNote: string;
+      designSystemFoundations: string;
+      designSystemFoundationsCaption: string;
+      designSystemComponents: string;
+      designSystemComponentsCaption: string;
+      designSystemFigmaCta: string;
+    validationLabel: string;
+    validationHeading: string;
+    validationIntro: string;
+    validationItems: UltrafarmaValidationItem[];
+    closingLabel: string;
+    closingHeading: string;
+    closingBody: string;
+    closingHighlight: string;
+    previousProject: string;
+    nextProject: string;
   };
 }
 
@@ -601,6 +673,117 @@ export const translations = {
         personaAlt: 'Persona Ana sheet next to a Provenance Card documenting the origin of each attribute as data, inference or speculation.',
       },
     },
+    ultrafarma: {
+      backToWork: '← Back',
+      projectTitle: 'Ultrafarma Mobile Redesign',
+      subtitle: 'Ultrafarma mobile home redesign',
+      rolePill: 'UX/UI Design · Heuristic Evaluation · Benchmarking · UI Kit & Tokens · Figma',
+      year: '2026',
+      heroHeading: "Solving real problems without losing the brand's character.",
+      heroBody: 'An independent concept project, not commissioned by or officially affiliated with Ultrafarma. Based on a heuristic evaluation of the real mobile experience, I redesigned the home screen to address search, feedback and hierarchy issues while preserving the brand identity.',
+      heroFigmaCta: 'View the complete project in Figma',
+      whyLabel: '01 · WHY ULTRAFARMA',
+      whyBody: 'I compared the mobile experience of Pague Menos, Drogaria SP and Drogasil. The category follows a similar structure across competitors, but Ultrafarma concentrated functional flaws and hierarchy problems with the highest impact on the user journey.',
+      whyCalloutValue: '2 functional flaws + 4 hierarchy findings',
+      whyCalloutCaption: 'A case with observable problems, a clear scope and real room for improvement.',
+      methodLabel: '02 · METHOD',
+      methodIntro: 'Heuristic evaluation in a real context. I went through the home screen on my phone, executing real tasks and exploring the main states and interactions available.',
+      methodTasks: [
+        { num: '01', title: 'Search for a product', body: 'Search, autocomplete and scrolling.' },
+        { num: '02', title: 'Add something from the home screen to the cart', body: 'Action, feedback and correspondence.' },
+        { num: '03', title: 'Explore the home screen', body: 'Banners, categories, cards and hierarchy.' },
+      ],
+      diagnosisLabel: '03 · FUNCTIONAL DIAGNOSIS',
+      diagnosisHeading: 'Two flaws of function, not of aesthetics.',
+      diagnosisFlaws: [
+        {
+          number: '01',
+          title: 'Search closes on scroll.',
+          body: 'The dropdown disappears when the user tries to scroll down to see the options.',
+          tag: 'User control · mobile context.',
+        },
+        {
+          number: '02',
+          title: 'Cart with no feedback.',
+          body: 'When adding a product, the response is limited to updating the counters, with no clear confirmation. The "Buy" button also leads to the item\'s page instead of executing the action its label suggests.',
+          tag: 'State visibility · labeling.',
+        },
+      ],
+      findingsLabel: '04 · OTHER FINDINGS',
+      findingsHeading: 'Hierarchy, recognition and consistency.',
+      findings: [
+        { num: '1', title: 'Carousel with no affordance.', body: 'The horizontal gesture is not communicated.', tag: 'Mobile · recognition.' },
+        { num: '2', title: 'Long scroll with no hierarchy.', body: 'Cards and banners with no clear priority.', tag: "Mobile · Hick's law." },
+        { num: '3', title: 'Prices competing with each other.', body: 'List price, sale price, Pix price and unit price all fight for attention.', tag: 'Visual hierarchy.' },
+        { num: '4', title: 'Inconsistent grid.', body: 'Blocks start on different lines.', tag: 'Consistency · execution.' },
+      ],
+      benchmarkLabel: '05 · BENCHMARKING',
+      benchmarkHeading: 'Similar structure, different execution.',
+      benchmarkBody: 'Pague Menos, Drogaria SP and Drogasil use similar patterns, but solve search, feedback and hierarchy better.',
+        benchmarkCallout: 'The benchmarking shows the problem is not the category, it is the quality of execution.',
+        benchmarkNote: 'Note: consolidated patterns were preserved; intentional deviations are justified.',
+        benchmarkComparisonLabel: 'Ultrafarma × competitors',
+        benchmarkFigmaCta: 'View the complete benchmarking in Figma',
+      beforeAfterLabel: '06 · BEFORE AND AFTER',
+      beforeAfterHeading: 'A home screen with priority.',
+      beforeLabel: 'THE BEFORE · ORIGINAL HOME',
+      afterLabel: 'THE AFTER · REDESIGN',
+      decisionsLabel: '07 · DESIGN DECISIONS',
+      decisionsHeading: 'Problem to decision: specific answers.',
+      screensCaption: 'The redesigned screens',
+      searchScreenCaption: 'Search, full screen with free scroll',
+      cartModalCaption: 'Cart confirmation, with item and subtotal',
+      decisionsGroup1Title: 'Specific responses.',
+      decisionsGroup1: [
+        { title: 'Search', body: 'Full screen with free scroll.', tag: 'User control.' },
+        { title: 'Cart', body: 'Confirmation, item and subtotal shown.', tag: 'Immediate feedback.' },
+        { title: 'Carousel', body: 'Peek of the next item.', tag: 'Recognition.' },
+      ],
+      decisionsGroup2Title: 'Organising to reduce effort.',
+      decisionsGroup2: [
+        { title: 'Wall of sections', body: 'Named and separated sections.', tag: 'Mobile hierarchy.' },
+        { title: 'Price', body: 'The main price is strong, secondary ones are discreet.', tag: 'Typographic hierarchy.' },
+        { title: 'Grid', body: '4 columns, 16px margin, 8px gutter.', tag: 'Consistency.' },
+      ],
+      figmaCta: 'View the redesigned screens in Figma',
+      refineLabel: '08 · REFINE WITHOUT REBRANDING',
+      refineHeading: 'Visual changes serve clarity and hierarchy, not a change of identity.',
+      refineBullets: [
+        'Cleaner header, with search taking the lead',
+        'Consistent spacing, more breathing room',
+        'Clearer typographic hierarchy',
+        'Original colors, logo and font preserved',
+      ],
+      refineClosing: 'Identity preserved. Execution improved.',
+      designSystemLabel: '09 · DESIGN SYSTEM',
+      designSystemHeading: 'Tokens and components ensure consistency.',
+      designSystemBullets: [
+        'Colors and typography extracted from the real site',
+        'Color and spacing tokens',
+        'Reusable card, button, input, chip, header and footer',
+        '4-column mobile grid',
+        'Named layers and organised pages',
+      ],
+        designSystemNote: 'AI accelerated the style guide by extracting colors, typography and tokens from Ultrafarma’s real interface. Curation, decisions and application in the redesign were led by me.',
+        designSystemFoundations: 'Foundations',
+        designSystemFoundationsCaption: 'Color, typography, spacing and mobile grid.',
+        designSystemComponents: 'Reusable components',
+        designSystemComponentsCaption: 'A consistent library built for real interface scenarios.',
+        designSystemFigmaCta: 'Explore the design system in Figma',
+      validationLabel: '10 · VALIDATION AND LIMITS',
+      validationHeading: 'What was validated and what is still missing.',
+      validationIntro: 'This project produces well-founded hypotheses, not results proven through user testing.',
+      validationItems: [
+        { label: 'Validated', body: 'Heuristic evaluation and competitive comparison.', tag: 'Observable evidence.' },
+        { label: 'Limitation', body: 'No formal user testing.', tag: 'I do not claim measured impact.' },
+      ],
+      closingLabel: '11 · CLOSING',
+      closingHeading: 'I did not reinvent Ultrafarma.',
+      closingBody: 'I kept the identity and what already worked. I refined what was broken, with criteria and evidence.',
+      closingHighlight: 'Usability redesign means solving a real problem, not changing the look out of personal taste.',
+      previousProject: 'Previous project',
+      nextProject: 'Next project',
+    },
   },
 
   pt: {
@@ -1008,6 +1191,117 @@ export const translations = {
         personaCaption: 'Persona Ana e seu Provenance Card: o que é dado, inferência e especulação.',
         personaAlt: 'Ficha da persona Ana ao lado de um Provenance Card documentando a origem de cada atributo como dado, inferência ou especulação.',
       },
+    },
+    ultrafarma: {
+      backToWork: '← Voltar',
+      projectTitle: 'Redesign Ultrafarma',
+      subtitle: 'Redesign da home mobile da Ultrafarma',
+      rolePill: 'UX/UI Design · Avaliação Heurística · Benchmarking · UI Kit & Tokens · Figma',
+      year: '2026',
+      heroHeading: 'Resolver problemas reais sem descaracterizar a marca.',
+      heroBody: 'Projeto conceitual independente, não encomendado e sem vínculo oficial com a Ultrafarma. A partir de uma avaliação heurística da experiência mobile real, redesenhei a home para corrigir problemas de busca, feedback e hierarquia, preservando a identidade da marca.',
+      heroFigmaCta: 'Ver o projeto completo no Figma',
+      whyLabel: '01 · POR QUE A ULTRAFARMA',
+      whyBody: 'Comparei a experiência mobile de Pague Menos, Drogaria SP e Drogasil. A estrutura da categoria é semelhante entre concorrentes, mas a Ultrafarma concentrou falhas funcionais e problemas de hierarquia com maior impacto na jornada.',
+      whyCalloutValue: '2 falhas funcionais + 4 achados de hierarquia',
+      whyCalloutCaption: 'Um caso com problemas observáveis, escopo claro e espaço real para melhoria.',
+      methodLabel: '02 · MÉTODO',
+      methodIntro: 'Avaliação heurística em contexto real. Percorri a home no celular executando tarefas reais e explorando os principais estados e interações disponíveis.',
+      methodTasks: [
+        { num: '01', title: 'Pesquisar um produto', body: 'Busca, autocomplete e rolagem.' },
+        { num: '02', title: 'Adicionar ao carrinho algo da home', body: 'Ação, retorno e correspondência.' },
+        { num: '03', title: 'Explorar a home', body: 'Banners, categorias, cards e hierarquia.' },
+      ],
+      diagnosisLabel: '03 · DIAGNÓSTICO FUNCIONAL',
+      diagnosisHeading: 'Duas falhas de função, não de estética.',
+      diagnosisFlaws: [
+        {
+          number: '01',
+          title: 'Busca fecha ao rolar.',
+          body: 'O dropdown some ao tentar descer para ver as opções.',
+          tag: 'Controle do usuário · contexto móvel.',
+        },
+        {
+          number: '02',
+          title: 'Carrinho sem feedback.',
+          body: 'Ao adicionar um produto, o retorno se limita à atualização dos contadores, sem uma confirmação evidente. Já o botão "Comprar" direciona para a página do item, em vez de executar a ação indicada pelo rótulo.',
+          tag: 'Visibilidade de estado · rotulação.',
+        },
+      ],
+      findingsLabel: '04 · OUTROS ACHADOS',
+      findingsHeading: 'Hierarquia, reconhecimento e consistência.',
+      findings: [
+        { num: '1', title: 'Carrossel sem affordance.', body: 'O gesto horizontal não é comunicado.', tag: 'Mobile · reconhecimento.' },
+        { num: '2', title: 'Scroll longo sem hierarquia.', body: 'Cards e banners sem prioridade clara.', tag: 'Mobile · lei de Hick.' },
+        { num: '3', title: 'Preços competindo entre si.', body: 'De, Por, Pix e preço unitário disputam atenção.', tag: 'Hierarquia visual.' },
+        { num: '4', title: 'Grid inconsistente.', body: 'Blocos começam em linhas diferentes.', tag: 'Consistência · execução.' },
+      ],
+      benchmarkLabel: '05 · BENCHMARKING',
+      benchmarkHeading: 'Estrutura parecida, execução diferente.',
+      benchmarkBody: 'Pague Menos, Drogaria SP e Drogasil usam padrões semelhantes, mas resolvem melhor busca, feedback e hierarquia.',
+        benchmarkCallout: 'O benchmarking indica que o problema não é a categoria, é a qualidade da execução.',
+        benchmarkNote: 'Nota: padrões consolidados foram preservados; desvios intencionais são justificados.',
+        benchmarkComparisonLabel: 'Ultrafarma × concorrentes',
+        benchmarkFigmaCta: 'Ver o benchmarking completo no Figma',
+      beforeAfterLabel: '06 · ANTES E DEPOIS',
+      beforeAfterHeading: 'Uma home com prioridade.',
+      beforeLabel: 'O ANTES · HOME ORIGINAL',
+      afterLabel: 'O DEPOIS · REDESIGN',
+      decisionsLabel: '07 · DECISÕES DE DESIGN',
+      decisionsHeading: 'Problema para decisão: respostas específicas.',
+      screensCaption: 'As telas redesenhadas',
+      searchScreenCaption: 'Busca em tela cheia, com scroll livre',
+      cartModalCaption: 'Confirmação do carrinho, com item e subtotal',
+      decisionsGroup1Title: 'Respostas específicas.',
+      decisionsGroup1: [
+        { title: 'Busca', body: 'Tela cheia com scroll livre.', tag: 'Controle do usuário.' },
+        { title: 'Carrinho', body: 'Confirmação, item e subtotal visíveis.', tag: 'Feedback imediato.' },
+        { title: 'Carrossel', body: 'Peek do próximo item.', tag: 'Reconhecimento.' },
+      ],
+      decisionsGroup2Title: 'Organização para reduzir esforço.',
+      decisionsGroup2: [
+        { title: 'Paredão', body: 'Seções nomeadas e separadas.', tag: 'Hierarquia mobile.' },
+        { title: 'Preço', body: 'Principal forte, secundários discretos.', tag: 'Hierarquia tipográfica.' },
+        { title: 'Grid', body: '4 colunas, margem 16, gutter 8.', tag: 'Consistência.' },
+      ],
+      figmaCta: 'Ver as telas redesenhadas no Figma',
+      refineLabel: '08 · REFINAR SEM REBRANDEAR',
+      refineHeading: 'As mudanças visuais servem à clareza e à hierarquia, não à troca de identidade.',
+      refineBullets: [
+        'Header mais limpo, com busca protagonista',
+        'Espaçamento consistente e mais respiro',
+        'Hierarquia tipográfica mais clara',
+        'Cores, logo e fonte originais preservados',
+      ],
+      refineClosing: 'Identidade preservada. Execução aprimorada.',
+      designSystemLabel: '09 · DESIGN SYSTEM',
+      designSystemHeading: 'Tokens e componentes garantem consistência.',
+      designSystemBullets: [
+        'Cores e tipografia extraídas do site real',
+        'Tokens de cor e espaçamento',
+        'Card, botão, input, chip, header e footer reutilizáveis',
+        'Grid mobile de 4 colunas',
+        'Layers nomeados e páginas organizadas',
+      ],
+        designSystemNote: 'A IA acelerou a criação do style guide ao extrair cores, tipografia e tokens da interface real da Ultrafarma. A curadoria, as decisões e a aplicação no redesign foram conduzidas por mim.',
+        designSystemFoundations: 'Fundações',
+        designSystemFoundationsCaption: 'Cor, tipografia, espaçamento e grid mobile.',
+        designSystemComponents: 'Componentes reutilizáveis',
+        designSystemComponentsCaption: 'Uma biblioteca consistente para cenários reais da interface.',
+        designSystemFigmaCta: 'Explorar o design system no Figma',
+      validationLabel: '10 · VALIDAÇÃO E LIMITES',
+      validationHeading: 'O que foi validado e o que ainda falta.',
+      validationIntro: 'O projeto produz hipóteses fundamentadas, não resultados comprovados por teste com usuários.',
+      validationItems: [
+        { label: 'Validado', body: 'Avaliação heurística e comparação competitiva.', tag: 'Evidências observáveis.' },
+        { label: 'Limitação', body: 'Sem teste formal com usuários.', tag: 'Não afirmo impacto medido.' },
+      ],
+      closingLabel: '11 · FECHAMENTO',
+      closingHeading: 'Não reinventei a Ultrafarma.',
+      closingBody: 'Mantive a identidade e o que já funcionava. Refinei o que estava quebrado, com critério e evidência.',
+      closingHighlight: 'Redesign de usabilidade é resolver problema real, não trocar a cara por gosto.',
+      previousProject: 'Projeto anterior',
+      nextProject: 'Próximo projeto',
     },
   },
 } satisfies { en: TranslationShape; pt: TranslationShape };
