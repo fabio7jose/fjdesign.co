@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar';
 import { Hero } from '../components/Hero';
 import { MarqueeBanner } from '../components/MarqueeBanner';
 import { Work } from '../components/Work';
+import { GithubActivity } from '../components/GithubActivity';
 import { Skills } from '../components/Skills';
 import { Certifications } from '../components/Certifications';
 import { MotionContent } from '../components/MotionContent';
@@ -33,6 +34,14 @@ export function Home() {
           margin: '0 2rem',
         }}
       />
+      <GithubActivity />
+      <div
+        style={{
+          height: '1px',
+          backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+          margin: '0 2rem',
+        }}
+      />
       <Skills />
       <div
         style={{
@@ -49,7 +58,7 @@ export function Home() {
           margin: '0 2rem',
         }}
       />
-      <MotionContent />
+      <About />
       <div
         style={{
           height: '1px',
@@ -57,7 +66,7 @@ export function Home() {
           margin: '0 2rem',
         }}
       />
-      <About />
+      <MotionContent />
       <div
         style={{
           height: '1px',

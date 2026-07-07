@@ -21,7 +21,7 @@ interface UltrafarmaValidationItem { label: string; body: string; tag: string }
    time. A missing or misnamed key causes a TypeScript error.      */
 interface TranslationShape {
   nav: {
-    work: string; skills: string; certifications: string;
+    work: string; github: string; skills: string; certifications: string;
     motionContent: string; about: string; contact: string;
   };
   hero: {
@@ -32,6 +32,9 @@ interface TranslationShape {
     label: string; title1: string; title2: string;
     filters: string[]; viewCase: string;
     previousProject: string; nextProject: string;
+  };
+  githubActivity: {
+    label: string; title: string; description: string; username: string; cta: string; contributionsSuffix: string;
   };
   skills: {
     label: string; title: string; cards: SkillCard[];
@@ -270,6 +273,7 @@ export const translations = {
   en: {
     nav: {
       work: 'Work',
+      github: 'GitHub',
       skills: 'Approach',
       certifications: 'Certifications',
       motionContent: 'Content',
@@ -278,9 +282,9 @@ export const translations = {
     },
     hero: {
       available: 'Available now',
-      title: 'Web Designer',
-      title2: '& UX/UI Design',
-      subtitle: 'Web Design · UX/UI · Front-end · AI-Augmented Design',
+      title: 'UX/UI Designer',
+      title2: '& Product Design',
+      subtitle: 'UX/UI Design · Product Design · AI-Augmented Design · Web Design',
       cta: 'View my work',
       stats: [
         { num: '3+', label: 'Years of Experience' },
@@ -297,6 +301,14 @@ export const translations = {
       viewCase: 'View case',
       previousProject: 'Previous project',
       nextProject: 'Next project',
+    },
+    githubActivity: {
+      label: 'Open Source',
+      title: 'Code, Every Day',
+      description: "Most of my client work is proprietary and I can't share that code here. My GitHub commit history is the honest proxy: real, day-to-day practice with HTML, CSS and front-end fundamentals.",
+      username: '@fabio7jose',
+      cta: 'View full profile on GitHub',
+      contributionsSuffix: 'contributions in the last year',
     },
     skills: {
       label: 'Approach',
@@ -323,7 +335,7 @@ export const translations = {
     },
     motionContent: {
       label: 'DIGITAL CONTENT',
-      heading: 'Real work. Real clients.',
+      heading: 'Agency Experience: Real Brands',
       videosLabel: 'AI Video',
       imagesLabel: 'Static',
     },
@@ -332,9 +344,9 @@ export const translations = {
       title: 'About',
       openTo: 'Open to opportunities · Available to relocate',
       bio: [
-        "I'm Fábio, a Web Designer with over 3 years of experience creating high-converting landing pages, interfaces and digital campaign assets, from static images to videos. With UX/UI Design study projects and a particular interest in interaction design and end-to-end process.",
-        "AI is a core part of how I work. I use it to design faster, explore more directions, and consistently deliver better results. Not as a shortcut, but as a creative and strategic advantage. That includes this portfolio itself: the visual identity, content structure and aesthetic decisions were defined by me, with Figma Make for rapid prototyping and Claude Code for iterative development. A process I used to test in practice how to integrate AI tools into a real design workflow.",
-        "I'm currently based in Brazil and open to opportunities anywhere in the world.",
+        "I'm Fábio, a UX/UI Designer with a solid foundation in Web Design. For over three years I've implemented interfaces for brands like Movistar, Claro and Prosegur, serving clients across nine countries in Latin America and Europe.",
+        "I've been deepening my work in digital products through projects like Copiloto Financeiro and Lacrei Saúde, from discovery to high-fidelity interfaces. I use AI as targeted support in the process, in research and prototyping, but the final decision is always mine. That includes this portfolio itself: the visual identity and structure were defined by me, with Figma Make for prototyping and Claude Code for development.",
+        "I'm based in Brazil and open to opportunities in Brazil and Europe, including Portugal.",
       ],
       downloadCV: 'Download CV',
       education: 'Education',
@@ -789,6 +801,7 @@ export const translations = {
   pt: {
     nav: {
       work: 'Trabalhos',
+      github: 'GitHub',
       skills: 'Abordagem',
       certifications: 'Certificações',
       motionContent: 'Conteúdo',
@@ -797,9 +810,9 @@ export const translations = {
     },
     hero: {
       available: 'Disponível agora',
-      title: 'Web Designer',
-      title2: '& UX/UI Design',
-      subtitle: 'Web Design · UX/UI · Front-end · IA aplicada ao Design',
+      title: 'UX/UI Designer',
+      title2: '& Product Design',
+      subtitle: 'UX/UI Design · Product Design · IA aplicada ao Design · Web Design',
       cta: 'Ver meus trabalhos',
       stats: [
         { num: '3+', label: 'Anos de Experiência' },
@@ -816,6 +829,14 @@ export const translations = {
       viewCase: 'Ver case',
       previousProject: 'Projeto anterior',
       nextProject: 'Próximo projeto',
+    },
+    githubActivity: {
+      label: 'Código Aberto',
+      title: 'Código no Dia a Dia',
+      description: 'Boa parte do meu trabalho é proprietário e não posso compartilhar o código dos meus clientes aqui. Meu histórico de commits no GitHub é a prova honesta: prática real, do dia a dia, com HTML, CSS e fundamentos de front-end.',
+      username: '@fabio7jose',
+      cta: 'Ver perfil completo no GitHub',
+      contributionsSuffix: 'contribuições no último ano',
     },
     skills: {
       label: 'Abordagem',
@@ -842,7 +863,7 @@ export const translations = {
     },
     motionContent: {
       label: 'CONTEÚDO DIGITAL',
-      heading: 'Trabalho real. Clientes reais.',
+      heading: 'Experiência em Agência: Marcas Reais',
       videosLabel: 'Vídeo IA',
       imagesLabel: 'Estático',
     },
@@ -851,9 +872,9 @@ export const translations = {
       title: 'Sobre',
       openTo: 'Aberto a oportunidades · Disponível para realocação',
       bio: [
-        'Sou Fábio, Web Designer com mais de 3 anos de experiência criando landing pages de alta conversão, interfaces e peças para campanhas digitais, de imagens estáticas a vídeos. Com projetos de estudo em UX/UI Design e interesse particular em design de interação e processo end-to-end.',
-        'A IA faz parte do meu processo. Uso para projetar mais rápido, explorar mais direções e entregar trabalhos melhores. Não como atalho, mas como vantagem criativa e estratégica. Isso inclui o próprio portfólio: a identidade visual, a estrutura de conteúdo e as decisões estéticas foram definidas por mim, com Figma Make para prototipagem rápida e Claude Code para desenvolvimento iterativo. Um processo que usei para testar na prática como integrar ferramentas de IA num fluxo de design real.',
-        'Estou baseado no Brasil e aberto a oportunidades em qualquer lugar do mundo.',
+        'Sou Fábio, UX/UI Designer com base sólida em Web Design. Há mais de três anos implemento interfaces para marcas como Movistar, Claro e Prosegur, atendendo clientes em nove países da América Latina e Europa.',
+        'Tenho aprofundado minha atuação em produtos digitais em projetos como o Copiloto Financeiro e o Lacrei Saúde, do discovery à interface de alta fidelidade. Uso IA como apoio pontual no processo, na pesquisa e na prototipação, mas a decisão final é sempre minha. Isso inclui este portfólio: a identidade visual e a estrutura foram definidas por mim, com Figma Make para prototipagem e Claude Code para o desenvolvimento.',
+        'Estou baseado no Brasil e aberto a oportunidades no Brasil e na Europa, incluindo Portugal.',
       ],
       downloadCV: 'Baixar CV',
       education: 'Formação',

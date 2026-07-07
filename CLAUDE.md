@@ -95,16 +95,18 @@ fjdesign.co/
 3. `<MarqueeBanner />`
 4. `<Work />` — id="work", section label "01"
 5. 1px divider
-6. `<Skills />` — id="skills", section label "02"
+6. `<GithubActivity />` — id="github", section label "02". Proves hands-on front-end/HTML/CSS commit activity via a public GitHub contribution heatmap (`ghchart.rshah.org`), since client work under NDA can't be shown as code.
 7. 1px divider
-8. `<Certifications />` — id="certifications", section label "03"
+8. `<Skills />` — id="skills", section label "03"
 9. 1px divider
-10. `<MotionContent />` — id="motion-content", section label "04"
+10. `<Certifications />` — id="certifications", section label "04"
 11. 1px divider
-12. `<About />` — id="about", section label "05"
+12. `<MotionContent />` — id="motion-content", section label "05"
 13. 1px divider
-14. `<Contact />` — id="contact", section label "06"
-15. `<Footer />`
+14. `<About />` — id="about", section label "06"
+15. 1px divider
+16. `<Contact />` — id="contact", section label "07"
+17. `<Footer />`
 
 ---
 
@@ -209,6 +211,7 @@ const accentFg  = isDark ? '#0A0A0A' : '#ffffff'
 - [x] Infinite marquee skills banner
 - [x] Work section: featured card + 2×2 grid, filter pills by category
 - [x] Project card hover overlay with "View case" pill
+- [x] GitHub Activity section: live contribution heatmap proving hands-on commit history, since client work is under NDA
 - [x] Skills section: 3 approach cards with scroll-triggered animation
 - [x] Certifications carousel (Glide.js, responsive perView: 1/2/3/4)
 - [x] AI Lab masonry grid with hover overlays and play button for video tiles
@@ -294,7 +297,7 @@ Hint text at `rgba(10,10,10,0.3)` in light mode likely fails WCAG AA contrast ra
 
 8. **Unsplash images.** All project and AI Lab images use Unsplash URLs with signed tokens. If images stop loading, the `ImageWithFallback` component handles the error gracefully with a placeholder.
 
-9. **Section IDs must match Navbar hrefs.** Navbar links use `document.getElementById(id)` with `scrollIntoView`. The section IDs are: `home`, `work`, `skills`, `certifications`, `motion-content`, `about`, `contact`. Do not change them without updating `Navbar.tsx`.
+9. **Section IDs must match Navbar hrefs.** Navbar links use `document.getElementById(id)` with `scrollIntoView`. The section IDs are: `home`, `work`, `github`, `skills`, `certifications`, `motion-content`, `about`, `contact`. Do not change them without updating `Navbar.tsx`.
 
 10. **Inline styles make global theme changes expensive.** To change a color used across all sections, you must update each component individually. This is the biggest structural debt in the project.
 
@@ -303,6 +306,8 @@ Hint text at `rgba(10,10,10,0.3)` in light mode likely fails WCAG AA contrast ra
 12. **Newest case always comes first.** The canonical case list lives in `src/app/data/projects.ts` and is sorted automatically by `addedOrder`, highest first. Every new case must receive the next sequential `addedOrder` number. The Home card numbering and the previous/next navigation on case-study pages must always derive from this shared list; never hardcode a separate case order inside a page.
 
 13. **Case-study covers are always 16:9.** Every project thumbnail in the Home `Work` grid uses a fixed `16 / 9` aspect ratio on mobile and desktop. New cover assets must also be exported at 16:9, ideally `1920 × 1080px` or at least `1280 × 720px`. Keep essential text and interface details away from the outer edges. Register the asset in `src/app/data/projects.ts`; do not add project-specific aspect-ratio exceptions or return mobile cards to 4:3. Thumbnails use `object-fit: cover`, so the source image must already match 16:9 to avoid cropping.
+
+14. **GithubActivity renders its own heatmap grid from JSON, not a themed third-party SVG.** `src/app/components/GithubActivity.tsx` fetches daily contribution data from `github-contributions-api.jogruber.de/v4/fabio7jose?y=last` (CORS-open JSON) and draws the calendar grid itself with inline-styled divs, so every cell color derives from the `accent`/`emptyCell` tokens and respects `isDark` exactly like the rest of the site. Two earlier approaches were tried and rejected: (1) `github-readme-stats.vercel.app` stat/top-langs cards returned live 503s during testing; (2) `ghchart.rshah.org` (an SVG image) bakes empty-day cells as a fixed light gray that can't be recolored client-side (no CORS on that host, so the SVG can't be fetched and restyled) — wrapping it in a light panel to compensate looked like a jarring white block on the dark theme and was reverted. Do not go back to an `<img src>`-based heatmap service for this reason. The grid's horizontal scroll container auto-scrolls to the right after data loads (`heatmapScrollRef`) so visitors see the most recent months first, not the oldest.
 
 ---
 

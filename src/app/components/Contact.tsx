@@ -117,7 +117,7 @@ export function Contact() {
           <span
             style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.75rem', color: textMuted, letterSpacing: '0.05em' }}
           >
-            06
+            07
           </span>
         </motion.div>
 

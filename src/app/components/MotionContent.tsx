@@ -4,42 +4,22 @@ import { Volume2, VolumeX, X } from 'lucide-react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { useTheme, useLang } from '../App';
 
-import estadao from '../../assets/motion-content/1-br-estadao-banners-abril-1200x1200-19715-v2.jpg';
-import ipemig from '../../assets/motion-content/2-br-ipemig-banner-marco-1200x1200-19406.jpg';
-import netlife from '../../assets/motion-content/2-ec-netlife-carrossel-julho-1200x1200-20922.jpg';
-import movistarNov from '../../assets/motion-content/3-co-movistar-banner-novembro-1200x1200-25484.png';
+import estadaoPortrait from '../../assets/motion-content/5-br-estadao-maio-banners-960x1200-26478.png';
 import movistarOct from '../../assets/motion-content/3-co-movistar-banners-outubro-25262.png';
 import prosegurImg from '../../assets/motion-content/3-CO-Prosegur-banner-marco-1200x1200-26185.png';
-import virgin from '../../assets/motion-content/cl-virgin-abril-banner-1125x600-26156.png';
-import sams from '../../assets/motion-content/br-sams-banner-home-crystal-fevereiro-1500x630-23528.jpg';
-import tigo from '../../assets/motion-content/1-co-tigo-junho-bannersAnimados-1200x1200-26595.png';
-import estadaoPortrait from '../../assets/motion-content/5-br-estadao-maio-banners-960x1200-26478.png';
-import estadaoWide from '../../assets/motion-content/9-br-estadao-maio-banners-1200x628-26478.png';
 
 const videoData = [
-  { src: 'https://ik.imagekit.io/zxou7bg5w/2-br-wine-abril-video-1080x1920-26300.mp4', client: 'Wine', country: 'Brasil' },
-  { src: 'https://ik.imagekit.io/zxou7bg5w/1-co-prosegur-maio-videos-1080x1920-26185.mp4', client: 'Prosegur', country: 'Colombia' },
-  { src: 'https://ik.imagekit.io/zxou7bg5w/1-co-prosegur-maio-video-1080x1920-26187.mp4', client: 'Prosegur', country: 'Colombia' },
-  { src: 'https://ik.imagekit.io/zxou7bg5w/1-es-addlist-mar%C3%A7o-videos-1080x1920-26201.mp4', client: 'Addlist', country: 'España' },
-  { src: 'https://ik.imagekit.io/zxou7bg5w/2-ar-payway-abril-videos-1080x1920-25993.mp4', client: 'Payway', country: 'Argentina' },
   { src: 'https://ik.imagekit.io/zxou7bg5w/1-co-movistar-junho-video-1080x1920-25931.mp4', client: 'Movistar', country: 'Colombia' },
+  { src: 'https://ik.imagekit.io/zxou7bg5w/1-co-prosegur-maio-videos-1080x1920-26185.mp4', client: 'Prosegur', country: 'Colombia' },
 ];
 
 const getOptimizedVideoUrl = (src: string) => `${src}?tr=w-540,q-50`;
 const getVideoPosterUrl = (src: string) => `${src}/ik-thumbnail.jpg?tr=so-1,w-540,q-75`;
 
 const imageData = [
-  { src: estadao, client: 'Estadão', country: 'Brasil' },
-  { src: estadaoWide, client: 'Estadão', country: 'Brasil' },
-  { src: ipemig, client: 'Ipemig', country: 'Brasil' },
-  { src: tigo, client: 'Tigo', country: 'Colombia' },
-  { src: netlife, client: 'Netlife', country: 'Ecuador' },
   { src: estadaoPortrait, client: 'Estadão', country: 'Brasil' },
-  { src: movistarNov, client: 'Movistar', country: 'Colombia' },
   { src: movistarOct, client: 'Movistar', country: 'Colombia' },
   { src: prosegurImg, client: 'Prosegur', country: 'Colombia' },
-  { src: virgin, client: 'Virgin', country: 'Chile' },
-  { src: sams, client: "Sam's Club", country: 'Brasil' },
 ];
 
 interface LightboxState {
@@ -181,7 +161,7 @@ export function MotionContent() {
             <span
               style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.75rem', color: textMuted, letterSpacing: '0.05em' }}
             >
-              04
+              06
             </span>
           </motion.div>
 
@@ -217,8 +197,11 @@ export function MotionContent() {
           >
             <span style={rowLabelStyle}>{t.motionContent.videosLabel}</span>
             <div
-              className="grid grid-cols-2 lg:grid-cols-6"
-              style={{ gap: '12px' }}
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 220px))',
+                gap: '12px',
+              }}
             >
               {videoData.map((video, i) => (
                 <div key={i}>

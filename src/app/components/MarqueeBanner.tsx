@@ -2,11 +2,9 @@ import React from 'react';
 import { useTheme } from '../App';
 
 const items = [
+  'Product Design',
+  '✦',
   'UX Design',
-  '✦',
-  'Web Design',
-  '✦',
-  'Landing Pages',
   '✦',
   'Design Systems',
   '✦',
@@ -20,11 +18,13 @@ const items = [
   '✦',
   'Figma Expert',
   '✦',
-  'UX Design',
-  '✦',
   'Web Design',
   '✦',
   'Landing Pages',
+  '✦',
+  'Product Design',
+  '✦',
+  'UX Design',
   '✦',
   'Design Systems',
   '✦',
@@ -37,6 +37,10 @@ const items = [
   'Front-end Dev',
   '✦',
   'Figma Expert',
+  '✦',
+  'Web Design',
+  '✦',
+  'Landing Pages',
   '✦',
 ];
 
