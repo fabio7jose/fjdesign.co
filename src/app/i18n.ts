@@ -285,7 +285,7 @@ export const translations = {
     hero: {
       available: 'Available now',
       title: 'UX/UI Designer',
-      title2: '& Product Design',
+      title2: '& Product Designer',
       subtitle: 'UX/UI Design · Product Design · AI-Augmented Design · Web Design',
       cta: 'View my work',
       stats: [
@@ -815,7 +815,7 @@ export const translations = {
     hero: {
       available: 'Disponível agora',
       title: 'UX/UI Designer',
-      title2: '& Product Design',
+      title2: '& Product Designer',
       subtitle: 'UX/UI Design · Product Design · IA aplicada ao Design · Web Design',
       cta: 'Ver meus trabalhos',
       stats: [
