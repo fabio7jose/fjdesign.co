@@ -18,7 +18,7 @@ export interface Project {
   tagsPt?: string[];
   year: string;
   quoteThumbnail?: { pt: string; en: string };
-  inProgressLabel?: { pt: string; en: string };
+  scopeLabel?: { pt: string; en: string };
 }
 
 const projectEntries: Project[] = [
@@ -55,9 +55,9 @@ const projectEntries: Project[] = [
     tags: ['UX Research', 'Product Strategy', 'AI Design', 'Figma'],
     tagsPt: ['UX Research', 'Product Strategy', 'AI Design', 'Figma'],
     year: '2025',
-    inProgressLabel: {
-      pt: 'Em andamento',
-      en: 'In progress',
+    scopeLabel: {
+      pt: 'Discovery & Arquitetura',
+      en: 'Discovery & Architecture',
     },
   },
   {

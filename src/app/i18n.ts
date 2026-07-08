@@ -141,7 +141,9 @@ interface TranslationShape {
   };
   copiloto: {
     backToWork: string;
-    inProgressBadge: string;
+    scopeBadge: string;
+    completedStagesLabel: string;
+    completedStages: string;
     projectTitle: string;
     projectDescription: string;
     rolePill: string;
@@ -536,7 +538,9 @@ export const translations = {
     },
     copiloto: {
       backToWork: '← Back',
-      inProgressBadge: 'Case in progress',
+      scopeBadge: 'Discovery & Product Architecture',
+      completedStagesLabel: 'Stages completed',
+      completedStages: 'Framing, Research, Definition, Information Architecture, 5 Critical Flows and AI Architecture',
       projectTitle: 'Copiloto Financeiro',
       projectDescription: 'A study project on two fronts: designing a financial copilot for Brazilians with variable or hybrid income, and a hands-on investigation into how to use AI in the design process critically and transparently, without letting it replace human judgement.',
       rolePill: 'UX Research · Product Strategy',
@@ -659,7 +663,7 @@ export const translations = {
         'One interviewee sits on the edge of the scope: formal variable income, but does not live the mechanism of the pain. Kept as a delimitation contrast, not as support.',
         'The WEIRD bias of the model was mitigated, not eliminated.',
       ],
-      nextTitle: 'WHAT COMES NEXT',
+      nextTitle: 'PRODUCT ROADMAP',
       nextItems: [
         'Stage 4: Design System & UI',
         'Stage 5: Prototyping & Validation',
@@ -671,7 +675,7 @@ export const translations = {
         'Match the model\'s effort to the difficulty of the task, not to its importance.',
         'Provenance Cards as a standard artefact for any use of AI in research.',
       ],
-      pageFooterText: 'Case in progress. Updated at the end of Stage 3 (Architecture & Flows).',
+      pageFooterText: 'Discovery and Product Architecture complete. Next: Design System & MVP.',
       artifacts: {
         affinityCaption: 'Affinity diagram, post-its marked by origin: real evidence vs. exploratory personas.',
         affinityAlt: 'Affinity diagram from the FigJam board, with post-its grouped into themes and colour-marked by source, separating real interview evidence from exploratory personas.',
@@ -1064,7 +1068,9 @@ export const translations = {
     },
     copiloto: {
       backToWork: '← Voltar',
-      inProgressBadge: 'Case em andamento',
+      scopeBadge: 'Discovery & Arquitetura de Produto',
+      completedStagesLabel: 'Etapas concluídas',
+      completedStages: 'Framing, Pesquisa, Definição, Arquitetura da Informação, 5 Fluxos Críticos e Arquitetura de IA',
       projectTitle: 'Copiloto Financeiro',
       projectDescription: 'Um projecto de estudo em duas frentes: o design de um copiloto financeiro para brasileiros com renda variável ou híbrida, e uma investigação prática sobre como usar IA no processo de design de forma crítica e declarada, sem deixar que ela substitua o julgamento humano.',
       rolePill: 'UX Research · Product Strategy',
@@ -1187,7 +1193,7 @@ export const translations = {
         'Um dos entrevistados ficou na fronteira do recorte: tem renda variável formal, mas não vive o mecanismo da dor. Mantido como contraste de delimitação, não como sustentação.',
         'O viés WEIRD do modelo foi mitigado, não eliminado.',
       ],
-      nextTitle: 'O QUE VEM A SEGUIR',
+      nextTitle: 'PRÓXIMAS ETAPAS DO PRODUTO',
       nextItems: [
         'Etapa 4: Design System & UI',
         'Etapa 5: Prototipagem & Validação',
@@ -1199,7 +1205,7 @@ export const translations = {
         'Casar o esforço do modelo com a dificuldade da tarefa, não com a importância dela.',
         'Provenance Cards como artefato padrão para qualquer uso de IA em pesquisa.',
       ],
-      pageFooterText: 'Case em andamento. Atualizado ao fim da Etapa 3 (Arquitetura & Fluxos).',
+      pageFooterText: 'Discovery e Arquitetura de Produto concluídos. Próxima etapa: Design System & MVP.',
       artifacts: {
         affinityCaption: 'Affinity diagram, com post-its marcados por origem: evidência real vs. personas exploratórias.',
         affinityAlt: 'Affinity diagram do board no FigJam, com post-its agrupados em temas e marcados por cor segundo a origem, separando evidência de entrevistas reais das personas exploratórias.',

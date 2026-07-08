@@ -145,8 +145,8 @@ function ProjectCard({
           />
         )}
 
-        {/* In-progress badge */}
-        {project.inProgressLabel && (
+        {/* Scope badge */}
+        {project.scopeLabel && (
           <div
             style={{
               position: 'absolute',
@@ -154,7 +154,6 @@ function ProjectCard({
               left: '12px',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px',
               backgroundColor: accent,
               backdropFilter: 'blur(4px)',
               borderRadius: '999px',
@@ -164,16 +163,6 @@ function ProjectCard({
           >
             <span
               style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                backgroundColor: accentFg,
-                animation: 'wk-pulse 2s ease-in-out infinite',
-                flexShrink: 0,
-              }}
-            />
-            <span
-              style={{
                 fontFamily: "'Inter', sans-serif",
                 fontSize: '10px',
                 fontWeight: 600,
@@ -181,7 +170,7 @@ function ProjectCard({
                 letterSpacing: '0.05em',
               }}
             >
-              {project.inProgressLabel[lang]}
+              {project.scopeLabel[lang]}
             </span>
           </div>
         )}
@@ -335,7 +324,6 @@ export function Work() {
       @media (min-width: 768px) {
         .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       }
-      @keyframes wk-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(0.75); } }
     `;
     if (!document.getElementById('work-card-styles')) {
       document.head.appendChild(style);

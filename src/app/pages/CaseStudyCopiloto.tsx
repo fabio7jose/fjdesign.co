@@ -80,16 +80,6 @@ export function CaseStudyCopiloto() {
   useEffect(() => {
     document.title = 'Copiloto Financeiro | Fábio José';
     window.scrollTo(0, 0);
-    const style = document.createElement('style');
-    style.id = 'cp-pulse-style';
-    style.textContent = '@keyframes cp-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.78); } }';
-    if (!document.getElementById('cp-pulse-style')) {
-      document.head.appendChild(style);
-    }
-    return () => {
-      const el = document.getElementById('cp-pulse-style');
-      if (el) el.remove();
-    };
   }, []);
 
   const labelStyle: React.CSSProperties = {
@@ -167,12 +157,11 @@ export function CaseStudyCopiloto() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                {/* In-progress badge */}
+                {/* Scope badge */}
                 <div
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '8px',
                     backgroundColor: caseAccentAlpha,
                     border: `1px solid ${CASE_ACCENT}`,
                     borderRadius: '999px',
@@ -182,16 +171,6 @@ export function CaseStudyCopiloto() {
                 >
                   <span
                     style={{
-                      width: '8px',
-                      height: '8px',
-                      borderRadius: '50%',
-                      backgroundColor: CASE_ACCENT,
-                      animation: 'cp-pulse 2s ease-in-out infinite',
-                      flexShrink: 0,
-                    }}
-                  />
-                  <span
-                    style={{
                       fontFamily: "'Inter', sans-serif",
                       fontSize: '0.75rem',
                       fontWeight: 500,
@@ -199,7 +178,7 @@ export function CaseStudyCopiloto() {
                       letterSpacing: '0.03em',
                     }}
                   >
-                    {t.copiloto.inProgressBadge}
+                    {t.copiloto.scopeBadge}
                   </span>
                 </div>
 
@@ -228,7 +207,7 @@ export function CaseStudyCopiloto() {
                 >
                   {t.copiloto.projectDescription}
                 </p>
-                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
                   <span style={{ ...pillShared, backgroundColor: CASE_ACCENT, color: '#ffffff' }}>
                     {t.copiloto.rolePill}
                   </span>
@@ -240,6 +219,22 @@ export function CaseStudyCopiloto() {
                       {tool}
                     </span>
                   ))}
+                </div>
+
+                <div>
+                  <span style={labelStyle}>{t.copiloto.completedStagesLabel}</span>
+                  <p
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: '0.9rem',
+                      lineHeight: 1.6,
+                      color: textMuted,
+                      margin: 0,
+                      maxWidth: '540px',
+                    }}
+                  >
+                    {t.copiloto.completedStages}
+                  </p>
                 </div>
               </motion.div>
 
