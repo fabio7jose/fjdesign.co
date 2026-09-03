@@ -348,7 +348,7 @@ export const translations = {
       bio: [
         "I'm Fábio, a UX/UI Designer with a solid foundation in Web Design. For over three years I've implemented interfaces for brands like Movistar, Claro and Prosegur, serving clients across nine countries in Latin America and Europe.",
         "I've been deepening my work in digital products through projects like Copiloto Financeiro and Lacrei Saúde, from discovery to high-fidelity interfaces. I use AI as targeted support in the process, in research and prototyping, but the final decision is always mine. That includes this portfolio itself: the visual identity and structure were defined by me, with Figma Make for prototyping and Claude Code for development.",
-        "I'm based in Brazil and open to opportunities in Brazil and Europe, including Portugal.",
+        "I am moving to Ermesinde, in the Porto area, in October 2026, to start my master's at the University of Minho. I am open to opportunities in Portugal and across Europe, as well as Brazil.",
       ],
       downloadCV: 'Download CV',
       education: 'Education',
@@ -356,6 +356,7 @@ export const translations = {
       active: 'Active',
       ongoing: 'Ongoing',
       eduItems: [
+        { degree: 'MA in Product and Service Design', school: 'University of Minho', period: '2026–2028', status: 'ongoing' },
         { degree: 'Graphic Design', school: 'Anhanguera', period: '2023–2025', status: 'completed' },
       ],
     },
@@ -878,7 +879,7 @@ export const translations = {
       bio: [
         'Sou Fábio, UX/UI Designer com base sólida em Web Design. Há mais de três anos implemento interfaces para marcas como Movistar, Claro e Prosegur, atendendo clientes em nove países da América Latina e Europa.',
         'Tenho aprofundado minha atuação em produtos digitais em projetos como o Copiloto Financeiro e o Lacrei Saúde, do discovery à interface de alta fidelidade. Uso IA como apoio pontual no processo, na pesquisa e na prototipação, mas a decisão final é sempre minha. Isso inclui este portfólio: a identidade visual e a estrutura foram definidas por mim, com Figma Make para prototipagem e Claude Code para o desenvolvimento.',
-        'Estou baseado no Brasil e aberto a oportunidades no Brasil e na Europa, incluindo Portugal.',
+        'Mudo-me para Ermesinde, no Grande Porto, em outubro de 2026, para frequentar o mestrado na Universidade do Minho. Estou aberto a oportunidades em Portugal e no resto da Europa, além do Brasil.',
       ],
       downloadCV: 'Baixar CV',
       education: 'Formação',
@@ -886,6 +887,7 @@ export const translations = {
       active: 'Ativo',
       ongoing: 'Em andamento',
       eduItems: [
+        { degree: 'Mestrado em Design de Produto e Serviços', school: 'Universidade do Minho', period: '2026–2028', status: 'ongoing' },
         { degree: 'Design Gráfico', school: 'Anhanguera', period: '2023–2025', status: 'completed' },
       ],
     },
