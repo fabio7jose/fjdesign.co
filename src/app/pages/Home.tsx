@@ -26,6 +26,14 @@ export function Home() {
       <Navbar />
       <Hero />
       <MarqueeBanner />
+      <About />
+      <div
+        style={{
+          height: '1px',
+          backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+          margin: '0 2rem',
+        }}
+      />
       <Work />
       <div
         style={{
@@ -51,14 +59,6 @@ export function Home() {
         }}
       />
       <Certifications />
-      <div
-        style={{
-          height: '1px',
-          backgroundColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
-          margin: '0 2rem',
-        }}
-      />
-      <About />
       <div
         style={{
           height: '1px',

@@ -7,7 +7,14 @@ interface EduItem { degree: string; school: string; period: string; status: stri
 interface InfoItem { label: string; value: string; isAvailability: boolean }
 interface LacreiStep { num: string; label: string; heading: string; body: string }
 interface LacreiScreen { label: string; annotation: string }
-interface CopilotoStep { num: string; label: string; heading: string; body: string; aiUse: string }
+type CopilotoArtifact = 'affinity' | 'jtbds' | 'journey' | 'informationArchitecture' | 'flows' | 'aiArchitecture' | 'designSystem' | 'persona';
+interface CopilotoStep {
+  num: string; label: string; heading: string; body: string; aiUse: string;
+  detailsTitle: string;
+  details: { title: string; body: string; artifact?: CopilotoArtifact }[];
+  artifact?: CopilotoArtifact;
+  source?: { url: string; label: string };
+}
 interface CopilotoDecision { title: string; body: string; bridge?: string }
 interface CopilotoReflectionCard { label: string; body: string }
 interface UltrafarmaTask { num: string; title: string; body: string }
@@ -47,6 +54,8 @@ interface TranslationShape {
   };
   about: {
     label: string; title: string; openTo: string; bio: string[];
+    motivationTitle: string; motivationBody: string;
+    competenciesTitle: string; competenciesBody: string;
     downloadCV: string; education: string; location: string;
     active: string; ongoing: string; eduItems: EduItem[];
   };
@@ -176,6 +185,12 @@ interface TranslationShape {
     stackCardItems: string[];
     processLabel: string;
     steps: CopilotoStep[];
+    readingGuide: string;
+    aiUseLabel: string;
+    artifactOpen: string;
+    artifactExport: string;
+    decisionsToggle: string;
+    reflectionToggle: string;
     reflectionLabel: string;
     reflectionIntro: string;
     reflectionCards: CopilotoReflectionCard[];
@@ -200,6 +215,12 @@ interface TranslationShape {
       flowsAlt: string;
       personaCaption: string;
       personaAlt: string;
+      designSystemCaption: string;
+      designSystemAlt: string;
+      journeyCaption: string;
+      journeyAlt: string;
+      informationArchitectureCaption: string;
+      informationArchitectureAlt: string;
     };
   };
   ultrafarma: {
@@ -217,6 +238,7 @@ interface TranslationShape {
     whyCalloutCaption: string;
     methodLabel: string;
     methodIntro: string;
+    heuristicsReference: string;
     methodTasks: UltrafarmaTask[];
     diagnosisLabel: string;
     diagnosisHeading: string;
@@ -346,10 +368,15 @@ export const translations = {
       title: 'About',
       openTo: 'Open to opportunities · Available to relocate',
       bio: [
-        "I'm Fábio, a UX/UI Designer with a solid foundation in Web Design. For over three years I've implemented interfaces for brands like Movistar, Claro and Prosegur, serving clients across nine countries in Latin America and Europe.",
-        "I've been deepening my work in digital products through projects like Copiloto Financeiro and Lacrei Saúde, from discovery to high-fidelity interfaces. I use AI as targeted support in the process, in research and prototyping, but the final decision is always mine. That includes this portfolio itself: the visual identity and structure were defined by me, with Figma Make for prototyping and Claude Code for development.",
-        "I am moving to Ermesinde, in the Porto area, in October 2026, to start my master's at the University of Minho. I am open to opportunities in Portugal and across Europe, as well as Brazil.",
+        "I am a designer with around four years of professional experience in design, working across Graphic Design, Web Design and UX/UI Design. Throughout this journey, I have worked on digital experiences in an agency, interface creation and web and mobile projects, combining design and front-end knowledge.",
+        "I began my career in Graphic Design and page layout, later moving into Web Design and UX/UI, areas in which I continue to develop.",
+        "I am currently studying for a Master’s in Product and Service Design at the University of Minho, deepening my knowledge of product, experience and service design.",
+        "My goal is to consolidate my work as a Product Designer, connecting research, product strategy and interface design to develop solutions grounded in users’ needs.",
       ],
+      motivationTitle: "WHAT MOTIVATES ME",
+      motivationBody: "understanding problems, improving experiences and transforming real needs into digital solutions.",
+      competenciesTitle: "SKILLS",
+      competenciesBody: "UX Research · UI Design · Information Architecture · Design Systems · Figma · Prototyping · Front-end · AI applied to the design process",
       downloadCV: 'Download CV',
       education: 'Education',
       location: 'Bahia, Brazil',
@@ -538,157 +565,369 @@ export const translations = {
       nextProject: 'Next project',
     },
     copiloto: {
-      backToWork: '← Back',
-      scopeBadge: 'Discovery & Product Architecture',
-      completedStagesLabel: 'Stages completed',
-      completedStages: 'Framing, Research, Definition, Information Architecture, 5 Critical Flows and AI Architecture',
-      projectTitle: 'Copiloto Financeiro',
-      projectDescription: 'A study project on two fronts: designing a financial copilot for Brazilians with variable or hybrid income, and a hands-on investigation into how to use AI in the design process critically and transparently, without letting it replace human judgement.',
-      rolePill: 'UX Research · Product Strategy',
-      year: '2025',
-      heroQuote: 'Can I make this purchase now?',
-      summaryBox: {
-        label: 'PROJECT SUMMARY',
-        problem: 'Brazilians with variable or hybrid income make impulsive purchase decisions without knowing if they can afford them. Existing apps record the past and ignore future instalments and uncertain income.',
-        sample: '4 real qualitative interviews + autoethnography + competitive analysis. Exploratory personas with a declared weight of 20%, used only to stress-test hypotheses.',
-        findings: 'The pain is not a lack of information. It is the absence of useful friction at the moment of decision. Instalments are a central dimension, not peripheral. Existing apps are retrospective; the pain is prospective.',
-        deliverables: 'Completed stages: Framing, Research (2 layers), Definition (JTBDs, Persona, Anti-features), Information Architecture, 5 Critical Flows and AI Architecture.',
-        status: 'Case in progress. Design System and UI, Prototyping and Validation, and Functional MVP are the next stages.',
-        aiNote: 'A study project on two fronts: product design and a critical investigation into the use of AI in the design process, with declared provenance at each stage.',
+      "backToWork": "← Back",
+      "scopeBadge": "Discovery · Architecture · Design System V1",
+      "completedStagesLabel": "Project status",
+      "completedStages": "Discovery and architecture complete. V1 library exists; UI in development. Prototype, validation and functional MVP are not complete.",
+      "projectTitle": "Copiloto Financeiro",
+      "projectDescription": "How can a product support purchase decisions for Brazilians with variable or hybrid income? A product study combining real research, scope decisions and critical use of AI, from the initial hypothesis to a component library.",
+      "rolePill": "UX Research · Product Strategy",
+      "year": "2025",
+      "heroQuote": "Can I make this purchase now?",
+      "summaryBox": {
+        "label": "PROJECT SUMMARY",
+        "problem": "Support decisions before spending, accounting for existing commitments and income the person can rely on.",
+        "sample": "4 real interviews and autoethnography; AI exploration identified separately.",
+        "findings": "I used an affinity map to compare accounts and find patterns. Synthesis pointed to decision support, instalment visibility and planning from reliable income. This shifted the product’s focus from recording spending to helping before a purchase.",
+        "deliverables": "Discovery and architecture complete. V1 library exists; UI in development. Prototype, validation and functional MVP are not complete.",
+        "status": "Discovery and architecture documented. V1 library exists; interface, prototype, validation and functional MVP remain in progress or not yet started.",
+        "aiNote": "I used AI to turn accounts and notes into structured material: clusters, the affinity map and JTBDs. I analysed proposals, corrected interpretations and decided product priorities."
       },
-      methodology: 'Two-layer discovery',
-      tools: ['UX Research', 'Product Strategy', 'FigJam', 'Claude API'],
-      challengeLabel: 'THE CHALLENGE',
-      challengeBody1: 'The personal finance apps that exist today were designed for people who already know what to do with their money. They record the past, sort categories and show the closed-month chart. But the pain of the people I researched is not in not knowing. It is in knowing, deciding to spend anyway, and having no useful point of friction between the impulse and the card.',
-      challengeBody2: 'This gets worse when income is variable or hybrid: freelancers, salaried workers with recurring side income, gig workers, content creators. On a fixed salary, the month absorbs the month\'s mistake. On variable income, one month\'s mistake can compromise the next, with no safety net. This is the case of the process, not the final product: discovery, definition and architecture are closed; design, prototype and validation come next.',
-      highlightCard1Label: 'PROBLEM STATEMENT',
-      highlightCard1Value: 'The pain is not a lack of information. It is the absence of useful friction between impulse and decision, worsened by variable or hybrid income.',
-      highlightCard2Label: 'THE CENTRAL QUESTION',
-      highlightCard2Value: 'Can I make this purchase now? With context, and never a binary yes or no.',
-      myRoleTitle: 'My Role',
-      roleCardTitle: 'WHAT I DID',
-      roleCardItems: ['Autoethnography & Framing', 'Interviews & Competitive Analysis', 'Definition (JTBDs, Persona, Anti-features)', 'Information Architecture & Flows', 'AI Architecture'],
-      secondLayerCardTitle: 'AI AS A DESIGN OBJECT',
-      secondLayerCardValue: 'A second layer sets this case apart: I treated my own use of AI as an object of design. At each step I documented what was a human decision, what was AI-assisted and what was generated, with explicit criteria for what the AI could and could not claim. Used openly, with its failures documented.',
-      stackCardTitle: 'PRODUCT STACK',
-      stackCardItems: ['Planned MVP stack'],
-      processLabel: 'PROCESS',
-      steps: [
-        {
-          num: '00',
-          label: 'FRAMING',
-          heading: 'I am part of the audience this product serves',
-          body: 'I started with an autoethnography: I belong to the profile the product serves, so my own financial behaviour became the first data, with its bias declared up front.',
-          aiUse: 'A UX research agent in critical mode read my autoethnography looking for confirmation bias in my own voice.',
-        },
-        {
-          num: '01',
-          label: 'RESEARCH, IN TWO LAYERS',
-          heading: 'Real data leads, AI assists, provenance declared',
-          body: 'Layer 1 (80% of the decision weight) is empirical evidence: 4 real qualitative interviews plus the autoethnography, and a structured competitive analysis. Layer 2 (20%, declared) is 2 exploratory personas used only to stress-test hypotheses, never as a substitute for real people. Everything synthesised into an affinity diagram with post-its visually marked by origin (real vs. exploratory).',
-          aiUse: 'Critical analysis of the transcripts and web research for the competitive analysis; the exploratory personas were generated with documented provenance.',
-        },
-        {
-          num: '02',
-          label: 'DEFINITION',
-          heading: 'Turn insight into product direction',
-          body: 'A layered problem statement, 5 Jobs to be Done prioritised by density of evidence, the main persona (Ana, a composite profile anchored on the densest interviewee), a five-stage product journey and 15 anti-features: what the product explicitly does not do.',
-          aiUse: 'Each deliverable went through a UX research agent in critical mode; a lighter model drafted, a stronger model ran the critical check.',
-        },
-        {
-          num: '03',
-          label: 'ARCHITECTURE & FLOWS',
-          heading: 'Structure the product before drawing any screen',
-          body: 'Information architecture (three permanent sections, AI as a contextual layer and not a separate chat), the 5 critical flows and the deliverable I am most proud of: the AI architecture, mapping where an LLM, a heuristic or ML belongs, with explicit justification for each. The organising principle: the AI verbalises, never calculates.',
-          aiUse: 'Used to generate architecture variations. All were evaluated against the real data before any decision; the first ADRs closed the stage.',
-        },
+      "methodology": "Research and product definition",
+      "tools": [
+        "FigJam",
+        "Figma",
+        "Assistive AI"
       ],
-      reflectionLabel: 'METHODOLOGICAL REFLECTION',
-      reflectionIntro: 'My position: research in two layers, 80% real data and 20% declared AI. My audience is the opposite of the WEIRD profile (Western, Educated, Industrialized, Rich, Democratic) that language models are overtrained on. Trusting the definition of such an audience mostly to an LLM would fabricate a young American disguised as a Brazilian. I operationalised this with Provenance Cards, vocabulary inherited from the real sources, and a discard rule whenever a persona converged too closely with the initial hypothesis. What gives the case density are the moments the method was actually tested.',
-      reflectionCards: [
-        {
-          label: 'The refusal',
-          body: 'Struggling to recruit one profile, I proposed that the AI replace a real interview with a synthetic simulation, topped with an external authority argument. The AI refused, anchored in my own methodological grounding, and offered three paths within the method. The finding: the critical stance is bilateral. The method guards against drift in any direction, including mine.',
-        },
-        {
-          label: 'The epistemic error',
-          body: 'In one session, the AI operated on an outdated summary page as if it were the corpus. I caught the divergence by cross-checking against the primary source. Instead of sweeping it under the rug, I turned the episode into four rules for mandatory corpus reading. Documenting an error in your own process is rarer, and more useful, than hiding it.',
-        },
-        {
-          label: 'Light draft, strong critique',
-          body: 'A cheaper model drafts, a stronger one runs the critical check on every interpretive deliverable. Repeatedly, the check caught structural problems the draft missed, including overclaims of mine that had to be downgraded to the defensible version.',
-        },
+      "challengeLabel": "THE PRODUCT QUESTION",
+      "challengeBody1": "Research revealed a tension: recognising a financial limit does not mean respecting it when spending. The proposal is to make the impact on income and future instalments visible, with context and a possible next action.",
+      "challengeBody2": "This case follows design decisions through to the V1 library. Whether people will consult this support before buying remains a hypothesis to validate.",
+      "highlightCard1Label": "PRODUCT DIRECTION",
+      "highlightCard1Value": "Support decisions before spending, accounting for existing commitments and income the person can rely on.",
+      "highlightCard2Label": "THE CENTRAL QUESTION",
+      "highlightCard2Value": "Can I make this purchase now? Show consequences and preserve the person’s choice.",
+      "myRoleTitle": "My Role",
+      "roleCardTitle": "WHAT I DID",
+      "roleCardItems": [
+        "Research and evidence curation",
+        "Definition, architecture and flows"
       ],
-      reflectionThroughline: 'Real data leads, AI assists, and the final judgement is always human.',
-      decisionsLabel: 'DESIGN DECISIONS',
-      decisions: [
-        {
-          title: 'The AI verbalises, never calculates',
-          body: 'Every number and every financial decision is deterministic and reproducible; the LLM only translates ready facts into natural language. Trust, cost and technical risk stay under control.',
-          bridge: 'Mapping where AI adds value and where it is overkill, in Stage 3, is what made deterministic calculation non-negotiable. The LLM only steps in once the number already exists.',
-        },
-        {
-          title: 'The product never blocks a purchase',
-          body: 'One interviewee asked for blocking, but what people say in an interview is not their behaviour. The product offers context with an exit, not an authoritarian verdict.',
-          bridge: 'One of the four interviewees asked for blocking, in words. That JTBD set the limit: context with an exit, never a verdict.',
-        },
-        {
-          title: 'Prospective, not retrospective',
-          body: 'The main screen looks at what is committed in the months ahead, not the closed-month pie chart. The past is what the user already has in a spreadsheet, and it does not solve the pain.',
-          bridge: 'The pain is a decision in the present, not a record of the past. That is why the main screen never repeats the closed-month chart every competitor already shows.',
-        },
-        {
-          title: 'Instalments are a tool, not a moral failure',
-          body: 'The product shows the real cost and the future weight, and respects the choice. No moralising tone, which is the default of Brazilian financial education and disrespects the user.',
-        },
-        {
-          title: 'It speaks with context, stays silent on raw data',
-          body: 'Not a raw alert, not a mute app: the product speaks when there is actionable context and stays silent when there is only logged data. No gamification, streaks or reminders.',
-        },
-        {
-          title: 'Bank connection is optional and late',
-          body: 'Privacy is an architectural requirement, with explicit consent. The product is useful before asking for access to sensitive data, and builds trust progressively.',
-          bridge: 'The privacy barrier surfaced in the interview that anchors Ana. It became the rule of asking for bank access only after the product has already proven its value.',
-        },
-        {
-          title: 'Microcopy in real Brazilian Portuguese',
-          body: 'Tone tested against the "translated from English" feel. If it sounds like a translated fintech, it gets rewritten.',
-          bridge: 'The vocabulary inherited from the real interviews is what keeps Layer 2 anchored. It is the same discipline that blocks microcopy that reads like a translation.',
-        },
+      "secondLayerCardTitle": "HOW I WORKED WITH AI",
+      "secondLayerCardValue": "I used AI to turn accounts and notes into structured material: clusters, the affinity map and JTBDs. I analysed proposals, corrected interpretations and decided product priorities.",
+      "stackCardTitle": "CURRENT DELIVERABLES",
+      "stackCardItems": [
+        "Documented discovery and architecture",
+        "V1 library with a provisional identity"
       ],
-      limitsLabel: 'ASSUMED LIMITS',
-      limits: [
-        'There is no representative saturation of the Brazilian hybrid-income audience. The sample does not allow statistical generalisation.',
-        'Design decisions based on this research are provisional until validation with an expanded base, planned for the prototyping stage.',
-        'The exploratory personas map a spectrum of plausible behaviours, they do not validate real behaviours. Weight of 10% each, declared.',
-        'One interviewee sits on the edge of the scope: formal variable income, but does not live the mechanism of the pain. Kept as a delimitation contrast, not as support.',
-        'The WEIRD bias of the model was mitigated, not eliminated.',
+      "processLabel": "FROM HYPOTHESES TO DECISIONS",
+      "steps": [
+        {
+          "num": "00",
+          "label": "STARTING POINT",
+          "heading": "Turn personal experience into hypotheses",
+          "body": "I recorded my own spending decisions to frame hypotheses about impulse, instalments and hybrid income. Since this was only my experience, I used interviews to investigate what other people were experiencing.",
+          "detailsTitle": "What I took into research",
+          "details": [
+            {
+              "title": "Initial hypotheses",
+              "body": "Did others experience this pain? Were instalments central? Would they accept AI support? Was “can I buy?” the right question? Did “financial diary” make sense?"
+            },
+            {
+              "title": "Autoethnography’s limit",
+              "body": "My account was a starting source with declared bias, not another interview or validation of other people’s behaviour."
+            }
+          ],
+          "aiUse": "AI reviewed my account and looked for confirmation bias in the initial hypotheses."
+        },
+        {
+          "num": "01",
+          "label": "RESEARCH",
+          "heading": "Understand how people decide to spend",
+          "body": "I conducted four interviews about purchase decisions, existing tools and reasons for abandonment. I compared nine products in May 2026 to identify what they addressed and which needs could guide Copiloto. AI formalised the competitive review; I analysed the comparison.",
+          "detailsTitle": "Methods and source limitations",
+          "details": [
+            {
+              "title": "Evidence and contrast",
+              "body": "I compared interviews with autoethnography. A variable-income participant who did not experience the pain helped delimit the audience rather than support the problem."
+            },
+            {
+              "title": "Competitive analysis",
+              "body": "The matrix compared nine products across positioning, use, AI and coverage. It informed opportunities and priorities in May 2026, not a current or universal market assessment."
+            },
+            {
+              "title": "AI exploration",
+              "body": "Two generated personas challenged hypotheses. The declared 80% empirical / 20% exploratory weights are a process convention, not a statistical validity measure."
+            }
+          ],
+          "aiUse": "AI assisted transcript analysis and organised competitor research into a comparison matrix.",
+          "source": {
+            "url": "https://www.notion.so/35d09c23db3680ad9b34fad58034ec95",
+            "label": "View competitive analysis · May 2026"
+          }
+        },
+        {
+          "num": "02",
+          "label": "SYNTHESIS AND DEFINITION",
+          "heading": "Group the accounts to define the problem",
+          "body": "I used an affinity map to compare accounts and find patterns. Synthesis pointed to decision support, instalment visibility and planning from reliable income. This shifted the product’s focus from recording spending to helping before a purchase.",
+          "detailsTitle": "How the direction took shape",
+          "details": [
+            {
+              "title": "From accounts to insights",
+              "body": "AI extracted material from real sources, generated sticky notes, organised nine clusters and sub-clusters, and built the FigJam board. I moved notes, removed duplicates, added missing accounts and marked priorities. Unstarred notes were not individually verified."
+            },
+            {
+              "title": "What research challenged",
+              "body": "Pain varied by profile, and AI acceptance depended on usefulness and trust. “Can I buy?” was questioned; “financial diary” did not arise spontaneously. The proposed solution remained a hypothesis."
+            },
+            {
+              "title": "Ana: a composite profile",
+              "body": "The main persona synthesises the audience from real research and declared inferences. Ana is not a fifth interviewee or one of the two AI-generated exploratory personas.",
+              "artifact": "persona"
+            },
+            {
+              "title": "A necessary limit",
+              "body": "Exploration challenged generalisations such as treating all instalments as loss of control. It produces hypotheses, not new participant observations."
+            }
+          ],
+          "aiUse": "AI generated sticky notes, formalised clusters and sub-clusters, and built the FigJam board. I reviewed, moved, removed and added content.",
+          "artifact": "affinity"
+        },
+        {
+          "num": "03",
+          "label": "JOBS TO BE DONE",
+          "heading": "Turn findings into priority needs",
+          "body": "With AI, I formalised five JTBDs to define what people need to achieve before choosing features. I reviewed their research support. Priorities combined real evidence, MVP scope and differentiation: purchase decisions and instalments first, with goals and replenishment effort on the roadmap.",
+          "detailsTitle": "The five jobs and their criteria",
+          "details": [
+            {
+              "title": "01 · Understand whether a purchase fits — MVP",
+              "body": "For unplanned spending, understand affordability and consequences. Strong evidence in real sources; guides decision support without blocking purchases."
+            },
+            {
+              "title": "02 · Make small instalments visible — MVP",
+              "body": "See existing commitments, including forgotten ones. Strong evidence; informs the view of future months."
+            },
+            {
+              "title": "03 · Give a goal a realistic timeframe — roadmap",
+              "body": "Understand how much to save and when a goal is reachable. Strong evidence, but outside the bounded first release; not deferred for lack of need."
+            },
+            {
+              "title": "04 · Plan from the floor, not the average — partial",
+              "body": "Separate reliable and variable income. Medium evidence; underpins configuration and calculation for the target audience."
+            },
+            {
+              "title": "05 · Express spending as replenishment effort — roadmap",
+              "body": "Estimate extra work needed to cover spending. Thin evidence in a narrower segment with additional AI exploration; excluded from the MVP."
+            },
+            {
+              "title": "Reading the priorities",
+              "body": "Three sequential filters: evidence density, MVP scope and differentiation. Strong, medium and thin are internal categories. Five jobs are not five delivered features or a one-to-one mapping to F01–F05."
+            },
+            {
+              "title": "Why I used JTBDs",
+              "body": "The accounts described different problems. Formalising situation, need and desired outcome helped compare what the product should address. AI assisted wording and critical revision; choosing priorities remained a design decision."
+            }
+          ],
+          "aiUse": "AI drafted, critically reviewed and reformulated the jobs from the sources. I analysed the proposals and decided product priorities and scope.",
+          "artifact": "jtbds"
+        },
+        {
+          "num": "04",
+          "label": "JOURNEY MAP",
+          "heading": "Define when the product should help",
+          "body": "I used the journey to locate needs over time: trigger, consideration, decision, post-purchase and replanning. The map places a quick response before buying, visibility of instalment commitments, and follow-up on consequences in the next cycle.",
+          "detailsTitle": "What the map adds to the jobs",
+          "details": [
+            {
+              "title": "Needs over time",
+              "body": "I compared context, current behaviour, thought, emotion, pain/opportunity and product intervention. One need can require preparation, a quick response and follow-up."
+            },
+            {
+              "title": "Before and after buying",
+              "body": "Consideration calls for accessible impact information; the decision needs cumulative commitments made visible; replanning starts from the income floor and existing commitments."
+            },
+            {
+              "title": "Artefact scope",
+              "body": "The main journey excludes replenishment effort. It synthesises research and inferences, not a solution test. Categorisation is a supporting requirement; the canonical JTBD 04 remains the income floor."
+            }
+          ],
+          "aiUse": "",
+          "artifact": "journey"
+        },
+        {
+          "num": "05",
+          "label": "INFORMATION ARCHITECTURE",
+          "heading": "Organise information around needs",
+          "body": "I divided navigation into three areas to separate overview, future commitments and history. Home provides context and shortcuts; Instalments & Commitments shows future payments; Transactions supports spending review. Help appears in those areas without depending on a separate chat.",
+          "detailsTitle": "How the structure addresses needs",
+          "details": [
+            {
+              "title": "Home",
+              "body": "Balance after commitments, instalment summary and quick access to the purchase question. Context supports the decision without trapping every detail on one screen."
+            },
+            {
+              "title": "Instalments & Commitments",
+              "body": "Timeline, monthly totals and manual entry for obligations not captured by bank integration. Separates future obligations from payment history and addresses JTBD 02."
+            },
+            {
+              "title": "Transactions",
+              "body": "History, categorisation and explanation of the month. The past provides context for the next plan; a future-facing product still needs this function."
+            },
+            {
+              "title": "Support and scope",
+              "body": "Onboarding sets income and data entry; settings manage permissions and amounts. JTBD 04 runs across the structure. Free-form AI chat was deferred because of its additional complexity."
+            }
+          ],
+          "aiUse": "AI generated architecture alternatives. I compared them with research needs before deciding.",
+          "artifact": "informationArchitecture"
+        },
+        {
+          "num": "06",
+          "label": "USER FLOWS",
+          "heading": "Connect data entry to the purchase decision",
+          "body": "I defined five flows to detail product use. F01 configures data; F02 provides the overview; F03 shows commitments; F04 simulates a purchase; F05 explains patterns. F04 is central because it answers the product question using income and commitments prepared through the supporting paths.",
+          "detailsTitle": "Purpose, dependencies and MVP design",
+          "details": [
+            {
+              "title": "F01 · Prepare context",
+              "body": "Configure income and its floor, with optional bank connection last. The later revision distinguishes an initially declared estimate from an operational floor calculated from history; an average is not guaranteed income."
+            },
+            {
+              "title": "F02 · Orient use",
+              "body": "Dashboard and shortcuts. With no data, bank connection and manual entry have equal visual weight. Manual entry avoids exclusive dependence on integration."
+            },
+            {
+              "title": "F03 · Anticipate commitments",
+              "body": "Timeline, instalment detail and manual entry provide the future-facing data needed by purchase simulation."
+            },
+            {
+              "title": "F04 · Simulate before buying",
+              "body": "Amount and payment method produce consequences for future months, income floor and optional spending limit. The MVP design is a modal without persistent chat. No scenario blocks a purchase; pre-purchase adoption still needs validation."
+            },
+            {
+              "title": "F05 · Explain the month",
+              "body": "Explains current-month patterns for the next planning cycle. It is not JTBD 05. Arbitrary periods, goals and persistent chat remain future work."
+            }
+          ],
+          "aiUse": "",
+          "artifact": "flows"
+        },
+        {
+          "num": "07",
+          "label": "ARTIFICIAL INTELLIGENCE",
+          "heading": "Separate calculation from explanation",
+          "body": "I defined each technology’s role because financial responses need reproducible calculation. In F04, rules calculate impact and parameterised messages present it. In F05, a language model explains facts already calculated. Text generation therefore does not take over the financial decision.",
+          "detailsTitle": "What each technology does",
+          "details": [
+            {
+              "title": "F04 · Calculation and message",
+              "body": "A deterministic core uses amount, payment method, income and commitments. MVP wording follows parameterised scenarios; open conversation is a separate scope decision."
+            },
+            {
+              "title": "F05 · Patterns and explanation",
+              "body": "Aggregations and comparisons produce facts. The LLM organises the explanation in Brazilian Portuguese without taking over calculation or the financial decision."
+            },
+            {
+              "title": "Scope boundaries",
+              "body": "Free-form chat, proprietary ML and replenishment effort remain roadmap items. These are documented architecture decisions, not functioning integrations presented as complete."
+            }
+          ],
+          "aiUse": "",
+          "artifact": "aiArchitecture"
+        },
+        {
+          "num": "08",
+          "label": "DESIGN SYSTEM AND CURRENT STATUS",
+          "heading": "Build a consistent foundation for screens",
+          "body": "The flows specify fields, choices, empty states and responses the interface needs to provide. Those requirements guide component work. A V1 library with provisional identity exists; application to screens and assistant patterns remains in development. Prototype, validation and functional MVP are subsequent stages.",
+          "detailsTitle": "What exists and what remains in development",
+          "details": [
+            {
+              "title": "Existing foundation",
+              "body": "The library documents foundations, actions, forms, selection, feedback, navigation and icons, with variants and states. The reviewed V1 has a light theme and provisional identity."
+            },
+            {
+              "title": "Connection to experience",
+              "body": "F02 needs an empty state and equivalent alternatives; F04 needs inputs and responses with a next action; F01 needs clear permissions. These are interface requirements, not proof that all screens already apply them."
+            },
+            {
+              "title": "Delivery boundary",
+              "body": "Library documentation separates generic components from assistant-specific patterns. Screens, prototyping and validation remain subsequent work. A component library does not demonstrate an implemented product."
+            }
+          ],
+          "aiUse": "",
+          "artifact": "designSystem"
+        }
       ],
-      nextTitle: 'PRODUCT ROADMAP',
-      nextItems: [
-        'Stage 4: Design System & UI',
-        'Stage 5: Prototyping & Validation',
-        'Stage 6: Functional MVP',
+      "reflectionLabel": "PROCESS LEARNINGS",
+      "reflectionIntro": "AI use also needed review: an outdated summary was once treated as the full source. Checking original material changed the reading process and reinforced my responsibility for interpretations.",
+      "reflectionCards": [
+        {
+          "label": "Real research remains necessary",
+          "body": "During recruitment difficulty I considered simulation. Review returned to the methodological boundary: a generated persona can challenge hypotheses but cannot add an interview or validate behaviour."
+        },
+        {
+          "label": "Return to the source",
+          "body": "I detected disagreement between an outdated summary and primary material. It led to four corpus-reading rules. Agent review is critical assistance, not user validation."
+        },
+        {
+          "label": "Review that changes the argument",
+          "body": "JTBD review removed an unsuitable source from support for the income floor. Distinguishing contrast, evidence and inference made the decision more defensible."
+        }
       ],
-      takesTitle: 'WHAT I ALREADY TAKE',
-      takesItems: [
-        'The four protection rules were born from a real error and are now method.',
-        'Match the model\'s effort to the difficulty of the task, not to its importance.',
-        'Provenance Cards as a standard artefact for any use of AI in research.',
+      "reflectionThroughline": "Real data leads, AI assists, and the final judgement is always human.",
+      "decisionsLabel": "PRINCIPLES GUIDING THE DESIGN",
+      "decisions": [
+        {
+          "title": "Context and a next action, without blocking purchases",
+          "body": "The current decision is to show consequences and return control. An interview request for blocking does not demonstrate acceptance in use.",
+          "bridge": "JTBD 01 and F04 design; behaviour still requires validation."
+        },
+        {
+          "title": "Instalments without moral judgement",
+          "body": "Exploration challenged the assumption that every instalment means loss of control. Design should explain cost and future weight without condemning the choice.",
+          "bridge": "A tension from AI exploration, retained as a hypothesis and a language boundary."
+        },
+        {
+          "title": "Bank access as a choice",
+          "body": "Concern about financial access varied by participant. Optional connection, explicit consent and manual entry became architecture decisions.",
+          "bridge": "Real research and F01/F02 decisions; not a barrier attributed to everyone."
+        }
       ],
-      pageFooterText: 'Discovery and Product Architecture complete. Next: Design System & MVP.',
-      artifacts: {
-        affinityCaption: 'Affinity diagram, post-its marked by origin: real evidence vs. exploratory personas.',
-        affinityAlt: 'Affinity diagram from the FigJam board, with post-its grouped into themes and colour-marked by source, separating real interview evidence from exploratory personas.',
-        jtbdsCaption: 'The 5 Jobs to be Done, prioritised by density of evidence.',
-        jtbdsAlt: 'FigJam cards describing the five prioritised Jobs to be Done for the product.',
-        arqIaCaption: 'AI architecture: where an LLM, a heuristic or ML belongs. The AI verbalises, never calculates.',
-        arqIaAlt: 'Diagram of the AI architecture showing the boundary between deterministic calculation and the LLM that only translates ready facts into language.',
-        flowsCaption: 'The 5 critical user flows, F01 to F05.',
-        flowsAlt: 'Diagram of the five critical user flows of the product, numbered F01 to F05.',
-        personaCaption: 'Persona Ana and her Provenance Card: what is data, inference and speculation.',
-        personaAlt: 'Persona Ana sheet next to a Provenance Card documenting the origin of each attribute as data, inference or speculation.',
+      "limitsLabel": "WHAT IS NOT YET DEMONSTRATED",
+      "limits": [
+        "Four interviews and autoethnography cannot be generalised to the whole audience.",
+        "AI-generated exploratory personas help challenge hypotheses; they do not validate real behaviour.",
+        "No usability test of the solution has been conducted. Consulting F04 before buying and changing a decision remain hypotheses to investigate."
+      ],
+      "nextTitle": "NEXT STEPS",
+      "nextItems": [
+        "Develop UI and assistant patterns on the V1 foundation",
+        "Prototype and validate hypotheses with real people",
+        "Then build the functional MVP"
+      ],
+      "takesTitle": "WHAT I TAKE FROM THIS PROCESS",
+      "takesItems": [
+        "A well-supported need can remain outside the MVP because of scope.",
+        "A central flow depends on data quality and supporting paths.",
+        "Declaring provenance and returning to sources matters more than a fluent draft."
+      ],
+      "pageFooterText": "Discovery and architecture documented. V1 library exists; interface, prototype, validation and functional MVP remain in progress or not yet started.",
+      "artifacts": {
+        "affinityCaption": "Affinity map: follow how accounts were grouped and which patterns informed the problem. AI formalised clusters and built the board; I curated the material.",
+        "affinityAlt": "Affinity diagram from the FigJam board, with post-its grouped into themes and colour-marked by source, separating real interview evidence from exploratory personas.",
+        "jtbdsCaption": "Five jobs with evidence, criteria and scope. AI helped formalise statements; I analysed support and decided priorities.",
+        "jtbdsAlt": "FigJam cards describing the five prioritised Jobs to be Done for the product.",
+        "arqIaCaption": "AI architecture: separate calculation from verbalisation. F04 uses rules and parameterised messages; F05 explains calculated facts. The categorisation LLM fallback still needs scope alignment.",
+        "arqIaAlt": "Diagram of the AI architecture showing the boundary between deterministic calculation and the LLM that only translates ready facts into language.",
+        "flowsCaption": "Working board of the five flows. F01’s “average” and F04’s “AI processes” labels predate the revisions explained above; they are not the final technical specification.",
+        "flowsAlt": "Working diagram of F01–F05: configuration, dashboard, future commitments, purchase simulation and pattern explanation. The text describes later decisions.",
+        "personaCaption": "Ana is a composite profile informing the audience scope. The provenance card separates evidence, inference and speculation; she is not another participant.",
+        "personaAlt": "Persona Ana sheet next to a Provenance Card documenting the origin of each attribute as data, inference or speculation.",
+        "designSystemCaption": "V1 library documentation, with light theme and provisional identity, dated 22 October 2026. Existing components do not mean completed screens or product.",
+        "designSystemAlt": "Copiloto Financeiro V1 library overview, component areas, usage examples and provisional-version boundaries.",
+        "journeyCaption": "Journey: look at moments before and after buying. Canonical JTBD 04 is the income floor; categorisation shown in the board is a supporting requirement.",
+        "journeyAlt": "Journey map with trigger, consideration, decision, post-purchase and replanning, and opportunities for intervention.",
+        "informationArchitectureCaption": "Information architecture: three permanent areas, onboarding and settings. Compare the groupings with the needs described above.",
+        "informationArchitectureAlt": "Product architecture with Home, Instalments and Commitments, Transactions and supporting paths."
       },
+      "readingGuide": "The text explains decisions; the boards show the work. Details contain each stage’s criteria, evidence and limitations.",
+      "aiUseLabel": "AI’s role",
+      "artifactOpen": "Open board in Figma",
+      "decisionsToggle": "Explore the product principles",
+      "reflectionToggle": "How I reviewed AI use in research",
+      "artifactExport": "View static export"
     },
     ultrafarma: {
       backToWork: '← Back',
@@ -705,6 +944,7 @@ export const translations = {
       whyCalloutCaption: 'A case with observable problems, a clear scope and real room for improvement.',
       methodLabel: '02 · METHOD',
       methodIntro: 'Heuristic evaluation in a real context. I went through the home screen on my phone, executing real tasks and exploring the main states and interactions available.',
+      heuristicsReference: 'Reference: Jakob Nielsen’s 10 usability heuristics',
       methodTasks: [
         { num: '01', title: 'Search for a product', body: 'Search, autocomplete and scrolling.' },
         { num: '02', title: 'Add something from the home screen to the cart', body: 'Action, feedback and correspondence.' },
@@ -717,22 +957,22 @@ export const translations = {
           number: '01',
           title: 'Search closes on scroll.',
           body: 'The dropdown disappears when the user tries to scroll down to see the options.',
-          tag: 'User control · mobile context.',
+          tag: 'Nielsen #3 · User control and freedom.',
         },
         {
           number: '02',
           title: 'Cart with no feedback.',
           body: 'When adding a product, the response is limited to updating the counters, with no clear confirmation. The "Buy" button also leads to the item\'s page instead of executing the action its label suggests.',
-          tag: 'State visibility · labeling.',
+          tag: 'Nielsen #1 · Visibility of system status (confirmation). Nielsen #4 · Consistency and standards (“Buy” label).',
         },
       ],
       findingsLabel: '04 · OTHER FINDINGS',
       findingsHeading: 'Hierarchy, recognition and consistency.',
       findings: [
-        { num: '1', title: 'Carousel with no affordance.', body: 'The horizontal gesture is not communicated.', tag: 'Mobile · recognition.' },
-        { num: '2', title: 'Long scroll with no hierarchy.', body: 'Cards and banners with no clear priority.', tag: "Mobile · Hick's law." },
-        { num: '3', title: 'Prices competing with each other.', body: 'List price, sale price, Pix price and unit price all fight for attention.', tag: 'Visual hierarchy.' },
-        { num: '4', title: 'Inconsistent grid.', body: 'Blocks start on different lines.', tag: 'Consistency · execution.' },
+        { num: '1', title: 'Carousel with no affordance.', body: 'The horizontal gesture is not communicated.', tag: 'Nielsen #6 · Recognition rather than recall.' },
+        { num: '2', title: 'Long scroll with no hierarchy.', body: 'Cards and banners with no clear priority.', tag: 'Nielsen #8 · Aesthetic and minimalist design.' },
+        { num: '3', title: 'Prices competing with each other.', body: 'List price, sale price, Pix price and unit price all fight for attention.', tag: 'Nielsen #8 · Aesthetic and minimalist design.' },
+        { num: '4', title: 'Inconsistent grid.', body: 'Blocks start on different lines.', tag: 'Nielsen #4 · Consistency and standards.' },
       ],
       benchmarkLabel: '05 · BENCHMARKING',
       benchmarkHeading: 'Similar structure, different execution.',
@@ -752,15 +992,15 @@ export const translations = {
       cartModalCaption: 'Cart confirmation, with item and subtotal',
       decisionsGroup1Title: 'Specific responses.',
       decisionsGroup1: [
-        { title: 'Search', body: 'Full screen with free scroll.', tag: 'User control.' },
-        { title: 'Cart', body: 'Confirmation, item and subtotal shown.', tag: 'Immediate feedback.' },
-        { title: 'Carousel', body: 'Peek of the next item.', tag: 'Recognition.' },
+        { title: 'Search', body: 'Full screen with free scroll.', tag: 'Nielsen #3 · User control and freedom.' },
+        { title: 'Cart', body: 'Confirmation, item and subtotal shown.', tag: 'Nielsen #1 · Visibility of system status.' },
+        { title: 'Carousel', body: 'Peek of the next item.', tag: 'Nielsen #6 · Recognition rather than recall.' },
       ],
       decisionsGroup2Title: 'Organising to reduce effort.',
       decisionsGroup2: [
-        { title: 'Wall of sections', body: 'Named and separated sections.', tag: 'Mobile hierarchy.' },
-        { title: 'Price', body: 'The main price is strong, secondary ones are discreet.', tag: 'Typographic hierarchy.' },
-        { title: 'Grid', body: '4 columns, 16px margin, 8px gutter.', tag: 'Consistency.' },
+        { title: 'Wall of sections', body: 'Named and separated sections.', tag: 'Nielsen #8 · Aesthetic and minimalist design.' },
+        { title: 'Price', body: 'The main price is strong, secondary ones are discreet.', tag: 'Nielsen #8 · Aesthetic and minimalist design.' },
+        { title: 'Grid', body: '4 columns, 16px margin, 8px gutter.', tag: 'Nielsen #4 · Consistency and standards.' },
       ],
       figmaCta: 'View the redesigned screens in Figma',
       refineLabel: '08 · REFINE WITHOUT REBRANDING',
@@ -877,10 +1117,15 @@ export const translations = {
       title: 'Sobre',
       openTo: 'Aberto a oportunidades · Disponível para realocação',
       bio: [
-        'Sou Fábio, UX/UI Designer com base sólida em Web Design. Há mais de três anos implemento interfaces para marcas como Movistar, Claro e Prosegur, atendendo clientes em nove países da América Latina e Europa.',
-        'Tenho aprofundado minha atuação em produtos digitais em projetos como o Copiloto Financeiro e o Lacrei Saúde, do discovery à interface de alta fidelidade. Uso IA como apoio pontual no processo, na pesquisa e na prototipação, mas a decisão final é sempre minha. Isso inclui este portfólio: a identidade visual e a estrutura foram definidas por mim, com Figma Make para prototipagem e Claude Code para o desenvolvimento.',
-        'Mudo-me para Ermesinde, no Grande Porto, em outubro de 2026, para frequentar o mestrado na Universidade do Minho. Estou aberto a oportunidades em Portugal e no resto da Europa, além do Brasil.',
+        "Sou designer com cerca de quatro anos de experiência profissional na área de design, com atuação em Design Gráfico, Web Design e UX/UI Design. Ao longo dessa trajetória, trabalhei com experiências digitais em agência, criação de interfaces e projetos web e mobile, combinando design e conhecimentos de front-end.",
+        "Comecei minha carreira no Design Gráfico e na diagramação, evoluindo posteriormente para Web Design e UX/UI, áreas nas quais venho me desenvolvendo cada vez mais.",
+        "Atualmente, curso o Mestrado em Design de Produto e Serviços na Universidade do Minho, aprofundando meus conhecimentos em design de produtos, experiências e serviços.",
+        "Meu objetivo é consolidar minha atuação como Product Designer, conectando pesquisa, estratégia de produto e design de interfaces para desenvolver soluções fundamentadas nas necessidades dos usuários.",
       ],
+      motivationTitle: "O QUE ME MOTIVA",
+      motivationBody: "compreender problemas, melhorar experiências e transformar necessidades reais em soluções digitais.",
+      competenciesTitle: "COMPETÊNCIAS",
+      competenciesBody: "UX Research · UI Design · Arquitetura da Informação · Design Systems · Figma · Prototipagem · Front-end · IA aplicada ao processo de design",
       downloadCV: 'Baixar CV',
       education: 'Formação',
       location: 'Bahia, Brasil',
@@ -1069,157 +1314,369 @@ export const translations = {
       nextProject: 'Próximo projeto',
     },
     copiloto: {
-      backToWork: '← Voltar',
-      scopeBadge: 'Discovery & Arquitetura de Produto',
-      completedStagesLabel: 'Etapas concluídas',
-      completedStages: 'Framing, Pesquisa, Definição, Arquitetura da Informação, 5 Fluxos Críticos e Arquitetura de IA',
-      projectTitle: 'Copiloto Financeiro',
-      projectDescription: 'Um projecto de estudo em duas frentes: o design de um copiloto financeiro para brasileiros com renda variável ou híbrida, e uma investigação prática sobre como usar IA no processo de design de forma crítica e declarada, sem deixar que ela substitua o julgamento humano.',
-      rolePill: 'UX Research · Product Strategy',
-      year: '2025',
-      heroQuote: 'Posso fazer essa compra agora?',
-      summaryBox: {
-        label: 'RESUMO DO PROJECTO',
-        problem: 'Brasileiros com renda variável ou híbrida tomam decisões de compra no impulso, sem saber se podem. Os apps actuais registam o passado e ignoram parcelas futuras e renda incerta.',
-        sample: '4 entrevistas qualitativas reais + autoetnografia + análise competitiva. Personas exploratórias com peso declarado de 20%, usadas apenas para stress-test de hipóteses.',
-        findings: 'A dor não é falta de informação. É ausência de fricção útil no momento da decisão. Parcelamento é dimensão central, não periférica. Apps actuais são retrospectivos; a dor é prospectiva.',
-        deliverables: 'Etapas concluídas: Framing, Research (2 camadas), Definição (JTBDs, Persona, Anti-features), Arquitetura de Informação, 5 Fluxos críticos e Arquitetura de IA.',
-        status: 'Case em andamento. Design System e UI, Prototipagem e Validação e MVP Funcional são as etapas seguintes.',
-        aiNote: 'Projecto de estudo em duas frentes: design de produto e investigação crítica sobre o uso de IA no processo de design, com procedência declarada em cada etapa.',
+      "backToWork": "← Voltar",
+      "scopeBadge": "Discovery · Arquitetura · Design System V1",
+      "completedStagesLabel": "Estado do projeto",
+      "completedStages": "Discovery e arquitetura concluídos. Biblioteca V1 existente; UI em desenvolvimento. Protótipo, validação e MVP funcional ainda não concluídos.",
+      "projectTitle": "Copiloto Financeiro",
+      "projectDescription": "Como apoiar decisões de compra de brasileiros com renda variável ou híbrida? Um estudo de produto que cruza pesquisa real, decisões de escopo e uso crítico de IA, da hipótese inicial à biblioteca de componentes.",
+      "rolePill": "UX Research · Product Strategy",
+      "year": "2025",
+      "heroQuote": "Posso fazer essa compra agora?",
+      "summaryBox": {
+        "label": "RESUMO DO PROJECTO",
+        "problem": "Ajudar a decidir antes de gastar, considerando o que já está comprometido e a renda com que se pode contar.",
+        "sample": "4 entrevistas reais e autoetnografia; exploração com IA identificada separadamente.",
+        "findings": "Usei um affinity map para comparar os relatos e encontrar padrões. A síntese apontou para apoio na decisão, visibilidade das parcelas e planejamento pela renda garantida. Isso mudou o foco do produto: de registrar gastos para ajudar antes da compra.",
+        "deliverables": "Discovery e arquitetura concluídos. Biblioteca V1 existente; UI em desenvolvimento. Protótipo, validação e MVP funcional ainda não concluídos.",
+        "status": "Discovery e arquitetura documentados. Biblioteca V1 existente; interface, protótipo, validação e MVP funcional ainda em desenvolvimento ou por iniciar.",
+        "aiNote": "Usei IA para transformar relatos e anotações em material estruturado: clusters, affinity map e JTBDs. Analisei as propostas, corrigi interpretações e decidi as prioridades do produto."
       },
-      methodology: 'Discovery em duas camadas',
-      tools: ['UX Research', 'Product Strategy', 'FigJam', 'Claude API'],
-      challengeLabel: 'O DESAFIO',
-      challengeBody1: 'Os apps de finanças pessoais que existem hoje foram desenhados para quem já sabe o que faz com o próprio dinheiro. Eles registram o passado, classificam categorias e mostram o gráfico do mês fechado. Mas a dor das pessoas que pesquisei não está em não saber. Está em saber, decidir gastar mesmo assim, e não ter nenhum ponto de fricção útil entre o impulso e o cartão.',
-      challengeBody2: 'Isso fica mais grave quando a renda é variável ou híbrida: freelancer, CLT com freela recorrente, autônomo de aplicativo, criador de conteúdo. Em salário fixo, o mês cobre o erro do mês. Em renda variável, o erro do mês pode comprometer o mês seguinte, sem rede para absorver. Este é o case do processo, não do produto final: descoberta, definição e arquitetura estão fechadas; design, protótipo e validação vêm a seguir.',
-      highlightCard1Label: 'PROBLEM STATEMENT',
-      highlightCard1Value: 'A dor não é falta de informação. É a ausência de fricção útil entre impulso e decisão, agravada por renda variável ou híbrida.',
-      highlightCard2Label: 'A PERGUNTA CENTRAL',
-      highlightCard2Value: 'Posso fazer essa compra agora? Com contexto, e nunca um sim ou não binário.',
-      myRoleTitle: 'Meu Papel',
-      roleCardTitle: 'O QUE EU FIZ',
-      roleCardItems: ['Autoetnografia & Framing', 'Entrevistas & Análise Competitiva', 'Definição (JTBDs, Persona, Anti-features)', 'Arquitetura de Informação & Fluxos', 'Arquitetura de IA'],
-      secondLayerCardTitle: 'IA COMO OBJETO DE DESIGN',
-      secondLayerCardValue: 'Uma segunda camada diferencia este case: tratei o próprio uso de IA como objeto de design. Em cada etapa documentei o que foi decisão humana, o que foi assistido por IA e o que foi gerado, com critério explícito sobre o que a IA podia e não podia afirmar. Usei de forma declarada, e documentei onde ela falhou.',
-      stackCardTitle: 'STACK DO PRODUTO',
-      stackCardItems: ['Stack prevista para o MVP'],
-      processLabel: 'PROCESSO',
-      steps: [
-        {
-          num: '00',
-          label: 'FRAMING',
-          heading: 'Eu sou do perfil que o produto atende',
-          body: 'Comecei por uma autoetnografia: eu sou do perfil que o produto atende, então meu próprio comportamento financeiro virou primeiro dado, com o viés disso declarado de saída.',
-          aiUse: 'Um agente de UX Research em modo crítico leu minha autoetnografia procurando viés de confirmação na minha própria voz.',
-        },
-        {
-          num: '01',
-          label: 'RESEARCH, EM DUAS CAMADAS',
-          heading: 'Dado real protagoniza, IA assiste, procedência declarada',
-          body: 'A Camada 1 (80% do peso decisório) é evidência empírica: 4 entrevistas qualitativas reais mais a autoetnografia, e uma análise competitiva estruturada. A Camada 2 (20%, declarado) são 2 personas exploratórias usadas só para stress-test de hipóteses, nunca como substituto de gente real. Tudo sintetizado num affinity diagram com os post-its marcados visualmente por origem (real vs. exploratório).',
-          aiUse: 'Análise crítica das transcrições e pesquisa web na análise competitiva; as personas exploratórias foram geradas com procedência documentada.',
-        },
-        {
-          num: '02',
-          label: 'DEFINIÇÃO',
-          heading: 'Transformar insight em direção de produto',
-          body: 'Um problem statement em camadas, 5 Jobs to be Done priorizados por densidade de evidência, a persona principal (Ana, um perfil composto ancorado na entrevistada mais densa), uma jornada de produto em cinco estágios e 15 anti-features: o que o produto explicitamente não faz.',
-          aiUse: 'Cada entregável passou por um agente de UX Research em modo crítico; um modelo mais leve rascunhava e um mais forte fazia o check crítico.',
-        },
-        {
-          num: '03',
-          label: 'ARQUITETURA & FLUXOS',
-          heading: 'Estruturar o produto antes de desenhar qualquer tela',
-          body: 'A arquitetura de informação (três seções permanentes, IA como camada contextual e não um chat à parte), os 5 fluxos críticos e o entregável que mais me orgulha: a arquitetura de IA, mapeando onde entra LLM, onde entra heurística e onde entra ML, com justificativa explícita de cada escolha. O princípio que organiza tudo: a IA verbaliza, nunca calcula.',
-          aiUse: 'Usada para gerar variações de arquitetura. Todas avaliadas contra os dados reais antes de qualquer decisão; os primeiros ADRs fecharam a etapa.',
-        },
+      "methodology": "Pesquisa e definição de produto",
+      "tools": [
+        "FigJam",
+        "Figma",
+        "IA assistiva"
       ],
-      reflectionLabel: 'REFLEXÃO METODOLÓGICA',
-      reflectionIntro: 'A posição que adotei: pesquisa em duas camadas, 80% dado real e 20% IA declarada. Meu público é o oposto do perfil WEIRD (Western, Educated, Industrialized, Rich, Democratic) em que os modelos de linguagem são supertreinados. Confiar a definição de um público assim majoritariamente a um LLM seria fabricar um jovem americano disfarçado de brasileiro. Operacionalizei com Provenance Cards, vocabulário herdado das fontes reais e uma regra de descarte sempre que uma persona convergia demais com a hipótese inicial. O que dá densidade ao case são os momentos em que o método foi testado de verdade.',
-      reflectionCards: [
-        {
-          label: 'A recusa',
-          body: 'Com dificuldade de recrutar um perfil, propus à IA substituir uma entrevista real por uma simulação sintética, com um argumento de autoridade externo por cima. A IA recusou, ancorada na minha própria fundamentação metodológica, e ofereceu três caminhos dentro do método. A descoberta: a postura crítica é bilateral. O método protege contra desvio em qualquer direção, inclusive a minha.',
-        },
-        {
-          label: 'O erro epistêmico',
-          body: 'Em uma sessão, a IA operou sobre uma página-resumo desatualizada como se fosse o corpus. Peguei a divergência ao cruzar com a fonte primária. Em vez de varrer pra baixo do tapete, transformei o episódio em quatro regras de leitura obrigatória de corpus. Documentar um erro do próprio processo é mais raro, e mais útil, do que escondê-lo.',
-        },
-        {
-          label: 'Rascunho leve, crítica forte',
-          body: 'Um modelo mais barato rascunha, um mais forte faz o check crítico de cada entregável interpretativo. Repetidamente o check pegou problemas estruturais que o rascunho não via, inclusive overclaims meus que precisaram ser rebaixados à versão defensável.',
-        },
+      "challengeLabel": "A PERGUNTA DO PROJETO",
+      "challengeBody1": "A pesquisa trouxe uma tensão: reconhecer um limite financeiro não significa respeitá-lo na hora de gastar. A proposta é tornar visível o impacto da compra sobre a renda e as parcelas futuras, com contexto e uma saída possível.",
+      "challengeBody2": "Este case acompanha as decisões de design até a biblioteca V1. A hipótese de que as pessoas consultarão esse apoio antes de comprar ainda precisa ser validada.",
+      "highlightCard1Label": "DIREÇÃO DE PRODUTO",
+      "highlightCard1Value": "Ajudar a decidir antes de gastar, considerando o que já está comprometido e a renda com que se pode contar.",
+      "highlightCard2Label": "A PERGUNTA CENTRAL",
+      "highlightCard2Value": "Posso fazer essa compra agora? Mostrar consequências e preservar a escolha da pessoa.",
+      "myRoleTitle": "Meu Papel",
+      "roleCardTitle": "O QUE EU FIZ",
+      "roleCardItems": [
+        "Pesquisa e curadoria das evidências",
+        "Definição, arquitetura e fluxos"
       ],
-      reflectionThroughline: 'Dado real protagoniza, IA assiste, e o julgamento final é sempre humano.',
-      decisionsLabel: 'DECISÕES DE DESIGN',
-      decisions: [
-        {
-          title: 'A IA verbaliza, nunca calcula',
-          body: 'Todo número e toda decisão financeira são determinísticos e reproduzíveis; o LLM só traduz fatos prontos em linguagem natural. Confiança, custo e risco técnico sob controle.',
-          bridge: 'Mapear onde IA agrega e onde é overkill, na Etapa 3, foi o que tornou o cálculo determinístico não negociável. O LLM entra só depois que o número já existe.',
-        },
-        {
-          title: 'O produto nunca bloqueia a compra',
-          body: 'Um entrevistado pediu bloqueio em fala, mas fala em entrevista não é comportamento. O produto oferece contexto com saída, não veredito autoritário.',
-          bridge: 'Um dos quatro entrevistados pediu bloqueio em fala. Foi esse JTBD que definiu o limite: contexto com saída, nunca veredito.',
-        },
-        {
-          title: 'Prospectivo, não retrospectivo',
-          body: 'A tela principal olha para o que está comprometido nos meses à frente, não para o gráfico de pizza do mês fechado. O passado é o que o usuário já tem na planilha e não resolve a dor.',
-          bridge: 'A dor é decisão no presente, não registro do passado. Por isso a tela principal nunca repete o gráfico de mês fechado que todo concorrente já faz.',
-        },
-        {
-          title: 'Parcelamento é instrumento, não falha moral',
-          body: 'O produto informa o custo real e o peso futuro, e respeita a escolha. Sem tom moralizante, que é o default da educação financeira brasileira e desrespeita a inteligência do usuário.',
-        },
-        {
-          title: 'Fala com contexto, silêncio no dado cru',
-          body: 'Não é alerta cru nem app mudo: o produto fala quando há contexto acionável e silencia quando só há dado registrado. Sem gamificação, streaks ou lembretes.',
-        },
-        {
-          title: 'Conexão bancária é opcional e tardia',
-          body: 'Privacidade como requisito de arquitetura, com consentimento explícito. O produto é útil antes de pedir acesso a dados sensíveis, e constrói confiança progressivamente.',
-          bridge: 'A barreira de privacidade apareceu na entrevista que ancora a Ana. Virou a regra de pedir acesso bancário só depois que o produto já provou valor.',
-        },
-        {
-          title: 'Microcopy em português brasileiro de verdade',
-          body: 'Tom testado contra a cara de tradução do inglês. Se soa como fintech traduzida, é refeito.',
-          bridge: 'O vocabulário herdado das entrevistas reais é o que mantém a Camada 2 ancorada. É a mesma disciplina que barra microcopy com cara de tradução.',
-        },
+      "secondLayerCardTitle": "COMO TRABALHEI COM IA",
+      "secondLayerCardValue": "Usei IA para transformar relatos e anotações em material estruturado: clusters, affinity map e JTBDs. Analisei as propostas, corrigi interpretações e decidi as prioridades do produto.",
+      "stackCardTitle": "ENTREGA ATUAL",
+      "stackCardItems": [
+        "Discovery e arquitetura documentados",
+        "Biblioteca V1 com identidade provisória"
       ],
-      limitsLabel: 'LIMITES ASSUMIDOS',
-      limits: [
-        'Não há saturação representativa do público brasileiro de renda híbrida. A amostra não permite generalização estatística.',
-        'As decisões de design baseadas nesta pesquisa são provisórias até a validação com base expandida, prevista para a etapa de prototipagem.',
-        'As personas exploratórias mapeiam um espectro de comportamentos plausíveis, não validam comportamentos reais. Peso de 10% cada, declarado.',
-        'Um dos entrevistados ficou na fronteira do recorte: tem renda variável formal, mas não vive o mecanismo da dor. Mantido como contraste de delimitação, não como sustentação.',
-        'O viés WEIRD do modelo foi mitigado, não eliminado.',
+      "processLabel": "DAS HIPÓTESES ÀS DECISÕES",
+      "steps": [
+        {
+          "num": "00",
+          "label": "PONTO DE PARTIDA",
+          "heading": "Transformar minha experiência em hipóteses",
+          "body": "Registrei minhas próprias decisões de gasto para levantar hipóteses sobre impulso, parcelas e renda híbrida. Como esse era só o meu caso, usei as entrevistas para investigar o que outras pessoas viviam.",
+          "detailsTitle": "O que levei para a pesquisa",
+          "details": [
+            {
+              "title": "Hipóteses iniciais",
+              "body": "Outras pessoas viviam essa dor? Parcelamento era central? Aceitariam apoio de IA? “Posso comprar?” era a pergunta certa? A expressão “diário financeiro” fazia sentido?"
+            },
+            {
+              "title": "Limite da autoetnografia",
+              "body": "Meu relato foi uma fonte de partida, com viés declarado. Não representa uma entrevista adicional nem valida o comportamento de outras pessoas."
+            }
+          ],
+          "aiUse": "A IA revisou meu relato e procurou vieses de confirmação nas hipóteses iniciais."
+        },
+        {
+          "num": "01",
+          "label": "INVESTIGAÇÃO",
+          "heading": "Entender como as pessoas decidem gastar",
+          "body": "Fiz quatro entrevistas para entender decisões de compra, ferramentas usadas e motivos de abandono. Comparei nove produtos, em maio de 2026, para identificar o que já resolviam e quais necessidades poderiam orientar o Copiloto. A IA formalizou o levantamento competitivo; eu analisei a comparação.",
+          "detailsTitle": "Métodos e limites das fontes",
+          "details": [
+            {
+              "title": "Evidência e contraste",
+              "body": "Cruzei entrevistas e autoetnografia. Uma pessoa com renda variável, mas sem o mecanismo da dor, serviu como contraste para delimitar o público, não como sustentação do problema."
+            },
+            {
+              "title": "Análise competitiva",
+              "body": "A matriz comparou nove produtos em posicionamento, uso, IA e cobertura. Foi uma referência de maio de 2026 para oportunidades e priorização, não uma avaliação atual ou universal do mercado."
+            },
+            {
+              "title": "Exploração com IA",
+              "body": "Duas personas geradas serviram para tensionar hipóteses. Os pesos declarados de 80% para fontes empíricas e 20% para exploração são uma convenção do processo, não uma medida estatística de validade."
+            }
+          ],
+          "aiUse": "A IA apoiou a análise das transcrições e organizou a pesquisa de concorrentes em uma matriz comparativa.",
+          "source": {
+            "url": "https://www.notion.so/35d09c23db3680ad9b34fad58034ec95",
+            "label": "Ver análise competitiva · maio de 2026"
+          }
+        },
+        {
+          "num": "02",
+          "label": "SÍNTESE E DEFINIÇÃO",
+          "heading": "Agrupar os relatos para definir o problema",
+          "body": "Usei um affinity map para comparar os relatos e encontrar padrões. A síntese apontou para apoio na decisão, visibilidade das parcelas e planejamento pela renda garantida. Isso mudou o foco do produto: de registrar gastos para ajudar antes da compra.",
+          "detailsTitle": "Como cheguei a essa direção",
+          "details": [
+            {
+              "title": "Da fala ao insight",
+              "body": "A IA extraiu trechos das fontes reais, gerou os post-its e os organizou em nove clusters com sub-clusters. Também executou a montagem no FigJam. Reposicionei itens, descartei redundâncias, acrescentei relatos ausentes e marquei prioridades. Post-its sem estrela não foram verificados individualmente."
+            },
+            {
+              "title": "O que a pesquisa questionou",
+              "body": "A dor variava por perfil; aceitar IA dependia da utilidade e da confiança. A pergunta “posso comprar?” foi questionada, e “diário financeiro” não apareceu espontaneamente. A direção escolhida continuou sendo uma hipótese de solução."
+            },
+            {
+              "title": "Ana: perfil composto",
+              "body": "A persona principal sintetiza o recorte com origem documentada em pesquisa real e inferências declaradas. Ana não é uma quinta entrevistada nem uma das duas personas exploratórias geradas com IA.",
+              "artifact": "persona"
+            },
+            {
+              "title": "Limite importante",
+              "body": "As personas exploratórias ajudaram a questionar generalizações, como tratar parcelamento sempre como perda de controle. Essa exploração gera hipóteses, não novas observações de participantes."
+            }
+          ],
+          "aiUse": "A IA gerou os post-its, formalizou clusters e sub-clusters e executou a montagem visual no FigJam. Revisei, reposicionei, descartei e acrescentei conteúdo.",
+          "artifact": "affinity"
+        },
+        {
+          "num": "03",
+          "label": "JOBS TO BE DONE",
+          "heading": "Transformar os achados em necessidades prioritárias",
+          "body": "Com a IA, formalizei cinco JTBDs para definir o que a pessoa precisa conseguir antes de escolher funcionalidades. Revisei sua sustentação na pesquisa. A prioridade considerou evidência real, escopo do MVP e diferenciação: decisão de compra e parcelas primeiro; metas e esforço de reposição no roadmap.",
+          "detailsTitle": "Os cinco JTBDs e seus critérios",
+          "details": [
+            {
+              "title": "01 · Decidir se a compra cabe — MVP",
+              "body": "Quando surge um gasto não planejado, entender se cabe e o que compromete. Evidência forte nas fontes reais; orienta o apoio à decisão, sem bloqueio da compra."
+            },
+            {
+              "title": "02 · Enxergar parcelas pequenas — MVP",
+              "body": "Ver compromissos já assumidos, inclusive os esquecidos. Evidência forte; orienta a visão dos meses seguintes."
+            },
+            {
+              "title": "03 · Dar prazo real a um objetivo — roadmap",
+              "body": "Saber quanto guardar e quando chegar a uma meta. Evidência forte, mas fora do escopo fechado da primeira versão: não foi adiado por falta de necessidade."
+            },
+            {
+              "title": "04 · Planejar pelo piso, não pela média — parcial",
+              "body": "Distinguir renda garantida e variável. Evidência média; sustenta a configuração e o cálculo para o recorte de renda variável ou híbrida."
+            },
+            {
+              "title": "05 · Traduzir gasto em esforço de reposição — roadmap",
+              "body": "Estimar trabalho extra necessário para cobrir um gasto. Evidência fina em um sub-recorte, com exploração adicional por IA; não entrou no MVP."
+            },
+            {
+              "title": "Como ler a prioridade",
+              "body": "Os três filtros foram aplicados em sequência: densidade de evidência, escopo do MVP e diferenciação. Forte, média e fina são categorias internas. Cinco JTBDs não significam cinco funcionalidades entregues nem uma correspondência com F01–F05."
+            },
+            {
+              "title": "Por que usei JTBDs",
+              "body": "Os relatos descreviam problemas diferentes. Formalizar situação, necessidade e resultado esperado ajudou a comparar o que o produto deveria resolver. A IA ajudou na redação e na revisão dessa formulação; a escolha do que priorizar permaneceu uma decisão de design."
+            }
+          ],
+          "aiUse": "A IA redigiu, revisou e reformulou os JTBDs a partir das fontes. Analisei as propostas e defini as prioridades e o escopo do produto.",
+          "artifact": "jtbds"
+        },
+        {
+          "num": "04",
+          "label": "MAPA DE JORNADA",
+          "heading": "Definir em que momento o produto deve ajudar",
+          "body": "Usei a jornada para localizar as necessidades no tempo: gatilho, consideração, decisão, pós-compra e replanejamento. O mapa situa a resposta rápida antes da compra, a visualização do peso das parcelas e o acompanhamento das consequências no ciclo seguinte.",
+          "detailsTitle": "O que o mapa acrescenta aos JTBDs",
+          "details": [
+            {
+              "title": "Necessidade no tempo",
+              "body": "Cruzei contexto, comportamento atual, pensamento, emoção, dor/oportunidade e intervenção do produto. Uma mesma necessidade pode exigir preparação, resposta rápida e acompanhamento."
+            },
+            {
+              "title": "Antes e depois da compra",
+              "body": "Na consideração, a oportunidade é uma resposta acessível sobre impacto. Na decisão, tornar o acúmulo de parcelas visível. No replanejamento, começar pelo piso e pelos compromissos já assumidos."
+            },
+            {
+              "title": "Recorte do artefato",
+              "body": "A jornada principal não cobre o sub-recorte de reposição por esforço. É uma síntese de pesquisa e inferências, não o registro de um teste da solução. A categorização é um requisito de apoio; o JTBD 04 canônico continua sendo o piso de renda."
+            }
+          ],
+          "aiUse": "",
+          "artifact": "journey"
+        },
+        {
+          "num": "05",
+          "label": "ARQUITETURA DE INFORMAÇÃO",
+          "heading": "Organizar a informação por necessidade",
+          "body": "Dividi a navegação em três áreas para separar visão geral, compromissos futuros e histórico. Início reúne contexto e atalhos; Parcelas & Compromissos mostra o que ainda será pago; Transações permite revisar gastos. A ajuda aparece nessas áreas, sem depender de um chat separado.",
+          "detailsTitle": "Como a estrutura atende às necessidades",
+          "details": [
+            {
+              "title": "Início",
+              "body": "Saldo após compromissos, resumo de parcelas e acesso rápido a “posso comprar?”. Sustenta o contexto para a decisão, em vez de prender toda informação na tela inicial."
+            },
+            {
+              "title": "Parcelas & Compromissos",
+              "body": "Linha do tempo, total por mês e entrada manual do que não chega pela integração bancária. Separa compromissos futuros do histórico de pagamentos e atende ao JTBD 02."
+            },
+            {
+              "title": "Transações",
+              "body": "Histórico, categorização e explicação do mês. O passado fornece contexto para o próximo planejamento; o foco em decisões futuras não elimina essa função."
+            },
+            {
+              "title": "Suporte e escopo",
+              "body": "Onboarding configura renda e entrada de dados; configurações permitem revisar permissões e valores. O piso do JTBD 04 atravessa essa estrutura. Conversa livre com IA ficou para o roadmap pela complexidade adicional."
+            }
+          ],
+          "aiUse": "A IA gerou alternativas de arquitetura. Comparei as opções com as necessidades identificadas na pesquisa antes de decidir.",
+          "artifact": "informationArchitecture"
+        },
+        {
+          "num": "06",
+          "label": "USER FLOWS",
+          "heading": "Ligar a entrada de dados à decisão de compra",
+          "body": "Defini cinco fluxos para detalhar o uso do produto. F01 configura dados; F02 dá a visão geral; F03 mostra compromissos; F04 simula a compra; F05 explica padrões. F04 é o fluxo central porque responde à pergunta do projeto usando a renda e os compromissos preparados pelos outros percursos.",
+          "detailsTitle": "Finalidade, dependências e desenho do MVP",
+          "details": [
+            {
+              "title": "F01 · Preparar o contexto",
+              "body": "Configuração de renda e piso, com conexão bancária opcional ao final. A revisão posterior distingue uma estimativa inicial declarada do piso operacional calculado sobre o histórico; não usa média como sinônimo de renda garantida."
+            },
+            {
+              "title": "F02 · Orientar o uso",
+              "body": "Dashboard com atalhos. Sem dados, oferece conexão de conta e entrada manual com peso equivalente. A alternativa manual evita depender exclusivamente da integração bancária."
+            },
+            {
+              "title": "F03 · Antecipar compromissos",
+              "body": "Linha do tempo e detalhe das parcelas, incluindo entrada manual. É a base prospectiva de que a simulação de compra precisa."
+            },
+            {
+              "title": "F04 · Simular antes de comprar",
+              "body": "Recebe valor e forma de pagamento e mostra impacto sobre meses, piso e limite opcional. No desenho do MVP é um modal sem conversa persistente. Nenhum cenário bloqueia a compra; a adoção desse apoio antes de gastar ainda precisa de validação."
+            },
+            {
+              "title": "F05 · Explicar o mês",
+              "body": "Apresenta padrões do mês corrente em linguagem simples para apoiar o planejamento seguinte. Não é o JTBD 05. Explicar qualquer período, metas e chat persistente ficaram para futuras versões."
+            }
+          ],
+          "aiUse": "",
+          "artifact": "flows"
+        },
+        {
+          "num": "07",
+          "label": "INTELIGÊNCIA ARTIFICIAL",
+          "heading": "Separar o cálculo da explicação",
+          "body": "Defini o papel de cada tecnologia porque respostas sobre dinheiro precisam de cálculo reproduzível. No F04, regras calculam o impacto e mensagens parametrizadas apresentam o resultado. No F05, o modelo de linguagem explica os fatos já calculados. Assim, a geração de texto não assume a decisão financeira.",
+          "detailsTitle": "O que cada tecnologia faz",
+          "details": [
+            {
+              "title": "F04 · Cálculo e mensagem",
+              "body": "O núcleo é determinístico. O valor, a forma de pagamento, a renda e os compromissos alimentam regras explícitas. O texto usa cenários parametrizados no MVP; uma conversa aberta é outra decisão de escopo."
+            },
+            {
+              "title": "F05 · Padrão e explicação",
+              "body": "Agregações e comparações produzem os fatos. O LLM organiza a explicação em português brasileiro, sem assumir a conta nem a decisão financeira."
+            },
+            {
+              "title": "Limites de escopo",
+              "body": "Chat livre, modelos próprios de ML e reposição por esforço permanecem no roadmap. A fronteira entre módulos foi documentada antes da implementação; não é uma integração funcional apresentada como pronta."
+            }
+          ],
+          "aiUse": "",
+          "artifact": "aiArchitecture"
+        },
+        {
+          "num": "08",
+          "label": "DESIGN SYSTEM E ESTADO ATUAL",
+          "heading": "Criar uma base consistente para as telas",
+          "body": "Os fluxos especificaram campos, escolhas, estados vazios e respostas que a interface precisa oferecer. Essas necessidades orientam o trabalho de componentes. Já existe uma biblioteca V1 com identidade provisória; a aplicação às telas e aos padrões do assistente continua em desenvolvimento. Protótipo, validação e MVP funcional ainda são etapas seguintes.",
+          "detailsTitle": "O que existe e o que continua em desenvolvimento",
+          "details": [
+            {
+              "title": "Base existente",
+              "body": "A biblioteca documenta foundations, ações, formulários, seleção, feedback, navegação e ícones, com variantes e estados. A V1 consultada é de tema claro e identidade provisória."
+            },
+            {
+              "title": "Ligação com a experiência",
+              "body": "F02 pede estado vazio e alternativas equivalentes; F04 pede entradas e respostas com saída; F01 pede clareza de permissões. São requisitos a levar aos padrões de interface, não prova de que todas as telas já os aplicam."
+            },
+            {
+              "title": "Fronteira da entrega",
+              "body": "A documentação da biblioteca separa componentes genéricos dos padrões próprios do assistente. Telas, prototipagem e validação continuam como trabalho seguinte. A existência da biblioteca não demonstra produto implementado."
+            }
+          ],
+          "aiUse": "",
+          "artifact": "designSystem"
+        }
       ],
-      nextTitle: 'PRÓXIMAS ETAPAS DO PRODUTO',
-      nextItems: [
-        'Etapa 4: Design System & UI',
-        'Etapa 5: Prototipagem & Validação',
-        'Etapa 6: MVP Funcional',
+      "reflectionLabel": "APRENDIZADOS DO PROCESSO",
+      "reflectionIntro": "O uso de IA também exigiu revisão: um resumo desatualizado chegou a ser tratado como fonte completa. Conferir o material original mudou o processo de leitura e reforçou minha responsabilidade sobre as interpretações.",
+      "reflectionCards": [
+        {
+          "label": "Pesquisa real permanece necessária",
+          "body": "Diante de uma dificuldade de recrutamento, considerei uma simulação. A revisão retomou o limite do método: uma persona gerada pode tensionar hipóteses, mas não acrescenta uma entrevista nem valida comportamento."
+        },
+        {
+          "label": "Voltar à fonte antes de concluir",
+          "body": "Detectei a divergência entre um resumo desatualizado e as fontes primárias. O episódio levou a quatro regras de leitura do corpus. Revisão por agente é apoio crítico, não validação com usuários."
+        },
+        {
+          "label": "Revisão que muda o argumento",
+          "body": "Na revisão dos JTBDs, uma fonte inadequada foi retirada da sustentação do piso de renda. Distinguir caso de contraste, evidência e inferência tornou a decisão mais defensável."
+        }
       ],
-      takesTitle: 'O QUE JÁ LEVO',
-      takesItems: [
-        'As quatro regras de proteção nasceram de um erro real e hoje são método.',
-        'Casar o esforço do modelo com a dificuldade da tarefa, não com a importância dela.',
-        'Provenance Cards como artefato padrão para qualquer uso de IA em pesquisa.',
+      "reflectionThroughline": "Dado real protagoniza, IA assiste, e o julgamento final é sempre humano.",
+      "decisionsLabel": "PRINCÍPIOS QUE ORIENTAM O DESENHO",
+      "decisions": [
+        {
+          "title": "Contexto e saída, sem bloquear a compra",
+          "body": "A decisão atual é mostrar consequência e devolver a escolha. Um pedido de bloqueio em entrevista não demonstra que a pessoa o aceitaria no uso.",
+          "bridge": "JTBD 01 e desenho do F04; comportamento ainda por validar."
+        },
+        {
+          "title": "Parcelamento sem julgamento moral",
+          "body": "A exploração questionou a generalização de que toda parcela significa perda de controle. O desenho deve informar custo e peso futuro sem condenar a escolha.",
+          "bridge": "Tensão da exploração com IA, mantida como hipótese e limite de linguagem."
+        },
+        {
+          "title": "Acesso bancário como escolha",
+          "body": "A preocupação com acesso financeiro variou entre participantes. Por isso, conexão opcional, consentimento explícito e alternativa manual foram decisões de arquitetura.",
+          "bridge": "Pesquisa real e decisões de F01/F02; não é uma barreira atribuída a todo o público."
+        }
       ],
-      pageFooterText: 'Discovery e Arquitetura de Produto concluídos. Próxima etapa: Design System & MVP.',
-      artifacts: {
-        affinityCaption: 'Affinity diagram, com post-its marcados por origem: evidência real vs. personas exploratórias.',
-        affinityAlt: 'Affinity diagram do board no FigJam, com post-its agrupados em temas e marcados por cor segundo a origem, separando evidência de entrevistas reais das personas exploratórias.',
-        jtbdsCaption: 'Os 5 Jobs to be Done, priorizados por densidade de evidência.',
-        jtbdsAlt: 'Cards no FigJam descrevendo os cinco Jobs to be Done priorizados do produto.',
-        arqIaCaption: 'Arquitetura de IA: onde entra LLM, heurística ou ML. A IA verbaliza, nunca calcula.',
-        arqIaAlt: 'Diagrama da arquitetura de IA mostrando a fronteira entre o cálculo determinístico e o LLM que só traduz fatos prontos em linguagem.',
-        flowsCaption: 'Os 5 fluxos críticos de usuário, F01 a F05.',
-        flowsAlt: 'Diagrama dos cinco fluxos críticos de usuário do produto, numerados de F01 a F05.',
-        personaCaption: 'Persona Ana e seu Provenance Card: o que é dado, inferência e especulação.',
-        personaAlt: 'Ficha da persona Ana ao lado de um Provenance Card documentando a origem de cada atributo como dado, inferência ou especulação.',
+      "limitsLabel": "O QUE AINDA NÃO ESTÁ DEMONSTRADO",
+      "limits": [
+        "Quatro entrevistas e uma autoetnografia não permitem generalizar para todo o público.",
+        "Personas exploratórias geradas com IA ajudam a questionar hipóteses; não validam comportamentos reais.",
+        "Não foi realizado teste de usabilidade da solução. Consultar F04 antes de comprar e mudar a decisão são hipóteses a investigar."
+      ],
+      "nextTitle": "PRÓXIMOS PASSOS",
+      "nextItems": [
+        "Desenvolver UI e padrões do assistente sobre a base V1",
+        "Prototipar e validar as hipóteses com pessoas reais",
+        "Depois, construir o MVP funcional"
+      ],
+      "takesTitle": "O QUE LEVO DESTE PROCESSO",
+      "takesItems": [
+        "Uma necessidade bem sustentada pode ficar fora do MVP por escopo.",
+        "Um fluxo central depende da qualidade dos dados e dos percursos de apoio.",
+        "Declarar a origem e voltar à fonte importa mais que a fluidez de um rascunho."
+      ],
+      "pageFooterText": "Discovery e arquitetura documentados. Biblioteca V1 existente; interface, protótipo, validação e MVP funcional ainda em desenvolvimento ou por iniciar.",
+      "artifacts": {
+        "affinityCaption": "Affinity map: acompanhe como os relatos foram agrupados e quais padrões orientaram a definição do problema. A IA formalizou os clusters e montou o quadro; a curadoria foi minha.",
+        "affinityAlt": "Affinity diagram do board no FigJam, com post-its agrupados em temas e marcados por cor segundo a origem, separando evidência de entrevistas reais das personas exploratórias.",
+        "jtbdsCaption": "Os cinco JTBDs, com evidência, critérios e escopo. A IA ajudou a formalizar os enunciados; analisei sua sustentação e defini a prioridade.",
+        "jtbdsAlt": "Cards no FigJam descrevendo os cinco Jobs to be Done priorizados do produto.",
+        "arqIaCaption": "Arquitetura de IA: separe cálculo e verbalização. F04 usa regras e mensagens parametrizadas; F05 explica fatos calculados. A menção a fallback LLM na categorização ainda requer alinhamento de escopo.",
+        "arqIaAlt": "Diagrama da arquitetura de IA mostrando a fronteira entre o cálculo determinístico e o LLM que só traduz fatos prontos em linguagem.",
+        "flowsCaption": "Quadro de trabalho dos cinco fluxos. Os rótulos “média” em F01 e “IA processa” em F04 antecedem as revisões explicadas acima; não representam a especificação técnica final.",
+        "flowsAlt": "Registro dos fluxos F01 a F05: configuração, dashboard, compromissos futuros, simulação de compra e explicação de padrões. A descrição textual apresenta as decisões posteriores aos rótulos deste diagrama.",
+        "personaCaption": "Ana é um perfil composto usado para orientar o recorte. O cartão de procedência distingue evidência, inferência e especulação; não é uma participante adicional.",
+        "personaAlt": "Ficha da persona Ana ao lado de um Provenance Card documentando a origem de cada atributo como dado, inferência ou especulação.",
+        "designSystemCaption": "Documentação da biblioteca V1, com tema claro e identidade provisória, em 22 de outubro de 2026. Componentes existentes não equivalem a telas ou produto concluídos.",
+        "designSystemAlt": "Página inicial da biblioteca V1 do Copiloto Financeiro, com áreas de componentes, exemplos de uso e limites da versão provisória.",
+        "journeyCaption": "Jornada: observe os momentos anteriores e posteriores à compra. O JTBD 04 canônico é o piso de renda; a categorização indicada no quadro é um requisito de apoio.",
+        "journeyAlt": "Mapa de jornada em cinco estágios: gatilho, consideração, decisão, pós-compra e replanejamento, com oportunidades de intervenção.",
+        "informationArchitectureCaption": "Arquitetura de informação: três áreas permanentes, onboarding e configurações. Compare os grupos com as necessidades descritas acima.",
+        "informationArchitectureAlt": "Arquitetura do produto com Início, Parcelas e Compromissos, Transações e os percursos de suporte."
       },
+      "readingGuide": "O texto explica as decisões; os quadros mostram o trabalho. Nos detalhes estão os critérios, as evidências e os limites de cada etapa.",
+      "aiUseLabel": "Papel da IA",
+      "artifactOpen": "Abrir quadro no Figma",
+      "decisionsToggle": "Aprofundar os princípios de produto",
+      "reflectionToggle": "Como controlei o uso de IA na pesquisa",
+      "artifactExport": "Ver exportação estática"
     },
     ultrafarma: {
       backToWork: '← Voltar',
@@ -1236,6 +1693,7 @@ export const translations = {
       whyCalloutCaption: 'Um caso com problemas observáveis, escopo claro e espaço real para melhoria.',
       methodLabel: '02 · MÉTODO',
       methodIntro: 'Avaliação heurística em contexto real. Percorri a home no celular executando tarefas reais e explorando os principais estados e interações disponíveis.',
+      heuristicsReference: 'Referência: as 10 heurísticas de usabilidade de Jakob Nielsen',
       methodTasks: [
         { num: '01', title: 'Pesquisar um produto', body: 'Busca, autocomplete e rolagem.' },
         { num: '02', title: 'Adicionar ao carrinho algo da home', body: 'Ação, retorno e correspondência.' },
@@ -1248,22 +1706,22 @@ export const translations = {
           number: '01',
           title: 'Busca fecha ao rolar.',
           body: 'O dropdown some ao tentar descer para ver as opções.',
-          tag: 'Controle do usuário · contexto móvel.',
+          tag: 'Nielsen #3 · Controle e liberdade do usuário.',
         },
         {
           number: '02',
           title: 'Carrinho sem feedback.',
           body: 'Ao adicionar um produto, o retorno se limita à atualização dos contadores, sem uma confirmação evidente. Já o botão "Comprar" direciona para a página do item, em vez de executar a ação indicada pelo rótulo.',
-          tag: 'Visibilidade de estado · rotulação.',
+          tag: 'Nielsen #1 · Visibilidade do estado do sistema (confirmação). Nielsen #4 · Consistência e padrões (rótulo “Comprar”).',
         },
       ],
       findingsLabel: '04 · OUTROS ACHADOS',
       findingsHeading: 'Hierarquia, reconhecimento e consistência.',
       findings: [
-        { num: '1', title: 'Carrossel sem affordance.', body: 'O gesto horizontal não é comunicado.', tag: 'Mobile · reconhecimento.' },
-        { num: '2', title: 'Scroll longo sem hierarquia.', body: 'Cards e banners sem prioridade clara.', tag: 'Mobile · lei de Hick.' },
-        { num: '3', title: 'Preços competindo entre si.', body: 'De, Por, Pix e preço unitário disputam atenção.', tag: 'Hierarquia visual.' },
-        { num: '4', title: 'Grid inconsistente.', body: 'Blocos começam em linhas diferentes.', tag: 'Consistência · execução.' },
+        { num: '1', title: 'Carrossel sem affordance.', body: 'O gesto horizontal não é comunicado.', tag: 'Nielsen #6 · Reconhecimento em vez de memorização.' },
+        { num: '2', title: 'Scroll longo sem hierarquia.', body: 'Cards e banners sem prioridade clara.', tag: 'Nielsen #8 · Estética e design minimalista.' },
+        { num: '3', title: 'Preços competindo entre si.', body: 'De, Por, Pix e preço unitário disputam atenção.', tag: 'Nielsen #8 · Estética e design minimalista.' },
+        { num: '4', title: 'Grid inconsistente.', body: 'Blocos começam em linhas diferentes.', tag: 'Nielsen #4 · Consistência e padrões.' },
       ],
       benchmarkLabel: '05 · BENCHMARKING',
       benchmarkHeading: 'Estrutura parecida, execução diferente.',
@@ -1283,15 +1741,15 @@ export const translations = {
       cartModalCaption: 'Confirmação do carrinho, com item e subtotal',
       decisionsGroup1Title: 'Respostas específicas.',
       decisionsGroup1: [
-        { title: 'Busca', body: 'Tela cheia com scroll livre.', tag: 'Controle do usuário.' },
-        { title: 'Carrinho', body: 'Confirmação, item e subtotal visíveis.', tag: 'Feedback imediato.' },
-        { title: 'Carrossel', body: 'Peek do próximo item.', tag: 'Reconhecimento.' },
+        { title: 'Busca', body: 'Tela cheia com scroll livre.', tag: 'Nielsen #3 · Controle e liberdade do usuário.' },
+        { title: 'Carrinho', body: 'Confirmação, item e subtotal visíveis.', tag: 'Nielsen #1 · Visibilidade do estado do sistema.' },
+        { title: 'Carrossel', body: 'Peek do próximo item.', tag: 'Nielsen #6 · Reconhecimento em vez de memorização.' },
       ],
       decisionsGroup2Title: 'Organização para reduzir esforço.',
       decisionsGroup2: [
-        { title: 'Paredão', body: 'Seções nomeadas e separadas.', tag: 'Hierarquia mobile.' },
-        { title: 'Preço', body: 'Principal forte, secundários discretos.', tag: 'Hierarquia tipográfica.' },
-        { title: 'Grid', body: '4 colunas, margem 16, gutter 8.', tag: 'Consistência.' },
+        { title: 'Paredão', body: 'Seções nomeadas e separadas.', tag: 'Nielsen #8 · Estética e design minimalista.' },
+        { title: 'Preço', body: 'Principal forte, secundários discretos.', tag: 'Nielsen #8 · Estética e design minimalista.' },
+        { title: 'Grid', body: '4 colunas, margem 16, gutter 8.', tag: 'Nielsen #4 · Consistência e padrões.' },
       ],
       figmaCta: 'Ver as telas redesenhadas no Figma',
       refineLabel: '08 · REFINAR SEM REBRANDEAR',

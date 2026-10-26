@@ -40,7 +40,7 @@ export function Skills() {
           <span
             style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.75rem', color: textMuted, letterSpacing: '0.05em' }}
           >
-            03
+            04
           </span>
         </motion.div>
 

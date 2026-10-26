@@ -15,11 +15,11 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
+    { label: t.nav.about, href: '#about' },
     { label: t.nav.work, href: '#work' },
     { label: t.nav.github, href: '#github' },
     { label: t.nav.skills, href: '#skills' },
     { label: t.nav.certifications, href: '#certifications' },
-    { label: t.nav.about, href: '#about' },
     { label: t.nav.motionContent, href: '#motion-content' },
     { label: t.nav.contact, href: '#contact' },
   ];

@@ -366,7 +366,7 @@ export function Work() {
             {t.work.label}
           </span>
           <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.75rem', color: textMuted, letterSpacing: '0.05em' }}>
-            01
+            02
           </span>
         </motion.div>
 

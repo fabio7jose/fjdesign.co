@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Download, MapPin, GraduationCap } from 'lucide-react';
+import { MapPin, GraduationCap } from 'lucide-react';
 import { useTheme, useLang } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import profileImg from '../../imports/image-1.png';
 
 export function About() {
   const { isDark } = useTheme();
-  const { t, lang } = useLang();
+  const { t } = useLang();
 
   const text = isDark ? '#ffffff' : '#0A0A0A';
   const textMuted = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(10,10,10,0.45)';
@@ -15,7 +15,6 @@ export function About() {
   const bg = isDark ? '#0A0A0A' : '#F5F5F0';
   const cardBg = isDark ? '#111111' : '#ffffff';
   const accent = isDark ? '#AAFF00' : '#5C8A00';
-  const accentFg = isDark ? '#0A0A0A' : '#ffffff';
   const accentAlpha = isDark ? 'rgba(170,255,0,0.35)' : 'rgba(92,138,0,0.3)';
   const accentBg = isDark ? 'rgba(170,255,0,0.05)' : 'rgba(92,138,0,0.06)';
 
@@ -54,7 +53,7 @@ export function About() {
           <span
             style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.75rem', color: textMuted, letterSpacing: '0.05em' }}
           >
-            05
+            01
           </span>
         </motion.div>
 
@@ -230,44 +229,24 @@ export function About() {
               ))}
             </div>
 
-            {/* Download CV button */}
-            <a
-              href={lang === 'pt' ? '/cv-fabio-jose-pt.pdf' : '/cv-fabio-jose-en.pdf'}
-              download={lang === 'pt' ? 'CV-Fabio-Jose-PT.pdf' : 'CV-Fabio-Jose-EN.pdf'}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.6rem',
-                backgroundColor: 'transparent',
-                color: text,
-                border: `1px solid ${border}`,
-                borderRadius: '999px',
-                padding: '0.8rem 1.8rem',
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '0.9rem',
-                fontWeight: 500,
-                cursor: 'pointer',
-                alignSelf: 'flex-start',
-                transition: 'all 0.2s ease',
-                letterSpacing: '0.01em',
-                textDecoration: 'none',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = accent;
-                e.currentTarget.style.color = accentFg;
-                e.currentTarget.style.borderColor = accent;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = text;
-                e.currentTarget.style.borderColor = border;
-              }}
+            <div
+              className="grid grid-cols-1 md:grid-cols-2"
+              style={{ gap: '2rem', borderTop: `1px solid ${border}`, paddingTop: '1.75rem' }}
             >
-              <Download size={15} />
-              {t.about.downloadCV}
-            </a>
+              {[
+                { title: t.about.motivationTitle, body: t.about.motivationBody },
+                { title: t.about.competenciesTitle, body: t.about.competenciesBody },
+              ].map((item) => (
+                <div key={item.title} style={{ minWidth: 0 }}>
+                  <h3 style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.7rem', fontWeight: 400, color: text, letterSpacing: '0.08em', margin: '0 0 1rem' }}>
+                    {item.title}
+                  </h3>
+                  <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', lineHeight: 1.75, color: textMuted, margin: 0 }}>
+                    {item.body}
+                  </p>
+                </div>
+              ))}
+            </div>
 
             {/* Divider */}
             <div style={{ height: '1px', backgroundColor: border }} />

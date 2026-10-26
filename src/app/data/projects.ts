@@ -7,6 +7,7 @@ export type ProjectTranslationKey = 'copiloto' | 'lacrei' | 'guiaMoteis' | 'ultr
 export interface Project {
   id: number;
   slug: string;
+  published: boolean;
   translationKey: ProjectTranslationKey;
   addedOrder: number;
   title: { pt: string; en: string };
@@ -25,6 +26,7 @@ const projectEntries: Project[] = [
   {
     id: 8,
     slug: 'ultrafarma',
+    published: true,
     translationKey: 'ultrafarma',
     addedOrder: 4,
     title: {
@@ -42,6 +44,7 @@ const projectEntries: Project[] = [
   {
     id: 7,
     slug: 'copiloto',
+    published: true,
     translationKey: 'copiloto',
     addedOrder: 5,
     title: {
@@ -63,6 +66,7 @@ const projectEntries: Project[] = [
   {
     id: 0,
     slug: 'lacrei-saude',
+    published: false,
     translationKey: 'lacrei',
     addedOrder: 2,
     title: {
@@ -80,6 +84,7 @@ const projectEntries: Project[] = [
   {
     id: 6,
     slug: 'guia-de-moteis',
+    published: false,
     translationKey: 'guiaMoteis',
     addedOrder: 1,
     title: {
@@ -95,8 +100,9 @@ const projectEntries: Project[] = [
   },
 ];
 
-// Canonical order for the Home grid and every case-study navigation.
+// Only published cases appear in Home, navigation and the public routes.
+// Keep unpublished entries and page sources so they can be restored later.
 // A newly added case receives the next addedOrder number and appears first automatically.
-export const projects = [...projectEntries].sort(
+export const projects = projectEntries.filter((project) => project.published).sort(
   (a, b) => b.addedOrder - a.addedOrder,
 );

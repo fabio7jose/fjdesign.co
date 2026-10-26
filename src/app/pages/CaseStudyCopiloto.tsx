@@ -9,58 +9,99 @@ import { CaseStudyNavigation } from '../components/CaseStudyNavigation';
 
 const CASE_ACCENT = '#6366F1';
 
-// Read-only FigJam embeds, one per artifact, each scoped to its board section
-// via node-id. They render for site visitors only if the board's share setting
-// is "anyone with the link can view".
-const EMBEDS = {
-  affinity: 'https://embed.figma.com/board/AzAdXDmDpkvgcFKxTllWVp/Affinity-Map?embed-host=share',
-  jtbds: 'https://embed.figma.com/board/TAg2oK7Tnu5wuxi0j9bvzg/Copiloto-Financeiro?node-id=28-8&embed-host=share',
-  arqIa: 'https://embed.figma.com/board/TAg2oK7Tnu5wuxi0j9bvzg/Copiloto-Financeiro?node-id=148-198&embed-host=share',
-  flows: 'https://embed.figma.com/board/TAg2oK7Tnu5wuxi0j9bvzg/Copiloto-Financeiro?node-id=126-87&embed-host=share',
-  persona: 'https://embed.figma.com/board/TAg2oK7Tnu5wuxi0j9bvzg/Copiloto-Financeiro?node-id=77-173&embed-host=share',
+// Existing source boards, focused on the section discussed in the narrative.
+// Sharing permissions remain managed by the author in Figma.
+const FIGJAM_BOARD = 'https://www.figma.com/board/TAg2oK7Tnu5wuxi0j9bvzg/Copiloto-Financeiro---FigJam';
+const figjamSection = (nodeId: string) => ({
+  embedSrc: `https://embed.figma.com/board/TAg2oK7Tnu5wuxi0j9bvzg/Copiloto-Financeiro?node-id=${nodeId}&embed-host=share`,
+  sourceHref: `${FIGJAM_BOARD}?node-id=${nodeId}`,
+});
+const ARTIFACTS = {
+  affinity: {
+    embedSrc: 'https://embed.figma.com/board/AzAdXDmDpkvgcFKxTllWVp/Affinity-Map?embed-host=share',
+    sourceHref: 'https://www.figma.com/board/AzAdXDmDpkvgcFKxTllWVp/Affinity-Map',
+  },
+  jtbds: figjamSection('28-8'),
+  journey: figjamSection('45-222'),
+  informationArchitecture: figjamSection('94-87'),
+  flows: { ...figjamSection('126-87'), src: '/case-studies/copiloto/fluxos-documentados.png' },
+  aiArchitecture: figjamSection('148-198'),
+  persona: figjamSection('77-173'),
+  designSystem: {
+    sourceHref: 'https://www.figma.com/design/gBiwTl6k9YBsJrgDjONaza/System---MVP?node-id=31-2',
+    src: '/case-studies/copiloto/design-system-v1.png',
+    width: 1120,
+    height: 1872,
+  },
 };
 
 interface ArtifactEmbedProps {
-  src: string;
+  src?: string;
+  embedSrc?: string;
+  sourceHref: string;
+  alt: string;
   caption: string;
+  openLabel: string;
+  exportLabel: string;
+  width?: number;
+  height?: number;
   cardBg: string;
   border: string;
   textMuted: string;
 }
 
-function ArtifactEmbed({ src, caption, cardBg, border, textMuted }: ArtifactEmbedProps) {
+function ArtifactEmbed({ src, embedSrc, sourceHref, alt, caption, openLabel, exportLabel, width, height, cardBg, border, textMuted }: ArtifactEmbedProps) {
   return (
     <figure style={{ margin: '1.75rem 0 0' }}>
-      <div
-        style={{
-          width: '100%',
-          height: 'min(70vh, 560px)',
-          borderRadius: '12px',
-          overflow: 'hidden',
-          border: `1px solid ${border}`,
-          backgroundColor: cardBg,
-        }}
-      >
-        <iframe
-          src={src}
-          title={caption}
-          loading="lazy"
-          allowFullScreen
-          style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
-        />
-      </div>
       <figcaption
         style={{
           fontFamily: "'Inter', sans-serif",
           fontSize: '0.8rem',
           lineHeight: 1.5,
           color: textMuted,
-          marginTop: '0.75rem',
+          margin: '0 0 0.75rem',
           fontStyle: 'italic',
         }}
       >
         {caption}
+        {' '}
+        <a href={sourceHref} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textUnderlineOffset: '3px' }}>
+          {openLabel} ↗
+        </a>
+        {src && (
+          <>
+            {' · '}
+            <a href={src} target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textUnderlineOffset: '3px' }}>
+              {exportLabel} ↗
+            </a>
+          </>
+        )}
       </figcaption>
+      <div
+        style={{
+          width: '100%',
+          height: embedSrc ? 'min(70vh, 560px)' : undefined,
+          borderRadius: '12px',
+          overflow: 'hidden',
+          border: `1px solid ${border}`,
+          backgroundColor: cardBg,
+        }}
+      >
+        {embedSrc ? (
+          <iframe
+            src={embedSrc}
+            title={alt}
+            loading="lazy"
+            allowFullScreen
+            style={{ width: '100%', height: '100%', display: 'block', border: 'none' }}
+          />
+        ) : src ? (
+          <a href={src} target="_blank" rel="noopener noreferrer" aria-label={exportLabel}>
+            <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" style={{ width: '100%', height: 'auto', display: 'block' }} />
+          </a>
+        ) : null}
+      </div>
+
     </figure>
   );
 }
@@ -90,6 +131,7 @@ export function CaseStudyCopiloto() {
     textTransform: 'uppercase',
     display: 'block',
     marginBottom: '0.75rem',
+    marginTop: 0,
   };
 
   const pillShared: React.CSSProperties = {
@@ -104,15 +146,33 @@ export function CaseStudyCopiloto() {
 
   const reflectionIcons = [AlertTriangle, Bug, Layers];
 
-  // FigJam embeds keyed to the process step they illustrate.
-  const stepArtifacts: Record<number, { src: string; caption: string }> = {
-    1: { src: EMBEDS.affinity, caption: t.copiloto.artifacts.affinityCaption },
-    2: { src: EMBEDS.jtbds, caption: t.copiloto.artifacts.jtbdsCaption },
-    3: { src: EMBEDS.flows, caption: t.copiloto.artifacts.flowsCaption },
+  const stepArtifacts = {
+    affinity: { ...ARTIFACTS.affinity, caption: t.copiloto.artifacts.affinityCaption, alt: t.copiloto.artifacts.affinityAlt },
+    jtbds: { ...ARTIFACTS.jtbds, caption: t.copiloto.artifacts.jtbdsCaption, alt: t.copiloto.artifacts.jtbdsAlt },
+    journey: { ...ARTIFACTS.journey, caption: t.copiloto.artifacts.journeyCaption, alt: t.copiloto.artifacts.journeyAlt },
+    informationArchitecture: { ...ARTIFACTS.informationArchitecture, caption: t.copiloto.artifacts.informationArchitectureCaption, alt: t.copiloto.artifacts.informationArchitectureAlt },
+    flows: { ...ARTIFACTS.flows, caption: t.copiloto.artifacts.flowsCaption, alt: t.copiloto.artifacts.flowsAlt },
+    aiArchitecture: { ...ARTIFACTS.aiArchitecture, caption: t.copiloto.artifacts.arqIaCaption, alt: t.copiloto.artifacts.arqIaAlt },
+    persona: { ...ARTIFACTS.persona, caption: t.copiloto.artifacts.personaCaption, alt: t.copiloto.artifacts.personaAlt },
+    designSystem: { ...ARTIFACTS.designSystem, caption: t.copiloto.artifacts.designSystemCaption, alt: t.copiloto.artifacts.designSystemAlt },
   };
 
   return (
-    <div style={{ backgroundColor: bg, minHeight: '100vh', transition: 'background-color 0.3s ease' }}>
+    <div className="copiloto-case" style={{ backgroundColor: bg, minHeight: '100vh', transition: 'background-color 0.3s ease' }}>
+      <style>{`
+        .copiloto-case summary { cursor: pointer; }
+        .copiloto-case summary:focus-visible, .copiloto-case figure a:focus-visible {
+          outline: 2px solid ${CASE_ACCENT}; outline-offset: 5px; border-radius: 3px;
+        }
+        @media (max-width: 767px) {
+          .copiloto-case .process-step { gap: 1rem !important; }
+          .copiloto-case .process-circle { width: 32px !important; height: 32px !important; }
+          .copiloto-case .process-line { left: 15px !important; top: 16px !important; }
+          .copiloto-case .decision-row { gap: 1rem !important; }
+          .copiloto-case .decision-number { font-size: 40px !important; min-width: 40px !important; }
+          .copiloto-case .decision-bridge { padding-left: 56px !important; }
+        }
+      `}</style>
       <Navbar />
       <div style={{ paddingTop: '72px' }}>
 
@@ -554,12 +614,16 @@ export function CaseStudyCopiloto() {
               transition={{ duration: 0.4 }}
               style={{ marginBottom: '4rem' }}
             >
-              <span style={labelStyle}>{t.copiloto.processLabel}</span>
+              <h2 style={{ ...labelStyle, fontWeight: 400 }}>{t.copiloto.processLabel}</h2>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', lineHeight: 1.7, color: textMuted, maxWidth: '760px', margin: 0 }}>
+                {t.copiloto.readingGuide}
+              </p>
             </motion.div>
 
             <div style={{ position: 'relative' }}>
               {/* Connecting line */}
               <div
+                className="process-line"
                 style={{
                   position: 'absolute',
                   left: '23px',
@@ -575,6 +639,8 @@ export function CaseStudyCopiloto() {
                 {t.copiloto.steps.map((step, i) => (
                   <motion.div
                     key={step.num}
+                    id={`process-${step.num}`}
+                    className="process-step"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -583,6 +649,7 @@ export function CaseStudyCopiloto() {
                   >
                     {/* Step circle */}
                     <div
+                      className="process-circle"
                       style={{
                         flexShrink: 0,
                         width: '48px',
@@ -610,7 +677,7 @@ export function CaseStudyCopiloto() {
                     </div>
 
                     {/* Content */}
-                    <div style={{ flex: 1, paddingTop: '0.6rem' }}>
+                    <div style={{ flex: 1, minWidth: 0, paddingTop: '0.6rem' }}>
                       <span
                         style={{
                           fontFamily: "'Inter', sans-serif",
@@ -643,27 +710,51 @@ export function CaseStudyCopiloto() {
                           lineHeight: 1.75,
                           color: textMuted,
                           margin: '0 0 0.85rem',
+                          maxWidth: '800px',
                         }}
                       >
                         {step.body}
                       </p>
-                      <p
-                        style={{
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: '0.85rem',
-                          lineHeight: 1.6,
-                          color: textMuted,
-                          fontStyle: 'italic',
-                          margin: 0,
-                          opacity: 0.7,
-                        }}
-                      >
-                        AI: {step.aiUse}
-                      </p>
-                      {stepArtifacts[i] && (
+                      {step.aiUse && (
+                        <p style={{ maxWidth: '800px', fontFamily: "'Inter', sans-serif", fontSize: '0.9rem', lineHeight: 1.7, color: textMuted, margin: '0 0 0.85rem' }}>
+                          <strong style={{ color: text, fontWeight: 500 }}>{t.copiloto.aiUseLabel}:</strong> {step.aiUse}
+                        </p>
+                      )}
+                      {step.source && (
+                        <a href={step.source.url} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', fontFamily: "'Inter', sans-serif", color: text, fontSize: '0.85rem', lineHeight: 1.7, marginBottom: '0.85rem', textUnderlineOffset: '4px' }}>
+                          {step.source.label} ↗
+                        </a>
+                      )}
+                      <details style={{ maxWidth: '900px', fontFamily: "'Inter', sans-serif", color: textMuted }}>
+                        <summary style={{ color: text, fontSize: '0.85rem', lineHeight: 1.7, padding: '0.4rem 0' }}>
+                          {step.detailsTitle}
+                        </summary>
+                        <div style={{ paddingTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                          {step.details.map(detail => (
+                            <div key={detail.title}>
+                              <h4 style={{ fontFamily: "'Space Grotesk', sans-serif", color: text, fontSize: '1rem', fontWeight: 600, margin: '0 0 0.4rem' }}>
+                                {detail.title}
+                              </h4>
+                              <p style={{ fontSize: '0.95rem', lineHeight: 1.75, margin: 0 }}>{detail.body}</p>
+                              {detail.artifact && (
+                                <ArtifactEmbed
+                                  {...stepArtifacts[detail.artifact]}
+                                  openLabel={t.copiloto.artifactOpen}
+                                  exportLabel={t.copiloto.artifactExport}
+                                  cardBg={bg}
+                                  border={border}
+                                  textMuted={textMuted}
+                                />
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </details>
+                      {step.artifact && (
                         <ArtifactEmbed
-                          src={stepArtifacts[i].src}
-                          caption={stepArtifacts[i].caption}
+                          {...stepArtifacts[step.artifact]}
+                          openLabel={t.copiloto.artifactOpen}
+                          exportLabel={t.copiloto.artifactExport}
                           cardBg={bg}
                           border={border}
                           textMuted={textMuted}
@@ -677,7 +768,107 @@ export function CaseStudyCopiloto() {
           </div>
         </section>
 
-        {/* ── 6. Methodological Reflection ── */}
+        {/* ── 6. Design Decisions ── */}
+        <section
+          style={{
+            padding: '80px 2rem',
+            backgroundColor: cardBg,
+            borderTop: `1px solid ${border}`,
+          }}
+        >
+          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              style={{ marginBottom: '4rem' }}
+            >
+              <h2 style={{ ...labelStyle, fontWeight: 400 }}>{t.copiloto.decisionsLabel}</h2>
+            </motion.div>
+
+            <details>
+              <summary style={{ fontFamily: "'Inter', sans-serif", color: text, fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '2rem' }}>
+                {t.copiloto.decisionsToggle}
+              </summary>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
+                {t.copiloto.decisions.map((decision, i) => (
+                  <motion.div
+                    key={decision.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: i * 0.04 }}
+                  >
+                    {decision.bridge && (
+                      <p
+                        className="decision-bridge"
+                        style={{
+                          paddingLeft: 'calc(72px + 2rem)',
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: '0.8rem',
+                          fontStyle: 'italic',
+                          lineHeight: 1.6,
+                          color: textMuted,
+                          margin: '0 0 0.5rem',
+                        }}
+                      >
+                        {decision.bridge}
+                      </p>
+                    )}
+                    <div className="decision-row" style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
+                      {/* Large muted number */}
+                      <span
+                        className="decision-number"
+                        style={{
+                          fontFamily: "'Space Grotesk', sans-serif",
+                          fontSize: '64px',
+                          fontWeight: 700,
+                          color: textMuted,
+                          lineHeight: 1,
+                          flexShrink: 0,
+                          opacity: 0.3,
+                          minWidth: '72px',
+                          textAlign: 'right',
+                        }}
+                      >
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      {/* Text */}
+                      <div style={{ minWidth: 0, paddingTop: '0.45rem' }}>
+                        <h3
+                          style={{
+                            fontFamily: "'Space Grotesk', sans-serif",
+                            fontSize: '1.2rem',
+                            fontWeight: 700,
+                            color: text,
+                            letterSpacing: '-0.02em',
+                            margin: '0 0 0.6rem',
+                          }}
+                        >
+                          {decision.title}
+                        </h3>
+                        <p
+                          style={{
+                            fontFamily: "'Inter', sans-serif",
+                            fontSize: '1rem',
+                            lineHeight: 1.75,
+                            color: textMuted,
+                            margin: 0,
+                          }}
+                        >
+                          {decision.body}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </details>
+          </div>
+        </section>
+
+        {/* ── 7. Methodological Reflection ── */}
         <section style={{ padding: '80px 2rem' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <motion.div
@@ -687,7 +878,7 @@ export function CaseStudyCopiloto() {
               transition={{ duration: 0.4 }}
               style={{ marginBottom: '3rem' }}
             >
-              <span style={labelStyle}>{t.copiloto.reflectionLabel}</span>
+              <h2 style={{ ...labelStyle, fontWeight: 400 }}>{t.copiloto.reflectionLabel}</h2>
               <p
                 style={{
                   fontFamily: "'Inter', sans-serif",
@@ -702,69 +893,64 @@ export function CaseStudyCopiloto() {
               </p>
             </motion.div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2.5rem' }}>
-              {t.copiloto.reflectionCards.map((card, i) => {
-                const Icon = reflectionIcons[i];
-                return (
-                  <motion.div
-                    key={card.label}
-                    initial={{ opacity: 0, x: -16 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.45, delay: i * 0.07 }}
-                    style={{
-                      backgroundColor: cardBg,
-                      borderLeft: `3px solid ${CASE_ACCENT}`,
-                      borderRadius: '0 12px 12px 0',
-                      padding: '2rem',
-                    }}
-                  >
-                    <div
+            <details style={{ marginBottom: '2.5rem' }}>
+              <summary style={{ fontFamily: "'Inter', sans-serif", color: text, fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
+                {t.copiloto.reflectionToggle}
+              </summary>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                {t.copiloto.reflectionCards.map((card, i) => {
+                  const Icon = reflectionIcons[i];
+                  return (
+                    <motion.div
+                      key={card.label}
+                      initial={{ opacity: 0, x: -16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.45, delay: i * 0.07 }}
                       style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.75rem',
-                        marginBottom: '1rem',
+                        backgroundColor: cardBg,
+                        borderLeft: `3px solid ${CASE_ACCENT}`,
+                        borderRadius: '0 12px 12px 0',
+                        padding: '2rem',
                       }}
                     >
-                      <Icon size={18} color={CASE_ACCENT} />
-                      <span
+                      <div
                         style={{
-                          fontFamily: "'Space Grotesk', sans-serif",
-                          fontSize: '0.9rem',
-                          fontWeight: 700,
-                          color: text,
-                          letterSpacing: '-0.01em',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.75rem',
+                          marginBottom: '1rem',
                         }}
                       >
-                        {card.label}
-                      </span>
-                    </div>
-                    <p
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '1rem',
-                        lineHeight: 1.8,
-                        color: textMuted,
-                        margin: 0,
-                      }}
-                    >
-                      {card.body}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            <div style={{ margin: '0 auto 5rem' }}>
-              <ArtifactEmbed
-                src={EMBEDS.persona}
-                caption={t.copiloto.artifacts.personaCaption}
-                cardBg={cardBg}
-                border={border}
-                textMuted={textMuted}
-              />
-            </div>
+                        <Icon size={18} color={CASE_ACCENT} />
+                        <span
+                          style={{
+                            fontFamily: "'Space Grotesk', sans-serif",
+                            fontSize: '0.9rem',
+                            fontWeight: 700,
+                            color: text,
+                            letterSpacing: '-0.01em',
+                          }}
+                        >
+                          {card.label}
+                        </span>
+                      </div>
+                      <p
+                        style={{
+                          fontFamily: "'Inter', sans-serif",
+                          fontSize: '1rem',
+                          lineHeight: 1.8,
+                          color: textMuted,
+                          margin: 0,
+                        }}
+                      >
+                        {card.body}
+                      </p>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </details>
 
             {/* Throughline */}
             <motion.p
@@ -790,111 +976,6 @@ export function CaseStudyCopiloto() {
           </div>
         </section>
 
-        {/* ── 7. Design Decisions ── */}
-        <section
-          style={{
-            padding: '80px 2rem',
-            backgroundColor: cardBg,
-            borderTop: `1px solid ${border}`,
-          }}
-        >
-          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-              style={{ marginBottom: '4rem' }}
-            >
-              <span style={labelStyle}>{t.copiloto.decisionsLabel}</span>
-            </motion.div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '48px' }}>
-              {t.copiloto.decisions.map((decision, i) => (
-                <React.Fragment key={i}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: i * 0.04 }}
-                >
-                  {decision.bridge && (
-                    <p
-                      style={{
-                        paddingLeft: 'calc(72px + 2rem)',
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '0.8rem',
-                        fontStyle: 'italic',
-                        lineHeight: 1.6,
-                        color: textMuted,
-                        margin: '0 0 0.5rem',
-                      }}
-                    >
-                      {decision.bridge}
-                    </p>
-                  )}
-                  <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
-                    {/* Large muted number */}
-                    <span
-                      style={{
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontSize: '64px',
-                        fontWeight: 700,
-                        color: textMuted,
-                        lineHeight: 1,
-                        flexShrink: 0,
-                        opacity: 0.3,
-                        minWidth: '72px',
-                        textAlign: 'right',
-                      }}
-                    >
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    {/* Text */}
-                    <div style={{ paddingTop: '0.45rem' }}>
-                      <h3
-                        style={{
-                          fontFamily: "'Space Grotesk', sans-serif",
-                          fontSize: '1.2rem',
-                          fontWeight: 700,
-                          color: text,
-                          letterSpacing: '-0.02em',
-                          margin: '0 0 0.6rem',
-                        }}
-                      >
-                        {decision.title}
-                      </h3>
-                      <p
-                        style={{
-                          fontFamily: "'Inter', sans-serif",
-                          fontSize: '1rem',
-                          lineHeight: 1.75,
-                          color: textMuted,
-                          margin: 0,
-                        }}
-                      >
-                        {decision.body}
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-                {i === 0 && (
-                  <div style={{ paddingLeft: 'calc(72px + 2rem)' }}>
-                    <ArtifactEmbed
-                      src={EMBEDS.arqIa}
-                      caption={t.copiloto.artifacts.arqIaCaption}
-                      cardBg={bg}
-                      border={border}
-                      textMuted={textMuted}
-                    />
-                  </div>
-                )}
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ── 8. Assumed Limits ── */}
         <section
           style={{
@@ -910,7 +991,7 @@ export function CaseStudyCopiloto() {
               transition={{ duration: 0.4 }}
               style={{ marginBottom: '2.5rem' }}
             >
-              <span style={labelStyle}>{t.copiloto.limitsLabel}</span>
+              <h2 style={{ ...labelStyle, fontWeight: 400 }}>{t.copiloto.limitsLabel}</h2>
             </motion.div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem', maxWidth: '680px' }}>
               {t.copiloto.limits.map((limit, i) => (
@@ -969,7 +1050,7 @@ export function CaseStudyCopiloto() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.45 }}
               >
-                <span style={labelStyle}>{t.copiloto.nextTitle}</span>
+                <h2 style={{ ...labelStyle, fontWeight: 400 }}>{t.copiloto.nextTitle}</h2>
                 <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                   {t.copiloto.nextItems.map((item, i) => (
                     <li key={i} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
@@ -1005,7 +1086,7 @@ export function CaseStudyCopiloto() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: 0.1 }}
               >
-                <span style={labelStyle}>{t.copiloto.takesTitle}</span>
+                <h2 style={{ ...labelStyle, fontWeight: 400 }}>{t.copiloto.takesTitle}</h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                   {t.copiloto.takesItems.map((item, i) => (
                     <p

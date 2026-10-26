@@ -1,29 +1,30 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, redirect } from 'react-router';
+import { projects } from './data/projects';
 import { Home } from './pages/Home';
 import { CaseStudyLacrei } from './pages/CaseStudyLacrei';
 import { CaseStudyGuiaMoteis } from './pages/CaseStudyGuiaMoteis';
 import { CaseStudyCopiloto } from './pages/CaseStudyCopiloto';
 import { CaseStudyUltrafarma } from './pages/CaseStudyUltrafarma';
 
+// Retain every page in the registry, but expose routes only for published cases.
+const caseStudyPages = {
+  lacrei: CaseStudyLacrei,
+  guiaMoteis: CaseStudyGuiaMoteis,
+  copiloto: CaseStudyCopiloto,
+  ultrafarma: CaseStudyUltrafarma,
+};
+
 export const router = createBrowserRouter([
   {
     path: '/',
     Component: Home,
   },
+  ...projects.map((project) => ({
+    path: `/work/${project.slug}`,
+    Component: caseStudyPages[project.translationKey],
+  })),
   {
-    path: '/work/lacrei-saude',
-    Component: CaseStudyLacrei,
-  },
-  {
-    path: '/work/guia-de-moteis',
-    Component: CaseStudyGuiaMoteis,
-  },
-  {
-    path: '/work/copiloto',
-    Component: CaseStudyCopiloto,
-  },
-  {
-    path: '/work/ultrafarma',
-    Component: CaseStudyUltrafarma,
+    path: '/work/*',
+    loader: () => redirect('/#work'),
   },
 ]);

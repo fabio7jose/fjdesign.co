@@ -88,7 +88,7 @@ export function Certifications() {
             {t.certifications.label}
           </span>
           <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.75rem', color: textMuted, letterSpacing: '0.05em' }}>
-            04
+            05
           </span>
         </motion.div>
 

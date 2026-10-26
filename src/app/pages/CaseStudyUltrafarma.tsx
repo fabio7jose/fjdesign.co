@@ -340,6 +340,14 @@ export function CaseStudyUltrafarma() {
             >
               <span style={labelStyle}>{u.methodLabel}</span>
               <p style={{ ...bodyTextStyle, fontSize: '18px', maxWidth: '780px' }}>{u.methodIntro}</p>
+              <a
+                href="https://www.nngroup.com/articles/ten-usability-heuristics/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: 'inline-block', marginTop: '1rem', fontFamily: "'Inter', sans-serif", fontSize: '13px', color: accentLabel, textUnderlineOffset: '3px' }}
+              >
+                {u.heuristicsReference} ↗
+              </a>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '1.5rem' }}>
               {u.methodTasks.map((task, i) => (
@@ -560,7 +568,7 @@ export function CaseStudyUltrafarma() {
                     {finding.title}
                   </h3>
                   <p style={{ ...bodyTextStyle, fontSize: '13.5px', marginBottom: '0.75rem' }}>{finding.body}</p>
-                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '11px', color: textMuted, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                    <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', lineHeight: 1.6, color: accentLabel }}>
                       {finding.tag}
                     </span>
                     </div>
@@ -858,7 +866,7 @@ export function CaseStudyUltrafarma() {
                             {item.title}
                           </h4>
                           <p style={{ ...bodyTextStyle, fontSize: '14.5px', marginBottom: '0.5rem' }}>{item.body}</p>
-                          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', color: textMuted, letterSpacing: '0.03em' }}>{item.tag}</span>
+                          <span style={{ fontFamily: "'Inter', sans-serif", fontSize: '12px', lineHeight: 1.6, color: accentLabel }}>{item.tag}</span>
                         </div>
                       </motion.div>
                     );
