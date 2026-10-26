@@ -38,7 +38,7 @@ export function Navbar() {
   const text = isDark ? '#ffffff' : '#0A0A0A';
   const textMuted = 'var(--color-text-muted)';
   const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
-  const accent = isDark ? '#AAFF00' : '#5C8A00';
+  const accent = `var(--home-accent, ${isDark ? '#AAFF00' : '#5C8A00'})`;
 
   return (
     <>

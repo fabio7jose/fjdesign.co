@@ -14,9 +14,10 @@ export function About() {
   const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const bg = isDark ? '#0A0A0A' : '#F5F5F0';
   const cardBg = isDark ? '#111111' : '#ffffff';
-  const accent = isDark ? '#AAFF00' : '#5C8A00';
-  const accentAlpha = isDark ? 'rgba(170,255,0,0.35)' : 'rgba(92,138,0,0.3)';
-  const accentBg = isDark ? 'rgba(170,255,0,0.05)' : 'rgba(92,138,0,0.06)';
+  const accent = `var(--home-accent, ${isDark ? '#AAFF00' : '#5C8A00'})`;
+  const accentRgb = `var(--home-accent-rgb, ${isDark ? '170,255,0' : '92,138,0'})`;
+  const accentAlpha = `rgba(${accentRgb},${isDark ? 0.35 : 0.3})`;
+  const accentBg = `rgba(${accentRgb},${isDark ? 0.05 : 0.06})`;
 
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {

@@ -8,7 +8,7 @@ export function Footer() {
   const textMuted = isDark ? 'rgba(255,255,255,0.35)' : 'rgba(10,10,10,0.35)';
   const border = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
   const bg = isDark ? '#0A0A0A' : '#F5F5F0';
-  const accent = isDark ? '#AAFF00' : '#5C8A00';
+  const accent = `var(--home-accent, ${isDark ? '#AAFF00' : '#5C8A00'})`;
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 

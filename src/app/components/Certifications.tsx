@@ -21,8 +21,9 @@ export function Certifications() {
   const border    = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const bg        = isDark ? '#0A0A0A'                : '#F5F5F0';
   const cardBg    = isDark ? '#111111'                : '#ffffff';
-  const accent    = isDark ? '#AAFF00'                : '#5C8A00';
-  const accentBorderHover = isDark ? 'rgba(170,255,0,0.6)' : 'rgba(92,138,0,0.6)';
+  const accent    = `var(--home-accent, ${isDark ? '#AAFF00' : '#5C8A00'})`;
+  const accentRgb = `var(--home-accent-rgb, ${isDark ? '170,255,0' : '92,138,0'})`;
+  const accentBorderHover = `rgba(${accentRgb},0.6)`;
 
   const [hoveredId, setHoveredId] = useState<number | null>(null);
 

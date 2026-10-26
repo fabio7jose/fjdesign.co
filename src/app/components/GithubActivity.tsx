@@ -95,9 +95,9 @@ export function GithubActivity() {
   const border     = isDark ? 'rgba(255,255,255,0.08)'     : 'rgba(0,0,0,0.08)';
   const bg         = isDark ? '#0A0A0A'                    : '#F5F5F0';
   const cardBg     = isDark ? '#111111'                    : '#ffffff';
-  const accent     = isDark ? '#AAFF00'                    : '#5C8A00';
+  const accent     = `var(--home-accent, ${isDark ? '#AAFF00' : '#5C8A00'})`;
   const accentFg   = isDark ? '#0A0A0A'                    : '#ffffff';
-  const accentRgb  = isDark ? '170,255,0'                  : '92,138,0';
+  const accentRgb  = `var(--home-accent-rgb, ${isDark ? '170,255,0' : '92,138,0'})`;
   const emptyCell  = isDark ? 'rgba(255,255,255,0.06)'     : 'rgba(0,0,0,0.05)';
   const levelAlphas = [0, 0.35, 0.55, 0.78, 1];
 
@@ -231,7 +231,7 @@ export function GithubActivity() {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = isDark ? '0 8px 32px rgba(170,255,0,0.3)' : '0 8px 32px rgba(92,138,0,0.25)';
+                e.currentTarget.style.boxShadow = `0 8px 32px rgba(${accentRgb},${isDark ? 0.3 : 0.25})`;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';

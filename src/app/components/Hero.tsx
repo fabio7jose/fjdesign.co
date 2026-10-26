@@ -11,10 +11,11 @@ export function Hero() {
   const textMuted = 'var(--color-text-muted)';
   const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
   const bg = isDark ? '#0A0A0A' : '#F5F5F0';
-  const accent = isDark ? '#AAFF00' : '#5C8A00';
+  const accent = `var(--home-accent, ${isDark ? '#AAFF00' : '#5C8A00'})`;
+  const accentRgb = `var(--home-accent-rgb, ${isDark ? '170,255,0' : '92,138,0'})`;
   const accentFg = isDark ? '#0A0A0A' : '#ffffff';
-  const accentAlpha = isDark ? 'rgba(170,255,0,0.3)' : 'rgba(92,138,0,0.25)';
-  const accentBg = isDark ? 'rgba(170,255,0,0.05)' : 'rgba(92,138,0,0.07)';
+  const accentAlpha = `rgba(${accentRgb},${isDark ? 0.3 : 0.25})`;
+  const accentBg = `rgba(${accentRgb},${isDark ? 0.05 : 0.07})`;
 
   const scrollToWork = () => {
     const el = document.getElementById('work');
@@ -170,7 +171,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.55 }}
           style={{
             display: 'flex',
-            alignItems: 'flex-end',
+            alignItems: 'center',
             justifyContent: 'space-between',
             flexWrap: 'wrap',
             gap: '2rem',
@@ -198,7 +199,7 @@ export function Hero() {
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = isDark ? '0 8px 32px rgba(170,255,0,0.3)' : '0 8px 32px rgba(92,138,0,0.25)';
+                e.currentTarget.style.boxShadow = `0 8px 32px rgba(${accentRgb},${isDark ? 0.3 : 0.25})`;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';

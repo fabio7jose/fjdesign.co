@@ -49,7 +49,7 @@ export function MarqueeBanner() {
 
   const bg = isDark ? '#111111' : '#EBEBEB';
   const text = isDark ? 'rgba(255,255,255,0.55)' : 'rgba(10,10,10,0.55)';
-  const accent = isDark ? '#AAFF00' : '#5C8A00';
+  const accent = `var(--home-accent, ${isDark ? '#AAFF00' : '#5C8A00'})`;
 
   return (
     <div

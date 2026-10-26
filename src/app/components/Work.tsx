@@ -336,7 +336,7 @@ export function Work() {
   const bg        = isDark ? '#0A0A0A' : '#F5F5F0';
   const cardBg    = isDark ? '#111111' : '#FFFFFF';
   const tagBg     = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)';
-  const accent    = isDark ? '#AAFF00' : '#5C8A00';
+  const accent    = `var(--home-accent, ${isDark ? '#AAFF00' : '#5C8A00'})`;
   const accentFg  = isDark ? '#0A0A0A' : '#ffffff';
 
   const cardProps = { hoveredId, setHoveredId, t, lang, isDark, text, textMuted, border, cardBg, tagBg, accent, accentFg };

@@ -11,7 +11,7 @@ export function Skills() {
   const border     = isDark ? 'rgba(255,255,255,0.08)'     : 'rgba(0,0,0,0.08)';
   const bg         = isDark ? '#0A0A0A'                    : '#F5F5F0';
   const cardBg     = isDark ? '#111111'                    : '#ffffff';
-  const accent     = isDark ? '#AAFF00'                    : '#5C8A00';
+  const accent     = `var(--home-accent, ${isDark ? '#AAFF00' : '#5C8A00'})`;
 
   return (
     <section id="skills" style={{ backgroundColor: bg, padding: '80px 2rem' }}>

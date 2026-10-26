@@ -69,10 +69,11 @@ export function Contact() {
   const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.1)';
   const bg = isDark ? '#0A0A0A' : '#F5F5F0';
   const inputBg = isDark ? '#111111' : '#ffffff';
-  const accent = isDark ? '#AAFF00' : '#5C8A00';
+  const accent = `var(--home-accent, ${isDark ? '#AAFF00' : '#5C8A00'})`;
+  const accentRgb = `var(--home-accent-rgb, ${isDark ? '170,255,0' : '92,138,0'})`;
   const accentFg = isDark ? '#0A0A0A' : '#ffffff';
-  const accentAlpha = isDark ? 'rgba(170,255,0,0.4)' : 'rgba(92,138,0,0.3)';
-  const accentBg = isDark ? 'rgba(170,255,0,0.04)' : 'rgba(92,138,0,0.05)';
+  const accentAlpha = `rgba(${accentRgb},${isDark ? 0.4 : 0.3})`;
+  const accentBg = `rgba(${accentRgb},${isDark ? 0.04 : 0.05})`;
 
   const inputStyle: React.CSSProperties = {
     width: '100%',
@@ -304,7 +305,7 @@ export function Contact() {
                   onMouseEnter={(e) => {
                     if (loading) return;
                     e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = isDark ? '0 8px 32px rgba(170,255,0,0.3)' : '0 8px 32px rgba(92,138,0,0.2)';
+                    e.currentTarget.style.boxShadow = `0 8px 32px rgba(${accentRgb},${isDark ? 0.3 : 0.2})`;
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
