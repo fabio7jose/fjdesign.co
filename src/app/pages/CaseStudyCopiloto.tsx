@@ -298,7 +298,7 @@ export function CaseStudyCopiloto() {
                 </div>
               </motion.div>
 
-              {/* Right ~40% — typographic quote card */}
+              {/* Right ~40% — typographic quote */}
               <motion.div
                 className="md:col-span-2"
                 initial={{ opacity: 0, y: 20 }}
@@ -307,8 +307,6 @@ export function CaseStudyCopiloto() {
               >
                 <div
                   style={{
-                    backgroundColor: isDark ? '#0c0c18' : '#eeeef8',
-                    border: `2px solid ${CASE_ACCENT}`,
                     borderRadius: '16px',
                     padding: 'clamp(2rem, 4vw, 3rem)',
                     display: 'flex',
@@ -319,29 +317,29 @@ export function CaseStudyCopiloto() {
                 >
                   <span
                     style={{
-                      fontFamily: "'Space Grotesk', sans-serif",
-                      fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)',
-                      fontWeight: 700,
-                      fontStyle: 'italic',
-                      color: isDark ? 'rgba(255,255,255,0.9)' : 'rgba(10,10,10,0.85)',
-                      lineHeight: 1.3,
-                      display: 'block',
-                    }}
-                  >
-                    &ldquo;{t.copiloto.heroQuote}&rdquo;
-                  </span>
-                  <span
-                    style={{
                       fontFamily: "'Inter', sans-serif",
                       fontSize: '0.7rem',
-                      color: CASE_ACCENT,
+                      color: text,
                       letterSpacing: '0.12em',
                       textTransform: 'uppercase',
-                      marginTop: '1.5rem',
+                      marginBottom: '1.5rem',
                       display: 'block',
                     }}
                   >
                     {t.copiloto.highlightCard2Label}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "'Space Grotesk', sans-serif",
+                      fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)',
+                      fontWeight: 700,
+                      color: text,
+                      lineHeight: 1.15,
+                      letterSpacing: '-0.025em',
+                      display: 'block',
+                    }}
+                  >
+                    {t.copiloto.heroQuote}
                   </span>
                 </div>
               </motion.div>
@@ -354,10 +352,10 @@ export function CaseStudyCopiloto() {
         <section style={{ padding: '0 2rem 80px' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.4 }}
               style={{
                 backgroundColor: cardBg,
                 borderLeft: `3px solid ${CASE_ACCENT}`,
@@ -553,7 +551,6 @@ export function CaseStudyCopiloto() {
                     fontWeight: 500,
                     color: text,
                     margin: 0,
-                    lineHeight: 1.55,
                   }}
                 >
                   {t.copiloto.secondLayerCardValue}
@@ -1127,7 +1124,6 @@ export function CaseStudyCopiloto() {
                 color: textMuted,
                 margin: '0 0 1.25rem',
                 lineHeight: 1.6,
-                opacity: 0.7,
               }}
             >
               {t.copiloto.pageFooterText}
